@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --bg-primary: #0B0B0D;
-  --bg-secondary: #111114;
-  --accent: #C9A45C;
-  --text-primary: #F4F1EA;
-  --text-secondary: #A7A29A;
+  --bg-primary: #0A1628;
+  --bg-secondary: #0F1F36;
+  --accent: #c9a45c;
+  --text-primary: #f4f1ea;
+  --text-secondary: #a7a29a;
 }
 
 * {
@@ -23,7 +23,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
@@ -33,15 +33,15 @@ body {
 
 /* Typography */
 .font-heading {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
 }
 
 .font-body {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .font-mono {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
 }
 
 /* Gold Frame System */
@@ -59,7 +59,7 @@ body {
 .gold-frame-corner-tr,
 .gold-frame-corner-bl,
 .gold-frame-corner-br {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 20px;
@@ -121,7 +121,7 @@ body {
 
 /* Eyebrow Text */
 .eyebrow {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -131,7 +131,7 @@ body {
 
 /* Headline Styles */
 .headline-xl {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: clamp(44px, 5vw, 76px);
   font-weight: 400;
   line-height: 1.05;
@@ -140,7 +140,7 @@ body {
 }
 
 .headline-lg {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: clamp(34px, 3.6vw, 56px);
   font-weight: 400;
   line-height: 1.1;
@@ -149,7 +149,7 @@ body {
 }
 
 .headline-md {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: clamp(28px, 2.8vw, 42px);
   font-weight: 400;
   line-height: 1.15;
@@ -158,7 +158,7 @@ body {
 
 /* Body Text */
 .body-text {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: clamp(14px, 1.1vw, 16px);
   font-weight: 300;
   line-height: 1.65;
@@ -173,7 +173,7 @@ body {
   padding: 14px 32px;
   background-color: var(--accent);
   color: var(--bg-primary);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -195,7 +195,7 @@ body {
   padding: 14px 32px;
   background-color: transparent;
   color: var(--accent);
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -219,7 +219,7 @@ body {
 }
 
 .gold-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -255,7 +255,7 @@ body {
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(201, 164, 92, 0.3);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 14px;
   transition: all 0.3s ease;
 }
@@ -291,7 +291,7 @@ body {
 }
 
 .checkbox-wrapper input[type="checkbox"]:checked::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 3px;
   background-color: var(--accent);
@@ -305,7 +305,7 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -313,7 +313,7 @@ body {
 }
 
 .scroll-indicator::after {
-  content: '';
+  content: "";
   width: 1px;
   height: 40px;
   background: linear-gradient(to bottom, var(--accent), transparent);
@@ -321,14 +321,26 @@ body {
 }
 
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.4; transform: scaleY(0.7); }
-  50% { opacity: 1; transform: scaleY(1); }
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scaleY(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
 }
 
 /* Ambient Animations */
 @keyframes subtleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 .ambient-float {
@@ -336,8 +348,13 @@ body {
 }
 
 @keyframes subtlePulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .ambient-pulse {
@@ -346,7 +363,7 @@ body {
 
 /* Navigation */
 .nav-link {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -364,7 +381,7 @@ body {
   position: fixed;
   bottom: 6vh;
   left: 6vw;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.15em;
@@ -378,11 +395,11 @@ body {
   .gold-frame {
     inset: 14px;
   }
-  
+
   .headline-xl {
     font-size: clamp(32px, 8vw, 44px);
   }
-  
+
   .headline-lg {
     font-size: clamp(26px, 6vw, 34px);
   }

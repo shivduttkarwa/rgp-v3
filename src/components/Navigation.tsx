@@ -26,15 +26,19 @@ export default function Navigation() {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'bg-[#0B0B0D]/90 backdrop-blur-md py-4'
-            : 'bg-transparent py-6'
+            ? 'bg-[#0B0B0D]/90 backdrop-blur-md py-6'
+            : 'bg-transparent py-8'
         }`}
         style={{ paddingLeft: '6vw', paddingRight: '6vw' }}
       >
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="font-mono text-sm tracking-[0.2em] text-[#F4F1EA]">
-            REAL GOLD
+          <a href="#" className="flex items-center">
+            <img
+              src="/images/RGP-logo.png"
+              alt="Real Gold Properties"
+              className="h-16 w-auto"
+            />
           </a>
 
           {/* Desktop Navigation */}

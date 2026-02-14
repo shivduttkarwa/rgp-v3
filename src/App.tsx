@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Navigation from './components/Navigation';
-import GoldFrame from './components/GoldFrame';
 import HeroSection from './sections/HeroSection';
 import FindHomeSection from './sections/FindHomeSection';
 import PropertiesSection from './sections/PropertiesSection';
@@ -50,9 +49,6 @@ function App() {
 
   return (
     <div className="relative">
-      {/* Gold Frame - Persistent */}
-      <GoldFrame />
-
       {/* Noise Overlay - Persistent */}
       <div className="noise-overlay" />
 
