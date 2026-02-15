@@ -183,10 +183,16 @@ export default function HeroSection() {
     gsap.set(revealL2, { x: K.revealXOffset });
     gsap.set(revealSub, { y: 50, opacity: 0 });
     gsap.set(revealCta, { y: 50, opacity: 0, scale: 0.85 });
-    gsap.set(logo, { opacity: 0, x: -40 });
-    gsap.set(card, { opacity: 0, x: -50, scale: 0.97 });
-    gsap.set(desc, { opacity: 0, x: -30 });
-    gsap.set(actions, { opacity: 0, x: -30 });
+
+    // Custom logo section states
+    gsap.set(logo, { opacity: 0, x: -60 });
+    gsap.set(card, {
+      clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
+      opacity: 1,
+    });
+    gsap.set(desc, { opacity: 0 });
+    gsap.set(actions, { scale: 0, opacity: 0 });
+
     gsap.set(badge, { opacity: 0 });
     gsap.set(vignette, { opacity: 0 });
     gsap.set(accentL, { height: 0, opacity: 0 });
@@ -213,20 +219,55 @@ export default function HeroSection() {
         },
       });
 
-      /* A — content fades */
-      const els = [logo, card, desc, actions];
-      els.forEach((el, i) => {
-        scrollTL!.to(
-          el,
-          {
-            opacity: 0,
-            x: -50 - i * 10,
-            duration: K.contentFadeDur,
-            ease: "power2.in",
-          },
-          i * K.contentFadeStagger,
-        );
-      });
+      /* A — content reverse animations */
+
+      // Logo: shrink to 25% and move to top-left corner
+      scrollTL.to(
+        logo,
+        {
+          scale: 0.75,
+          x: 20,
+          y: 30,
+          duration: 0.4,
+          ease: "power2.inOut",
+        },
+        0,
+      );
+
+      // Card/Image: clip un-reveal (right to left)
+      scrollTL.to(
+        card,
+        {
+          clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
+          duration: K.contentFadeDur,
+          ease: "power2.in",
+        },
+        K.contentFadeStagger,
+      );
+
+      // Description: fade out
+      scrollTL.to(
+        desc,
+        {
+          opacity: 0,
+          duration: K.contentFadeDur,
+          ease: "power2.in",
+        },
+        K.contentFadeStagger * 2,
+      );
+
+      // Actions/CTA: zoom out (reverse)
+      scrollTL.to(
+        actions,
+        {
+          scale: 0,
+          opacity: 0,
+          duration: K.contentFadeDur,
+          ease: "power2.in",
+        },
+        K.contentFadeStagger * 2.5,
+      );
+
       scrollTL.to(
         badge,
         {
@@ -398,24 +439,54 @@ export default function HeroSection() {
       K.arcSweepDelay,
     );
 
-    // content
+    // content - custom animations
     const cs = K.contentStartDelay;
     const sg = K.contentStagger;
-    entryTL.to(logo, { opacity: 1, x: 0, duration: K.contentDur }, cs);
+
+    // Logo: fade in from left
+    entryTL.to(
+      logo,
+      {
+        opacity: 1,
+        x: 0,
+        duration: K.contentDur,
+        ease: "power3.out",
+      },
+      cs,
+    );
+
+    // Card/Image: clip reveal from left to right
     entryTL.to(
       card,
-      { opacity: 1, x: 0, scale: 1, duration: K.contentDur * 1.1 },
+      {
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        duration: K.contentDur * 1.2,
+        ease: "power2.inOut",
+      },
       cs + sg,
     );
+
+    // Description: fade in
     entryTL.to(
       desc,
-      { opacity: 1, x: 0, duration: K.contentDur * 0.9 },
+      {
+        opacity: 1,
+        duration: K.contentDur * 0.8,
+        ease: "power2.out",
+      },
       cs + sg * 2,
     );
+
+    // Actions/CTA: zoom in
     entryTL.to(
       actions,
-      { opacity: 1, x: 0, duration: K.contentDur * 0.9 },
-      cs + sg * 3,
+      {
+        scale: 1,
+        opacity: 1,
+        duration: K.contentDur * 0.7,
+        ease: "back.out(1.5)",
+      },
+      cs + sg * 2.5,
     );
 
     // badge

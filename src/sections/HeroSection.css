@@ -120,8 +120,6 @@ a {
   display: flex;
   align-items: center;
   gap: 14px;
-  opacity: 0;
-  transform: translateX(-40px);
 }
 
 .rg-hero__logoMark {
