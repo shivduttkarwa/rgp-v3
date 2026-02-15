@@ -120,6 +120,7 @@ body.menu-open {
   position: absolute;
   inset: 0;
   display: flex;
+  gap: 0;
 }
 
 .menu-bg-panel {
@@ -128,6 +129,11 @@ body.menu-open {
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+  margin-right: -1px;
+}
+
+.menu-bg-panel:last-child {
+  margin-right: 0;
 }
 
 /* Opening: panels come from top */
