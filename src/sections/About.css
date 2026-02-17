@@ -121,7 +121,6 @@
   width: 100%;
   height: clamp(240px, 28vw, 360px);
   object-fit: cover;
-  transform: scale(1.02);
 }
 
 /* ✅ Bigger height */

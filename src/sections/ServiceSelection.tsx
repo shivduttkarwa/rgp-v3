@@ -63,18 +63,18 @@ const ServiceSelection = () => {
       <div className="svc__container">
         {/* Header */}
         <header className="svc__header">
-          <span className="svc__eyebrow">How Can We Help You?</span>
-          <h2 className="svc__title">
+          <span className="svc__eyebrow" data-gsap="fade-up">How Can We Help You?</span>
+          <h2 className="svc__title" data-gsap="fade-up" data-gsap-delay="0.1">
             What Are You <em>Looking For?</em>
           </h2>
-          <p className="svc__subtitle">
+          <p className="svc__subtitle" data-gsap="fade-up" data-gsap-delay="0.2">
             Whether you're buying, selling, or renting — we're here to make your
             real estate journey seamless and rewarding.
           </p>
         </header>
 
         {/* Service Cards */}
-        <div className="svc__grid">
+        <div className="svc__grid" data-gsap="fade-up" data-gsap-stagger="0.12" data-gsap-delay="0.1">
           {services.map((service) => (
             <article
               key={service.id}
@@ -129,11 +129,11 @@ const ServiceSelection = () => {
 
           {/* Content */}
           <div className="svc-cta__content">
-            <span className="svc-cta__eyebrow">Need Guidance?</span>
-            <h3 className="svc-cta__title">
+            <span className="svc-cta__eyebrow" data-gsap="fade-up">Need Guidance?</span>
+            <h3 className="svc-cta__title" data-gsap="fade-up" data-gsap-delay="0.1">
               Not Sure Where to <em>Start?</em>
             </h3>
-            <p className="svc-cta__text">
+            <p className="svc-cta__text" data-gsap="fade-up" data-gsap-delay="0.2">
               Our experienced advisors are here to understand your needs and
               guide you through every step of your real estate journey.
             </p>

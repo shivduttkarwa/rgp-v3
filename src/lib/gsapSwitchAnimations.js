@@ -89,6 +89,18 @@ class GSAPAnimations {
           case 'clip-reveal-rtl':
             this.clipRevealRightToLeft(el, config);
             break;
+          case 'clip-reveal-top':
+            this.clipRevealTop(el, config);
+            break;
+          case 'clip-reveal-left':
+            this.clipRevealLeft(el, config);
+            break;
+          case 'clip-reveal-right':
+            this.clipRevealRight(el, config);
+            break;
+          case 'word-reveal':
+            this.wordReveal(el, config);
+            break;
           case 'writing-text':
             this.writingText(el, config);
             break;
@@ -3672,6 +3684,137 @@ class GSAPAnimations {
     });
 
     return lineElements;
+  }
+
+  // ── Clip Reveal Top: reveals image/element top-to-bottom ──
+  clipRevealTop(el, config) {
+    if (!el) return;
+    if (el.dataset.clipRevealTopInit === 'true') return;
+    el.dataset.clipRevealTopInit = 'true';
+
+    const isImg = el.tagName === 'IMG';
+    const imgs = !isImg ? Array.from(el.querySelectorAll('img')) : [];
+    const elements = imgs.length ? imgs : [el];
+
+    const start = el.hasAttribute('data-gsap-start') ? config.start : 'top 62%';
+    const duration = el.hasAttribute('data-gsap-duration') && Number.isFinite(config.duration) ? config.duration : 1.0;
+    const ease = el.hasAttribute('data-gsap-ease') ? config.ease : 'power3.out';
+    const delay = el.hasAttribute('data-gsap-delay') && Number.isFinite(config.delay) ? config.delay : 0;
+
+    elements.forEach((target) => {
+      gsap.set(target, { clipPath: 'inset(0 0 100% 0)', willChange: 'clip-path' });
+      gsap.to(target, {
+        clipPath: 'inset(0 0 0% 0)',
+        duration, ease, delay,
+        scrollTrigger: {
+          trigger: el,
+          start,
+          toggleActions: 'play none none none',
+          once: true,
+        },
+        onComplete: () => gsap.set(target, { clearProps: 'will-change,clip-path' }),
+      });
+    });
+  }
+
+  // ── Clip Reveal Left: reveals image/element left-to-right ──
+  clipRevealLeft(el, config) {
+    if (!el) return;
+    if (el.dataset.clipRevealLeftInit === 'true') return;
+    el.dataset.clipRevealLeftInit = 'true';
+
+    const isImg = el.tagName === 'IMG';
+    const imgs = !isImg ? Array.from(el.querySelectorAll('img')) : [];
+    const elements = imgs.length ? imgs : [el];
+
+    const start = el.hasAttribute('data-gsap-start') ? config.start : 'top 62%';
+    const duration = el.hasAttribute('data-gsap-duration') && Number.isFinite(config.duration) ? config.duration : 1.0;
+    const ease = el.hasAttribute('data-gsap-ease') ? config.ease : 'power3.out';
+    const delay = el.hasAttribute('data-gsap-delay') && Number.isFinite(config.delay) ? config.delay : 0;
+
+    elements.forEach((target) => {
+      gsap.set(target, { clipPath: 'inset(0 100% 0 0)', willChange: 'clip-path' });
+      gsap.to(target, {
+        clipPath: 'inset(0 0% 0 0)',
+        duration, ease, delay,
+        scrollTrigger: {
+          trigger: el,
+          start,
+          toggleActions: 'play none none none',
+          once: true,
+        },
+        onComplete: () => gsap.set(target, { clearProps: 'will-change,clip-path' }),
+      });
+    });
+  }
+
+  // ── Clip Reveal Right: reveals image/element right-to-left ──
+  clipRevealRight(el, config) {
+    if (!el) return;
+    if (el.dataset.clipRevealRightInit === 'true') return;
+    el.dataset.clipRevealRightInit = 'true';
+
+    const isImg = el.tagName === 'IMG';
+    const imgs = !isImg ? Array.from(el.querySelectorAll('img')) : [];
+    const elements = imgs.length ? imgs : [el];
+
+    const start = el.hasAttribute('data-gsap-start') ? config.start : 'top 62%';
+    const duration = el.hasAttribute('data-gsap-duration') && Number.isFinite(config.duration) ? config.duration : 1.0;
+    const ease = el.hasAttribute('data-gsap-ease') ? config.ease : 'power3.out';
+    const delay = el.hasAttribute('data-gsap-delay') && Number.isFinite(config.delay) ? config.delay : 0;
+
+    elements.forEach((target) => {
+      gsap.set(target, { clipPath: 'inset(0 0 0 100%)', willChange: 'clip-path' });
+      gsap.to(target, {
+        clipPath: 'inset(0 0 0 0%)',
+        duration, ease, delay,
+        scrollTrigger: {
+          trigger: el,
+          start,
+          toggleActions: 'play none none none',
+          once: true,
+        },
+        onComplete: () => gsap.set(target, { clearProps: 'will-change,clip-path' }),
+      });
+    });
+  }
+
+  // ── Word Reveal: each word slides up from behind a clip mask ──
+  wordReveal(el, config) {
+    if (!el) return;
+    if (el.dataset.wordRevealInit === 'true') return;
+    el.dataset.wordRevealInit = 'true';
+
+    const text = el.textContent || '';
+    if (!text.trim()) return;
+
+    const words = text.trim().split(/\s+/);
+    el.innerHTML = words
+      .map(w => `<span class="gsap-word-wrap" style="display:inline-block;overflow:hidden;vertical-align:bottom;line-height:inherit"><span class="gsap-word-inner" style="display:inline-block">${w}</span></span>`)
+      .join('\u00A0');
+
+    const wordInners = Array.from(el.querySelectorAll('.gsap-word-inner'));
+    const start = el.hasAttribute('data-gsap-start') ? config.start : 'top 78%';
+    const duration = el.hasAttribute('data-gsap-duration') && Number.isFinite(config.duration) ? config.duration : 0.65;
+    const ease = el.hasAttribute('data-gsap-ease') ? config.ease : 'power2.out';
+    const delay = el.hasAttribute('data-gsap-delay') && Number.isFinite(config.delay) ? config.delay : 0;
+    const stagger = config.stagger !== null ? config.stagger : 0.06;
+
+    gsap.set(wordInners, { y: '110%', autoAlpha: 0 });
+    gsap.to(wordInners, {
+      y: '0%',
+      autoAlpha: 1,
+      duration,
+      ease,
+      delay,
+      stagger,
+      scrollTrigger: {
+        trigger: el,
+        start,
+        toggleActions: 'play none none none',
+        once: true,
+      },
+    });
   }
 }
 

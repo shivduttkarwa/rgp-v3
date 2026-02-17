@@ -269,19 +269,19 @@ export default function WhyUs() {
       <div className="whyus__overlay" aria-hidden="true" />
 
       <div className="whyus__wrap">
-        <div className="whyus__label" aria-hidden="false">
+        <div className="whyus__label" aria-hidden="false" data-gsap="fade-up">
           <span className="whyus__labelBar" aria-hidden="true" />
           <span className="whyus__labelText">Why Us</span>
         </div>
 
         <div className="whyus__content">
-          <h2 className="whyus__title">
+          <h2 className="whyus__title" data-gsap="fade-up" data-gsap-delay="0.1">
             Choose Us and Experience
             <br />
             Extraordinary Advantages
           </h2>
 
-          <ol className="whyus__list" aria-label="Benefits list">
+          <ol className="whyus__list" aria-label="Benefits list" data-gsap="fade-up" data-gsap-stagger="0.1" data-gsap-delay="0.15">
             {benefits.map((b) => (
               <li
                 key={b.no}

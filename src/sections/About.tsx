@@ -28,7 +28,7 @@ const About: React.FC<AboutProps> = ({
 
   sectionKicker = "MAKING MOVES",
   sectionTitle = "HOMES BOUGHT & SOLD WITH CLARITY.\nRENTALS HANDLED WITH CARE.\nLOCAL INSIGHT THAT SAVES YOU TIME.",
-  sectionBody = "From first inspection to final signature, we make the process feel calm and transparent. Whether you’re upgrading, investing, or finding the right rental, we focus on the details that matter — pricing, presentation, and smooth communication.",
+  sectionBody = "From first inspection to final signature, we make the process feel calm and transparent. Whether you're upgrading, investing, or finding the right rental, we focus on the details that matter — pricing, presentation, and smooth communication.",
   imageWide = "https://images.unsplash.com/photo-1505692952047-1a78307da8f2?auto=format&fit=crop&w=1800&q=85",
 
   splitKicker = "LOCAL ADVANTAGE",
@@ -44,17 +44,17 @@ const About: React.FC<AboutProps> = ({
     <section className="rg-about" aria-label="About Real Gold Properties">
       {/* 1) Big centered intro statement */}
       <div className="rg-about__intro">
-        <div className="rg-about__kicker">{introKicker}</div>
-        <h2 className="rg-about__headline">{introHeadline}</h2>
+        <div className="rg-about__kicker" data-gsap="fade-up">{introKicker}</div>
+        <h2 className="rg-about__headline" data-gsap="fade-up" data-gsap-delay="0.1">{introHeadline}</h2>
       </div>
 
       {/* 2) Two-column: bigger text left, taller image right */}
       <div className="rg-about__feature rg-about__watermark">
         <div className="rg-about__featureInner">
           <div className="rg-about__copy">
-            <div className="rg-about__eyebrow">{sectionKicker}</div>
+            <div className="rg-about__eyebrow" data-gsap="fade-up">{sectionKicker}</div>
 
-            <h3 className="rg-about__capsTitle rg-about__capsTitle--big">
+            <h3 className="rg-about__capsTitle rg-about__capsTitle--big" data-gsap="fade-up" data-gsap-delay="0.1">
               {sectionTitle.split("\n").map((line, idx) => (
                 <span key={idx} className="rg-about__capsLine">
                   {line}
@@ -62,7 +62,7 @@ const About: React.FC<AboutProps> = ({
               ))}
             </h3>
 
-            <p className="rg-about__body rg-about__body--big">{sectionBody}</p>
+            <p className="rg-about__body rg-about__body--big" data-gsap="fade-up" data-gsap-delay="0.2">{sectionBody}</p>
           </div>
 
           <figure className="rg-about__wideFigure rg-about__wideFigure--tall">
@@ -70,6 +70,7 @@ const About: React.FC<AboutProps> = ({
               className="rg-about__wideImg rg-about__wideImg--tall"
               src={imageWide}
               alt="Real Gold Properties lifestyle"
+              data-gsap="clip-reveal-top"
             />
           </figure>
         </div>
@@ -83,13 +84,14 @@ const About: React.FC<AboutProps> = ({
               className="rg-about__splitImg"
               src={splitImage}
               alt="Neighbourhood lifestyle"
+              data-gsap="clip-reveal-top"
             />
           </figure>
 
           <div className="rg-about__splitCopy">
-            <div className="rg-about__eyebrow">{splitKicker}</div>
+            <div className="rg-about__eyebrow" data-gsap="fade-up">{splitKicker}</div>
 
-            <h3 className="rg-about__splitTitle">
+            <h3 className="rg-about__splitTitle" data-gsap="fade-up" data-gsap-delay="0.1">
               {splitTitle.split("\n").map((line, idx) => (
                 <span key={idx} className="rg-about__splitLine">
                   {line}
@@ -97,15 +99,15 @@ const About: React.FC<AboutProps> = ({
               ))}
             </h3>
 
-            <p className="rg-about__body">{splitBody}</p>
+            <p className="rg-about__body" data-gsap="fade-up" data-gsap-delay="0.2">{splitBody}</p>
           </div>
         </div>
       </div>
 
-      {/* 4) Centered copy + image (unchanged) */}
+      {/* 4) Centered copy + image */}
       <div className="rg-about__center">
         <div className="rg-about__centerInner rg-about__watermark--columns">
-          <h3 className="rg-about__centerTitle">
+          <h3 className="rg-about__centerTitle" data-gsap="fade-up">
             {centerTitle.split("\n").map((line, idx) => (
               <span key={idx} className="rg-about__centerLine">
                 {line}
@@ -113,13 +115,15 @@ const About: React.FC<AboutProps> = ({
             ))}
           </h3>
 
-          <p className="rg-about__centerBody">{centerBody}</p>
+          <p className="rg-about__centerBody" data-gsap="fade-up" data-gsap-delay="0.1">{centerBody}</p>
 
           <figure className="rg-about__bottomFigure">
             <img
               className="rg-about__bottomImg"
               src={imageBottom}
               alt="A beautiful home exterior"
+              data-gsap="clip-reveal-top"
+              data-gsap-delay="0.15"
             />
           </figure>
         </div>
