@@ -1,7 +1,8 @@
 import Menu from "./components/Menu";
 import HeroSection from "./sections/HeroSection";
-import TestSection from "./sections/TestSection";
+
 import Footer from "./sections/Footer";
+import About from "./sections/About";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <HeroSection />
 
       {/* Test Section */}
-      <TestSection />
+      <About />
 
       {/* Footer */}
       <Footer />
