@@ -518,21 +518,69 @@ a.rg-footer__contact-item:hover svg {
 
 @media (max-width: 480px) {
   .rg-footer__main {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
+  }
+
+  .rg-footer__col--company {
+    display: none;
   }
 
   .rg-footer__contact {
     flex-direction: column;
     gap: 1rem;
+    align-items: center;
+    text-align: center;
   }
 
   .rg-footer__socials {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .rg-footer__legal {
     gap: 1rem;
+    justify-content: center;
+  }
+
+  .rg-footer__col {
+    justify-self: center;
+    text-align: left;
+  }
+
+  .rg-footer__col h4 {
+    text-align: left;
+  }
+
+  .rg-footer__links {
+    align-items: flex-start;
+  }
+
+  .rg-footer__links a {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .rg-footer__links a::before {
+    left: 0;
+    transform: none;
+  }
+
+  .rg-footer__links a:hover::before {
+    width: 100%;
+  }
+
+  .rg-footer__contact-item {
+    justify-content: center;
+    text-align: center;
+  }
+
+  a.rg-footer__contact-item::before {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  a.rg-footer__contact-item:hover::before {
+    width: 70%;
   }
 
   .rg-footer__watermark-text {

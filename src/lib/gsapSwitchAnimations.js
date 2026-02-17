@@ -3871,13 +3871,21 @@ class GSAPAnimations {
     if (el.dataset.clipSmoothDownInit === 'true') return;
     el.dataset.clipSmoothDownInit = 'true';
 
-    const start = el.hasAttribute('data-gsap-start') ? config.start : 'top 85%';
+    const isMobile =
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(max-width: 991px)').matches;
+    const baseStart = el.hasAttribute('data-gsap-start') ? config.start : 'top 85%';
     const duration = el.hasAttribute('data-gsap-duration') && Number.isFinite(config.duration) ? config.duration : 1.8;
     const delay = el.hasAttribute('data-gsap-delay') && Number.isFinite(config.delay) ? config.delay : 0;
     const stagger = config.stagger !== null ? config.stagger : 0;
 
     const children = el.children.length > 0 ? Array.from(el.children) : null;
     const targets = children && stagger ? children : [el];
+    const cardsStart = isMobile && config.mobileCardsStart
+      ? config.mobileCardsStart
+      : (config.cardsStart || null);
+    const start = cardsStart && children && stagger ? cardsStart : baseStart;
 
     targets.forEach(target => {
       const img = target.tagName === 'IMG' ? target : target.querySelector('img');

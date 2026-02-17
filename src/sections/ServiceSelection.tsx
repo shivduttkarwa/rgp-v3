@@ -89,6 +89,8 @@ const ServiceSelection = () => {
           data-gsap="clip-smooth-down"
           data-gsap-stagger="0.14"
           data-gsap-delay="0.1"
+          data-gsap-mobile="clip-smooth-down"
+          data-gsap-mobile-cards-start="top 90%"
         >
           {services.map((service) => (
             <article

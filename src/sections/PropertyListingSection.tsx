@@ -531,7 +531,7 @@ const PropertyListingSection = () => {
             ))}
           </Swiper>
 
-          <div className="swiper-nav">
+          <div className="swiper-nav" data-gsap-mobile="fade-up">
             <button
               className="swiper-btn swiper-btn-prev"
               aria-label="Previous"

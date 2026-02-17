@@ -114,27 +114,35 @@ export default function Philosophy() {
           >
             {PILLARS.map((p) => (
               <SwiperSlide key={p.title}>
-                <article className="rg-philo__card" data-tint={p.tintVar}>
-                  <div className="rg-philo__media">
-                    <img
-                      className="rg-philo__img"
-                      src={p.img}
-                      alt={p.title}
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="rg-philo__pill">
-                    <div className="rg-philo__pillKicker">{p.kicker}</div>
-                    <div className="rg-philo__pillTitle">{p.title}</div>
-                  </div>
-                  <div className="rg-philo__reveal" aria-hidden="true">
-                    <div className="rg-philo__revealInner">
-                      <div className="rg-philo__revealKicker">{p.kicker}</div>
-                      <div className="rg-philo__revealTitle">{p.title}</div>
-                      <p className="rg-philo__revealDesc">{p.desc}</p>
+                <div
+                  className="rg-philo__card-wrap"
+                  data-gsap-mobile="slide-right"
+                  data-gsap-start="top 70%"
+                  data-gsap-duration="0.5"
+                  data-gsap-ease="none"
+                >
+                  <article className="rg-philo__card" data-tint={p.tintVar}>
+                    <div className="rg-philo__media">
+                      <img
+                        className="rg-philo__img"
+                        src={p.img}
+                        alt={p.title}
+                        loading="lazy"
+                      />
                     </div>
-                  </div>
-                </article>
+                    <div className="rg-philo__pill">
+                      <div className="rg-philo__pillKicker">{p.kicker}</div>
+                      <div className="rg-philo__pillTitle">{p.title}</div>
+                    </div>
+                    <div className="rg-philo__reveal" aria-hidden="true">
+                      <div className="rg-philo__revealInner">
+                        <div className="rg-philo__revealKicker">{p.kicker}</div>
+                        <div className="rg-philo__revealTitle">{p.title}</div>
+                        <p className="rg-philo__revealDesc">{p.desc}</p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
