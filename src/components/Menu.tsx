@@ -40,11 +40,22 @@ export default function Menu({ isOpen, onOpenChange, showButton = true }: MenuPr
   }, [open]);
 
   useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
     if (open) {
-      document.body.classList.add("menu-open");
+      body.classList.add("menu-open");
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
     } else {
-      document.body.classList.remove("menu-open");
+      body.classList.remove("menu-open");
+      html.style.overflow = "";
+      body.style.overflow = "";
     }
+    return () => {
+      body.classList.remove("menu-open");
+      html.style.overflow = "";
+      body.style.overflow = "";
+    };
   }, [open]);
 
   return (

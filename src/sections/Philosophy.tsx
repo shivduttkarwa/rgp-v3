@@ -2,124 +2,83 @@
 import React from "react";
 import "./Philosophy.css";
 
-type FeatureCard = {
-  img: string;
-  caption: string;
-  alt?: string;
+type Pillar = {
+  title: string; // BIG overlay title (bottom, blend-mode)
+  kicker: string; // small line above title (optional feeling)
+  desc: string; // hover reveal text
+  img: string; // image url
+  tintVar: "gold" | "amber" | "crimson"; // uses your vars only
 };
 
-type PhilosophyProps = {
-  title?: string;
-  subtitle?: string;
-  heroImg?: string;
-  cards?: FeatureCard[];
-};
+const PILLARS: Pillar[] = [
+  {
+    title: "CLARITY",
+    kicker: "OUR PHILOSOPHY",
+    desc: "We simplify every decision with honest pricing, clear comparables, and zero-pressure guidance—so you always know what’s next.",
+    img: "https://files.staging.peachworlds.com/website/dbf16c23-6134-4df6-a509-bd2a6b79ab37/chatgpt-image-3-apr-2025-16-33-58.webp",
+    tintVar: "gold",
+  },
+  {
+    title: "CARE",
+    kicker: "HOW WE WORK",
+    desc: "From first viewing to final handover, we obsess over details—timelines, paperwork, follow-ups—so the experience feels effortless.",
+    img: "https://files.staging.peachworlds.com/website/d80b404a-7e8e-40ee-a08c-cbab3f8a7ad3/chatgpt-image-3-apr-2025-16-23-38.webp",
+    tintVar: "amber",
+  },
+  {
+    title: "RESULTS",
+    kicker: "WHAT YOU GET",
+    desc: "Strategic marketing, negotiation discipline, and data-led insights—built to protect your value and maximize outcomes with integrity.",
+    img: "https://files.staging.peachworlds.com/website/504aad69-04e9-4c61-8e60-4bf340ec746f/chatgpt-image-3-apr-2025-16-23-32.webp",
+    tintVar: "crimson",
+  },
+];
 
-const DEFAULTS = {
-  title: "Key Features",
-  subtitle:
-    "Scandinavian-inspired interiors with floor-to-ceiling glass and natural textures.",
-  heroImg:
-    "https://files.staging.peachworlds.com/website/905fcf55-150d-44ab-b5e8-96de39798da3/chatgpt-image-3-apr-2025-16-23-39.webp",
-  cards: [
-    {
-      img: "https://files.staging.peachworlds.com/website/dbf16c23-6134-4df6-a509-bd2a6b79ab37/chatgpt-image-3-apr-2025-16-33-58.webp",
-      caption:
-        "Wake up to nature in the Mini Villa’s panoramic bedroom. Framed by floor-to-ceiling glass.",
-      alt: "Panoramic bedroom with floor-to-ceiling glass",
-    },
-    {
-      img: "https://files.staging.peachworlds.com/website/d80b404a-7e8e-40ee-a08c-cbab3f8a7ad3/chatgpt-image-3-apr-2025-16-23-38.webp",
-      caption:
-        "A spa-like retreat in miniature form—crafted with warm wood tones, and matte black fixtures.",
-      alt: "Spa-like bathroom with warm wood tones",
-    },
-    {
-      img: "https://files.staging.peachworlds.com/website/504aad69-04e9-4c61-8e60-4bf340ec746f/chatgpt-image-3-apr-2025-16-23-32.webp",
-      caption:
-        "The kitchen combines sleek design with smart functionality—compact and fully equipped.",
-      alt: "Compact kitchen with smart functionality",
-    },
-  ] as FeatureCard[],
-};
-
-export default function Philosophy(props: PhilosophyProps) {
-  const title = props.title ?? DEFAULTS.title;
-  const subtitle = props.subtitle ?? DEFAULTS.subtitle;
-  const heroImg = props.heroImg ?? DEFAULTS.heroImg;
-  const cards = props.cards ?? DEFAULTS.cards;
-
+export default function Philosophy() {
   return (
-    <section className="rg-philo" aria-label="Philosophy / Key Features">
-      {/* Top row (logo left, contact button right) */}
-      <div className="rg-philo__top">
-        <div className="rg-philo__brand" aria-label="Brand mark">
-          {/* Minimal tiny-villa style mark (inline SVG) */}
-          <svg
-            className="rg-philo__logo"
-            viewBox="0 0 64 64"
-            role="img"
-            aria-label="Logo"
-          >
-            <path
-              d="M12 52V22L32 12l20 10v30"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M24 52V26M32 52V22M40 52V26"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-
-        <a className="rg-philo__cta" href="#contact">
-          <span className="rg-philo__ctaText">Contact Us</span>
-          <span className="rg-philo__ctaIcon" aria-hidden="true">
-            ↗
-          </span>
-        </a>
-      </div>
-
-      {/* Key Features split */}
+    <section className="rg-philo" aria-label="Real Gold Properties Philosophy">
       <div className="rg-philo__wrap">
-        <div className="rg-philo__split">
-          <div className="rg-philo__copy">
-            <h2 className="rg-philo__title">{title}</h2>
-            <p className="rg-philo__subtitle">{subtitle}</p>
-          </div>
-
-          <div className="rg-philo__media">
-            <div className="rg-philo__imgFrame">
-              <img
-                className="rg-philo__img"
-                src={heroImg}
-                alt="Key feature interior"
-              />
-            </div>
-          </div>
-        </div>
+        <header className="rg-philo__head">
+          <p className="rg-philo__label">Philosophy</p>
+          <h2 className="rg-philo__title">Our <em>Philosophy</em></h2>
+          <p className="rg-philo__subtitle">
+            Real estate, made calm and confident—where every move is guided by
+            clarity, care, and results.
+          </p>
+        </header>
 
         <div className="rg-philo__divider" role="separator" />
 
-        {/* 3-up gallery */}
-        <div className="rg-philo__grid" aria-label="Feature gallery">
-          {cards.slice(0, 3).map((card, idx) => (
-            <article className="rg-philo__card" key={`${idx}-${card.img}`}>
-              <div className="rg-philo__cardMedia">
+        <div className="rg-philo__grid" aria-label="Philosophy pillars">
+          {PILLARS.map((p) => (
+            <article
+              key={p.title}
+              className="rg-philo__card"
+              data-tint={p.tintVar}
+            >
+              <div className="rg-philo__media">
                 <img
-                  className="rg-philo__cardImg"
-                  src={card.img}
-                  alt={card.alt ?? `Feature image ${idx + 1}`}
+                  className="rg-philo__img"
+                  src={p.img}
+                  alt={p.title}
                   loading="lazy"
                 />
               </div>
-              <p className="rg-philo__cardCaption">{card.caption}</p>
+
+              {/* Bottom blend title strip (visible by default) */}
+              <div className="rg-philo__pill">
+                <div className="rg-philo__pillKicker">{p.kicker}</div>
+                <div className="rg-philo__pillTitle">{p.title}</div>
+              </div>
+
+              {/* Hover reveal sheet (slides up to cover image) */}
+              <div className="rg-philo__reveal" aria-hidden="true">
+                <div className="rg-philo__revealInner">
+                  <div className="rg-philo__revealKicker">{p.kicker}</div>
+                  <div className="rg-philo__revealTitle">{p.title}</div>
+                  <p className="rg-philo__revealDesc">{p.desc}</p>
+                </div>
+              </div>
             </article>
           ))}
         </div>
