@@ -247,6 +247,12 @@
   z-index: 50;
 }
 
+@media (max-width: 768px) {
+  .whyus__tooltip {
+    display: none !important;
+  }
+}
+
 .whyus__tooltip.is-visible {
   opacity: 1;
 }
