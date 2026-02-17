@@ -1,4 +1,4 @@
-import PropDetail, { PropertyData } from "./components/PropDetail";
+import PropDetail, { ContactFormData, PropertyData } from "./PropDetails";
 
 const sampleProperty: PropertyData = {
   id: "RGP-2024-0847",
@@ -105,8 +105,8 @@ const sampleProperty: PropertyData = {
   },
 };
 
-function App() {
-  const handleContactSubmit = (data) => {
+export default function Uses() {
+  const handleContactSubmit = (data: ContactFormData) => {
     console.log("Contact form submitted:", data);
   };
 

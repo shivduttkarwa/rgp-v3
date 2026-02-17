@@ -12,12 +12,11 @@ const ContactPage = lazy(() => import("./pages/ContactPage"));
 const PropertyPage = lazy(() => import("./pages/PropertyPage"));
 
 function App() {
-  // Loader temporarily disabled for testing
-  const [loaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <>
-      {/* <Preloader onComplete={() => setLoaded(true)} /> */}
+      {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
       <div>
         <Header ready={loaded} />
         <Suspense fallback={null}>

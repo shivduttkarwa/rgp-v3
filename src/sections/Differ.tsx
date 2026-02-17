@@ -102,7 +102,9 @@ const Differ: React.FC = () => {
               <span
                 key={word}
                 className="differ-title__word-mask"
-                ref={(el) => (headingWordsRef.current[index] = el)}
+                ref={(el) => {
+                  headingWordsRef.current[index] = el;
+                }}
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
                 <span className="differ-title__word">{word}</span>
@@ -125,7 +127,9 @@ const Differ: React.FC = () => {
               <div
                 key={card.number}
                 className={`differ-card differ-card--${index + 1}`}
-                ref={(el) => (cardsRef.current[index] = el)}
+                ref={(el) => {
+                  cardsRef.current[index] = el;
+                }}
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <div className="differ-card__text">
