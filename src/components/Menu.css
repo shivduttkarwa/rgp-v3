@@ -458,11 +458,22 @@ body.menu-open {
   border-radius: 50%;
 }
 
+/* ── Remove tap highlight on all interactive menu elements ── */
+.hamburger,
+.menu-link,
+.menu-social a,
+.menu-info-text a {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .menu-content {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
+    /* push content below the fixed header (88px) */
+    padding-top: calc(var(--rg-pad) + 80px);
   }
 
   .menu-aside {
@@ -481,8 +492,9 @@ body.menu-open {
 
   .menu-main {
     padding-left: 0;
-    justify-content: flex-end;
-    padding-bottom: 2rem;
+    /* center nav vertically so Home never hides behind the header */
+    justify-content: center;
+    padding-bottom: 0;
   }
 
   .menu-deco {
