@@ -296,6 +296,14 @@
     align-items: start;
   }
 
+  .rg-about__copy {
+    order: 1;
+  }
+
+  .rg-about__wideFigure {
+    order: 2;
+  }
+
   /* ✅ keep image tall on mobile */
   .rg-about__wideImg--tall {
     height: clamp(320px, 68vw, 560px);
@@ -303,6 +311,14 @@
 
   .rg-about__splitInner {
     grid-template-columns: 1fr;
+  }
+
+  .rg-about__splitCopy {
+    order: 1;
+  }
+
+  .rg-about__splitFigure {
+    order: 2;
   }
 
   .rg-about__splitImg {
