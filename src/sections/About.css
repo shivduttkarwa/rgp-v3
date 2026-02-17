@@ -301,6 +301,12 @@
 
 /* Responsive */
 @media (max-width: 980px) {
+  .rg-about__watermark::before,
+  .rg-about__watermark--arch::before,
+  .rg-about__watermark--columns::before {
+    display: none;
+  }
+
   .rg-about__featureInner {
     grid-template-columns: 1fr;
     align-items: start;

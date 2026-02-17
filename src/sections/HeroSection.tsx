@@ -27,7 +27,7 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
     if (!bg || !vignette || !titleOne || !titleTwo || !revealSub || !revealCta)
       return;
 
-    gsap.set(bg, { opacity: 1, scale: 1.02 });
+    gsap.set(bg, { opacity: 1, scale: 1 });
     gsap.set(vignette, { opacity: 0.5 });
     gsap.set([titleOne, titleTwo], { y: 50, opacity: 0 });
     gsap.set([revealSub, revealCta], { x: -60, opacity: 0 });
@@ -142,15 +142,13 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
   return (
     <div className="rg-hero-wrap">
       <section className="rg-hero">
-        <div
-          className="rg-hero__bg"
-          ref={bgRef}
-          aria-hidden="true"
-          style={{
-            background:
-              `linear-gradient(0deg, rgba(7, 20, 37, 0.2), rgba(7, 20, 37, 0.15)), url("${publicUrl}images/journal_3.jpg")`,
-          }}
-        ></div>
+        <div className="rg-hero__bg" ref={bgRef} aria-hidden="true">
+          <img
+            className="rg-hero__bg-img"
+            src={`${publicUrl}images/hero1.jpg`}
+            alt=""
+          />
+        </div>
         <div
           className="rg-hero__vignette"
           ref={vignetteRef}

@@ -33,7 +33,7 @@ const propertiesData = [
     id: 1,
     category: "for-sale" as Category,
     title: "Modern Luxury Villa",
-    location: "Beverly Hills, CA",
+    location: "Brisbane, QLD",
     price: 2450000,
     image:
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80",
@@ -50,7 +50,7 @@ const propertiesData = [
     id: 2,
     category: "for-sale" as Category,
     title: "Contemporary Penthouse",
-    location: "Manhattan, NY",
+    location: "Gold Coast, QLD",
     price: 3890000,
     image:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
@@ -66,7 +66,7 @@ const propertiesData = [
     id: 3,
     category: "for-sale" as Category,
     title: "Oceanfront Estate",
-    location: "Malibu, CA",
+    location: "Sunshine Coast, QLD",
     price: 8500000,
     image:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
@@ -83,7 +83,7 @@ const propertiesData = [
     id: 7,
     category: "sold" as Category,
     title: "Riverside Mansion",
-    location: "Austin, TX",
+    location: "Hamilton, QLD",
     price: 3200000,
     soldPrice: 3150000,
     image:
@@ -100,7 +100,7 @@ const propertiesData = [
     id: 8,
     category: "sold" as Category,
     title: "Downtown Condo",
-    location: "Chicago, IL",
+    location: "South Brisbane, QLD",
     price: 890000,
     soldPrice: 875000,
     image:
@@ -117,7 +117,7 @@ const propertiesData = [
     id: 9,
     category: "sold" as Category,
     title: "Golf Course Villa",
-    location: "Scottsdale, AZ",
+    location: "Hope Island, QLD",
     price: 1750000,
     soldPrice: 1720000,
     image:
@@ -134,7 +134,7 @@ const propertiesData = [
     id: 13,
     category: "for-rent" as Category,
     title: "Luxury High-Rise Apt",
-    location: "Miami Beach, FL",
+    location: "Surfers Paradise, QLD",
     price: 8500,
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
@@ -151,7 +151,7 @@ const propertiesData = [
     id: 14,
     category: "for-rent" as Category,
     title: "Furnished Studio Loft",
-    location: "Seattle, WA",
+    location: "Fortitude Valley, QLD",
     price: 3200,
     image:
       "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
@@ -168,7 +168,7 @@ const propertiesData = [
     id: 15,
     category: "for-rent" as Category,
     title: "Family Townhouse",
-    location: "Denver, CO",
+    location: "Springfield, QLD",
     price: 4800,
     image:
       "https://images.unsplash.com/photo-1600047509782-20d39509f26d?w=800&q=80",

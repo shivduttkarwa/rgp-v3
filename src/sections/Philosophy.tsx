@@ -15,23 +15,23 @@ type Pillar = {
 
 const PILLARS: Pillar[] = [
   {
-    title: "CLARITY",
-    kicker: "OUR PHILOSOPHY",
-    desc: "We simplify every decision with honest pricing, clear comparables, and zero-pressure guidance—so you always know what’s next.",
+    title: "SERVICE",
+    kicker: "OUR COMMITMENT",
+    desc: "Exceptional service, every step. We go above and beyond to deliver a smooth, stress-free experience.",
     img: "https://files.staging.peachworlds.com/website/dbf16c23-6134-4df6-a509-bd2a6b79ab37/chatgpt-image-3-apr-2025-16-33-58.webp",
     tintVar: "gold",
   },
   {
-    title: "CARE",
+    title: "HONESTY",
     kicker: "HOW WE WORK",
-    desc: "From first viewing to final handover, we obsess over details—timelines, paperwork, follow-ups—so the experience feels effortless.",
+    desc: "Transparent communication is at the core of every interaction—clear advice, timely updates, and no surprises.",
     img: "https://files.staging.peachworlds.com/website/d80b404a-7e8e-40ee-a08c-cbab3f8a7ad3/chatgpt-image-3-apr-2025-16-23-38.webp",
     tintVar: "amber",
   },
   {
-    title: "RESULTS",
+    title: "EXPERTISE",
     kicker: "WHAT YOU GET",
-    desc: "Strategic marketing, negotiation discipline, and data-led insights—built to protect your value and maximize outcomes with integrity.",
+    desc: "Market expertise and local insight that drive strong outcomes—accurate pricing, confident negotiation, and real results.",
     img: "https://files.staging.peachworlds.com/website/504aad69-04e9-4c61-8e60-4bf340ec746f/chatgpt-image-3-apr-2025-16-23-32.webp",
     tintVar: "crimson",
   },

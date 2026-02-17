@@ -35,27 +35,27 @@ export default function WhyUs() {
     () => [
       {
         no: "01",
-        title: "Experienced Experts",
+        title: "Professionalism",
         detail:
-          "Work with seasoned professionals who bring deep market knowledge, negotiation strength, and end-to-end execution—so your decisions stay confident and risk-aware.",
+          "We deliver high-quality service with clear processes, reliable timelines, and respect for every client’s goals.",
       },
       {
         no: "02",
-        title: "Customized Solutions",
+        title: "Transparency",
         detail:
-          "Every client gets a tailored approach—strategy, timelines, and communication built around your goals, property type, and constraints (not a one-size template).",
+          "Honest communication at every step—clear advice, open feedback, and no surprises.",
       },
       {
         no: "03",
-        title: "Advanced Technology",
+        title: "Negotiation Strength",
         detail:
-          "Data-led decisions: smarter listings, faster screening, and performance insights—so you see what’s working and what needs refinement before it costs time.",
+          "We advocate for your outcome with confident, informed negotiation that protects value and builds trust.",
       },
       {
         no: "04",
-        title: "Tailor-Made",
+        title: "Results Driven",
         detail:
-          "From first brief to final handover—your process is crafted for clarity, speed, and quality. Transparent updates, clean docs, and tight coordination across parties.",
+          "Our goal is to help you achieve the best possible result for your property journey.",
       },
     ],
     [],
