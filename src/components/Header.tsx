@@ -81,6 +81,9 @@ export default function Header() {
 
     gsap.killTweensOf(logo);
     if (isOpen) {
+      if (headerBgRef.current) {
+        gsap.to(headerBgRef.current, { opacity: 0, duration: 0.2, ease: "power2.in" });
+      }
       gsap.to(logo, {
         y: -20,
         opacity: 0,
@@ -88,6 +91,9 @@ export default function Header() {
         ease: "power2.inOut",
       });
     } else {
+      if (headerBgRef.current && window.scrollY > 100) {
+        gsap.to(headerBgRef.current, { opacity: 1, duration: 0.3, ease: "power2.out", delay: 0.8 });
+      }
       gsap.set(logo, { y: -20, opacity: 0 });
       gsap.to(logo, {
         y: 0,
