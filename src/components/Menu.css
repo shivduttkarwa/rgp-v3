@@ -471,14 +471,16 @@ body.menu-open {
 @media (max-width: 900px) {
   .menu-content {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
+    grid-template-rows: auto auto;
+    align-content: start;
+    overflow-y: auto;
     /* push content below the fixed header (88px) */
     padding-top: calc(var(--rg-pad) + 80px);
   }
 
   .menu-aside {
     border-left: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: none;
     padding-left: 0;
     padding-top: 2rem;
     flex-direction: row;
@@ -493,7 +495,7 @@ body.menu-open {
   .menu-main {
     padding-left: 0;
     /* center nav vertically so Home never hides behind the header */
-    justify-content: center;
+    justify-content: flex-start;
     padding-bottom: 0;
   }
 
