@@ -473,19 +473,20 @@ body.menu-open {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
     align-content: start;
-    overflow-y: auto;
+    overflow: hidden;
     /* push content below the fixed header (88px) */
-    padding-top: calc(var(--rg-pad) + 80px);
+    padding-top: calc(var(--rg-pad) + 64px);
+    gap: 2.5rem;
   }
 
   .menu-aside {
     border-left: none;
     border-top: none;
     padding-left: 0;
-    padding-top: 2rem;
+    padding-top: 1.25rem;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1.25rem 2rem;
   }
 
   .menu-info-block {
@@ -501,5 +502,20 @@ body.menu-open {
 
   .menu-deco {
     display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .menu-link {
+    gap: 1.25rem;
+    padding: 0.9rem 0;
+  }
+
+  .menu-number {
+    font-size: clamp(1.1rem, 3.2vw, 2rem);
+  }
+
+  .menu-text {
+    font-size: clamp(1.6rem, 4.6vw, 3rem);
   }
 }
