@@ -90,13 +90,39 @@ a {
   pointer-events: none;
 }
 
-.rg-hero__bg-img {
+.rg-hero__bg-video,
+.rg-hero__bg-poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
   transform: translateZ(0);
+  will-change: opacity;
+}
+
+.rg-hero__bg-video,
+.rg-hero__bg-poster {
+  position: absolute;
+  inset: 0;
+}
+
+.rg-hero__bg-poster {
+  opacity: 1;
+  transition: opacity 1200ms ease;
+}
+
+.rg-hero__bg-video {
+  opacity: 0;
+  transition: opacity 1200ms ease;
+}
+
+.rg-hero__bg--ready .rg-hero__bg-video {
+  opacity: 1;
+}
+
+.rg-hero__bg--ready .rg-hero__bg-poster {
+  opacity: 0;
 }
 
 /* ─── OVERLAY ─── */

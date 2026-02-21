@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import BtnSecondary from "../components/BtnSecondary";
 import "./HeroSection.css";
@@ -14,6 +14,30 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
   const titleTwoRef = useRef<HTMLDivElement>(null);
   const revealSubRef = useRef<HTMLDivElement>(null);
   const revealCtaRef = useRef<HTMLDivElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = async () => {
+      try {
+        await video.play();
+      } catch {
+        // Autoplay can still be blocked on some devices; fallback keeps poster.
+      }
+    };
+
+    const fallbackId = window.setTimeout(() => {
+      setVideoReady(true);
+      void tryPlay();
+    }, 1500);
+
+    void tryPlay();
+
+    return () => window.clearTimeout(fallbackId);
+  }, []);
 
   // Set initial states on mount — bg fully visible, only content hidden
   useEffect(() => {
@@ -142,11 +166,34 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
   return (
     <div className="rg-hero-wrap">
       <section className="rg-hero">
-        <div className="rg-hero__bg" ref={bgRef} aria-hidden="true">
+        <div
+          className={`rg-hero__bg ${videoReady ? "rg-hero__bg--ready" : ""}`}
+          ref={bgRef}
+          aria-hidden="true"
+        >
           <img
-            className="rg-hero__bg-img"
-            src={`${publicUrl}images/hero1.jpg`}
+            className="rg-hero__bg-poster"
+            src={`${publicUrl}images/hero-rpg-brisbane.jpg`}
             alt=""
+            loading="eager"
+            fetchPriority="high"
+          />
+          <video
+            className="rg-hero__bg-video"
+            ref={videoRef}
+            src={`${publicUrl}vids/hero-rgp.mp4`}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster={`${publicUrl}images/hero-rpg-brisbane.jpg`}
+            onLoadedMetadata={() => {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => setVideoReady(true));
+              });
+            }}
+            onCanPlay={() => setVideoReady(true)}
           />
         </div>
         <div
