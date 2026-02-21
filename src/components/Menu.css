@@ -186,7 +186,7 @@ body.menu-open {
   height: 100%;
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  padding: var(--rg-pad);
+  padding: calc(var(--rg-pad) + 88px) var(--rg-pad) var(--rg-pad);
   gap: 4rem;
 }
 
@@ -216,7 +216,7 @@ body.menu-open {
   display: flex;
   align-items: center;
   gap: 2rem;
-  padding: 1.5rem 0;
+  padding: 1.1rem 0;
   text-decoration: none;
   transform: translateX(-110%);
   transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1);

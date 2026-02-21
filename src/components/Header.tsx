@@ -90,26 +90,25 @@ export default function Header({ ready = false }: { ready?: boolean }) {
     gsap.killTweensOf(logo);
     if (isOpen) {
       if (headerBgRef.current) {
-        gsap.to(headerBgRef.current, { scaleY: 0, transformOrigin: "top", duration: 0.3, ease: "power2.in" });
+        gsap.to(headerBgRef.current, {
+          scaleY: 0,
+          transformOrigin: "top",
+          duration: 0.3,
+          ease: "power2.in",
+        });
       }
-      gsap.to(logo, {
-        y: -20,
-        opacity: 0,
-        duration: 0.35,
-        ease: "power2.inOut",
-      });
+      gsap.set(logo, { y: 0, opacity: 1 });
     } else {
       if (headerBgRef.current && window.scrollY > 100) {
-        gsap.to(headerBgRef.current, { scaleY: 1, transformOrigin: "top", duration: 0.4, ease: "power3.out", delay: 1.3 });
+        gsap.to(headerBgRef.current, {
+          scaleY: 1,
+          transformOrigin: "top",
+          duration: 0.4,
+          ease: "power3.out",
+          delay: 1.3,
+        });
       }
-      gsap.set(logo, { y: -20, opacity: 0 });
-      gsap.to(logo, {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        ease: "power3.out",
-        delay: 1.4,
-      });
+      gsap.set(logo, { y: 0, opacity: 1 });
     }
   }, [isOpen]);
 
