@@ -21,6 +21,12 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
     const video = videoRef.current;
     if (!video) return;
 
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+
     const tryPlay = async () => {
       try {
         await video.play();
@@ -186,6 +192,8 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
             loop
             muted
             playsInline
+            controls={false}
+            disablePictureInPicture
             preload="auto"
             poster={`${publicUrl}images/hero-rpg-brisbane.jpg`}
             onLoadedMetadata={() => {
@@ -193,7 +201,10 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
                 requestAnimationFrame(() => setVideoReady(true));
               });
             }}
-            onCanPlay={() => setVideoReady(true)}
+            onCanPlay={() => {
+              setVideoReady(true);
+              void videoRef.current?.play();
+            }}
           />
         </div>
         <div
