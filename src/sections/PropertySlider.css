@@ -13,7 +13,7 @@
   min-height: 560px;
   overflow: hidden;
   background: #040c58;          /* same as .rg-about */
-  margin-top: clamp(2rem, 4vw, 3.5rem); /* breathing room below intro */
+  margin-top: clamp(3rem, 6vw, 5rem); /* breathing room below intro */
 }
 
 /* ── Left accent panel (the "bg-shape" equivalent) ── */
@@ -43,16 +43,6 @@
   border-radius: inherit;
 }
 
-/* Gold horizontal rule at top of accent */
-.rg-ps__accent::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--rg-gold) 0%, transparent 75%);
-}
 
 /* "RG" serif watermark monogram */
 .rg-ps__monogram {
@@ -358,13 +348,14 @@
   transform: translateX(3px);
 }
 
-/* ── Navigation buttons ── */
+/* ── Navigation buttons — desktop hidden, mobile only ── */
 .rg-ps__navBtn {
+  display: none; /* hidden on desktop; shown via mobile media query below */
   position: absolute;
   z-index: 20;
   top: 50%;
   transform: translateY(-50%);
-  display: inline-flex;
+  /* re-declared as inline-flex inside the mobile breakpoint */
   align-items: center;
   justify-content: center;
   width: 52px;
@@ -490,11 +481,7 @@
     z-index: 10;
   }
 
-  .rg-ps__accent::before {
-    display: none; /* gold top rule hidden — card is full-bleed */
-  }
-
-  .rg-ps__monogram {
+.rg-ps__monogram {
     display: none;
   }
 
@@ -566,6 +553,9 @@
 
   /* Nav arrows — bottom-right corner of the card */
   .rg-ps__navBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     top: auto;
     bottom: 1.25rem;
     width: 42px;
