@@ -62,149 +62,276 @@ const DEFAULT_SLIDES: PSSlide[] = [
 ];
 
 /* ── Per-slide architectural SVG content ── */
-const ARCH_VIEWBOXES = ["0 0 100 118", "0 0 80 130", "0 0 110 108"];
+/* ── Per-slide architectural SVG content ── */
+const ARCH_VIEWBOXES = ["0 0 140 100", "0 0 150 100", "0 0 160 100"];
 
 const ARCH_SHAPES: React.ReactNode[] = [
-  /* ── BUY — traditional two-storey house ── */
+  /* ── BUY — Grand Estate Mansion ── */
   <>
-    {/* chimney */}
-    <rect x="67" y="12" width="10" height="28" />
-    <line x1="64" y1="12" x2="80" y2="12" />
-    {/* roof */}
-    <polygon points="0,52 50,5 100,52" />
-    {/* inner roof ridge lines */}
-    <line x1="12" y1="52" x2="50" y2="14" />
-    <line x1="50" y1="14" x2="88" y2="52" />
-    {/* wall */}
-    <rect x="8" y="50" width="84" height="60" />
-    {/* upper-left window */}
-    <rect x="13" y="57" width="22" height="18" />
-    <line x1="24" y1="57" x2="24" y2="75" />
-    <line x1="13" y1="66" x2="35" y2="66" />
-    {/* upper-right window */}
-    <rect x="65" y="57" width="22" height="18" />
-    <line x1="76" y1="57" x2="76" y2="75" />
-    <line x1="65" y1="66" x2="87" y2="66" />
-    {/* lower-left window */}
-    <rect x="13" y="81" width="22" height="18" />
-    <line x1="24" y1="81" x2="24" y2="99" />
-    <line x1="13" y1="90" x2="35" y2="90" />
-    {/* lower-right window */}
-    <rect x="65" y="81" width="22" height="18" />
-    <line x1="76" y1="81" x2="76" y2="99" />
-    <line x1="65" y1="90" x2="87" y2="90" />
-    {/* arched front door */}
-    <path d="M42 110 L42 87 Q42 76 50 76 Q58 76 58 87 L58 110" />
-    <circle cx="56" cy="93" r="1.5" />
-    {/* steps */}
-    <line x1="33" y1="110" x2="67" y2="110" />
-    <line x1="26" y1="114" x2="74" y2="114" />
-    <line x1="18" y1="118" x2="82" y2="118" />
+    {/* main central block */}
+    <rect x="35" y="30" width="70" height="55" />
+
+    {/* grand peaked roof */}
+    <path d="M30 30 L70 5 L110 30" />
+    <path d="M35 30 L70 10 L105 30" />
+
+    {/* left wing */}
+    <rect x="5" y="45" width="30" height="40" />
+    <path d="M5 45 L20 32 L35 45" />
+
+    {/* right wing */}
+    <rect x="105" y="45" width="30" height="40" />
+    <path d="M105 45 L120 32 L135 45" />
+
+    {/* decorative roof finial */}
+    <line x1="70" y1="5" x2="70" y2="0" />
+    <circle cx="70" cy="0" r="2" />
+
+    {/* ornate window - center top (Palladian style) */}
+    <path d="M58 35 L58 50 A12 12 0 0 0 82 50 L82 35" />
+    <line x1="70" y1="35" x2="70" y2="50" />
+    <rect x="58" y="50" width="10" height="12" />
+    <rect x="72" y="50" width="10" height="12" />
+
+    {/* grand entrance */}
+    <rect x="60" y="65" width="20" height="20" />
+    <path d="M58 65 L70 55 L82 65" />
+    <line x1="70" y1="65" x2="70" y2="85" />
+    <circle cx="67" cy="76" r="1" />
+    <circle cx="73" cy="76" r="1" />
+
+    {/* entrance columns */}
+    <line x1="55" y1="55" x2="55" y2="85" />
+    <line x1="85" y1="55" x2="85" y2="85" />
+    <path d="M53 55 L55 52 L57 55" />
+    <path d="M83 55 L85 52 L87 55" />
+
+    {/* portico roof */}
+    <line x1="52" y1="55" x2="88" y2="55" />
+
+    {/* left wing windows */}
+    <rect x="12" y="52" width="8" height="12" />
+    <rect x="22" y="52" width="8" height="12" />
+    <rect x="12" y="68" width="8" height="12" />
+    <rect x="22" y="68" width="8" height="12" />
+
+    {/* right wing windows */}
+    <rect x="110" y="52" width="8" height="12" />
+    <rect x="120" y="52" width="8" height="12" />
+    <rect x="110" y="68" width="8" height="12" />
+    <rect x="120" y="68" width="8" height="12" />
+
+    {/* main block side windows */}
+    <rect x="40" y="38" width="10" height="14" />
+    <line x1="45" y1="38" x2="45" y2="52" />
+    <rect x="90" y="38" width="10" height="14" />
+    <line x1="95" y1="38" x2="95" y2="52" />
+
+    <rect x="40" y="58" width="10" height="14" />
+    <line x1="45" y1="58" x2="45" y2="72" />
+    <rect x="90" y="58" width="10" height="14" />
+    <line x1="95" y1="58" x2="95" y2="72" />
+
+    {/* chimneys */}
+    <rect x="42" y="12" width="6" height="15" />
+    <line x1="40" y1="12" x2="50" y2="12" />
+    <rect x="92" y="12" width="6" height="15" />
+    <line x1="90" y1="12" x2="100" y2="12" />
+
+    {/* grand steps */}
+    <path d="M50 85 L50 88 L90 88 L90 85" />
+    <path d="M45 88 L45 91 L95 91 L95 88" />
+    <path d="M40 91 L40 94 L100 94 L100 91" />
+
+    {/* balustrade details */}
+    <line x1="40" y1="93" x2="50" y2="93" />
+    <line x1="90" y1="93" x2="100" y2="93" />
+
+    {/* ground line */}
+    <line x1="0" y1="94" x2="40" y2="94" />
+    <line x1="100" y1="94" x2="140" y2="94" />
+
+    {/* decorative urns */}
+    <ellipse cx="38" cy="92" rx="3" ry="4" />
+    <ellipse cx="102" cy="92" rx="3" ry="4" />
   </>,
 
-  /* ── SELL — modern skyscraper ── */
+  /* ── SELL — Contemporary Luxury Villa ── */
   <>
-    {/* spire */}
-    <line x1="40" y1="0" x2="40" y2="13" />
-    <line x1="33" y1="9" x2="47" y2="9" />
-    {/* crown block */}
-    <rect x="24" y="11" width="32" height="9" />
-    {/* main tower shaft */}
-    <rect x="18" y="18" width="44" height="82" />
-    {/* vertical pilaster lines */}
-    <line x1="29" y1="18" x2="29" y2="100" />
-    <line x1="51" y1="18" x2="51" y2="100" />
-    {/* window grid — 3 cols × 5 rows */}
-    <rect x="21" y="23" width="9" height="10" />
-    <rect x="35" y="23" width="9" height="10" />
-    <rect x="49" y="23" width="9" height="10" />
-    <rect x="21" y="38" width="9" height="10" />
-    <rect x="35" y="38" width="9" height="10" />
-    <rect x="49" y="38" width="9" height="10" />
-    <rect x="21" y="53" width="9" height="10" />
-    <rect x="35" y="53" width="9" height="10" />
-    <rect x="49" y="53" width="9" height="10" />
-    <rect x="21" y="68" width="9" height="10" />
-    <rect x="35" y="68" width="9" height="10" />
-    <rect x="49" y="68" width="9" height="10" />
-    <rect x="21" y="83" width="9" height="10" />{" "}
-    <rect x="49" y="83" width="9" height="10" />
-    {/* wide base podium */}
-    <rect x="4" y="100" width="72" height="24" />
-    {/* podium side windows */}
-    <rect x="7" y="104" width="14" height="13" />
-    <rect x="59" y="104" width="14" height="13" />
-    {/* entrance arch */}
-    <path d="M30 124 L30 110 Q30 101 40 101 Q50 101 50 110 L50 124" />
+    {/* main horizontal mass */}
+    <rect x="20" y="40" width="110" height="45" />
+
+    {/* floating roof plane */}
+    <line x1="15" y1="38" x2="135" y2="38" />
+    <line x1="15" y1="36" x2="135" y2="36" />
+
+    {/* vertical tower element */}
+    <rect x="85" y="18" width="35" height="67" />
+    <line x1="82" y1="16" x2="123" y2="16" />
+    <line x1="82" y1="14" x2="123" y2="14" />
+
+    {/* cantilever left section */}
+    <rect x="5" y="50" width="20" height="35" />
+    <line x1="3" y1="48" x2="27" y2="48" />
+
+    {/* large glazing panels - main */}
+    <rect x="25" y="45" width="18" height="35" />
+    <line x1="34" y1="45" x2="34" y2="80" />
+
+    <rect x="46" y="45" width="18" height="35" />
+    <line x1="55" y1="45" x2="55" y2="80" />
+
+    <rect x="67" y="45" width="15" height="35" />
+
+    {/* tower glazing */}
+    <rect x="90" y="22" width="12" height="20" />
+    <rect x="105" y="22" width="12" height="20" />
+    <rect x="90" y="46" width="12" height="18" />
+    <rect x="105" y="46" width="12" height="18" />
+    <rect x="90" y="68" width="25" height="14" />
+    <line x1="102" y1="68" x2="102" y2="82" />
+
+    {/* entrance */}
+    <rect x="67" y="60" width="15" height="25" />
+    <line x1="74.5" y1="60" x2="74.5" y2="85" />
+    <circle cx="79" cy="72" r="1" />
+
+    {/* cantilever windows */}
+    <rect x="8" y="55" width="14" height="10" />
+    <rect x="8" y="70" width="14" height="10" />
+
+    {/* infinity pool */}
+    <rect x="5" y="90" width="50" height="8" rx="1" />
+    <line x1="10" y1="94" x2="50" y2="94" />
+
+    {/* deck lines */}
+    <line x1="55" y1="85" x2="85" y2="85" />
+    <line x1="55" y1="88" x2="85" y2="88" />
+
+    {/* minimalist landscaping */}
+    <line x1="125" y1="85" x2="145" y2="85" />
+    <circle cx="135" cy="78" r="6" />
+    <line x1="135" y1="84" x2="135" y2="88" />
+
+    {/* ground plane */}
+    <line x1="0" y1="98" x2="150" y2="98" />
+
+    {/* outdoor furniture hint */}
+    <rect x="60" y="88" width="8" height="4" rx="1" />
+    <rect x="72" y="88" width="8" height="4" rx="1" />
+
+    {/* accent lighting line */}
+    <line x1="20" y1="85" x2="55" y2="85" />
   </>,
 
-  /* ── RENT — wide apartment block ── */
+  /* ── RENT — French Château ── */
   <>
-    {/* parapet battlements */}
-    <rect x="5" y="5" width="9" height="7" />
-    <rect x="23" y="5" width="9" height="7" />
-    <rect x="41" y="5" width="9" height="7" />
-    <rect x="59" y="5" width="9" height="7" />
-    <rect x="77" y="5" width="9" height="7" />
-    <rect x="95" y="5" width="9" height="7" />
-    {/* parapet base band */}
-    <rect x="2" y="10" width="106" height="7" />
-    {/* main building body */}
-    <rect x="2" y="15" width="106" height="75" />
-    {/* floor dividers */}
-    <line x1="2" y1="40" x2="108" y2="40" />
-    <line x1="2" y1="65" x2="108" y2="65" />
-    {/* floor 1 — 4 windows */}
-    <rect x="7" y="19" width="17" height="15" />
-    <line x1="15.5" y1="19" x2="15.5" y2="34" />
-    <line x1="7" y1="26.5" x2="24" y2="26.5" />
-    <rect x="30" y="19" width="17" height="15" />
-    <line x1="38.5" y1="19" x2="38.5" y2="34" />
-    <line x1="30" y1="26.5" x2="47" y2="26.5" />
-    <rect x="66" y="19" width="17" height="15" />
-    <line x1="74.5" y1="19" x2="74.5" y2="34" />
-    <line x1="66" y1="26.5" x2="83" y2="26.5" />
-    <rect x="89" y="19" width="17" height="15" />
-    <line x1="97.5" y1="19" x2="97.5" y2="34" />
-    <line x1="89" y1="26.5" x2="106" y2="26.5" />
-    {/* floor 2 — 5 windows */}
-    <rect x="7" y="44" width="17" height="15" />
-    <line x1="15.5" y1="44" x2="15.5" y2="59" />
-    <rect x="30" y="44" width="17" height="15" />
-    <line x1="38.5" y1="44" x2="38.5" y2="59" />
-    <rect x="53" y="44" width="17" height="15" />
-    <line x1="61.5" y1="44" x2="61.5" y2="59" />
-    <rect x="66" y="44" width="17" height="15" />
-    <line x1="74.5" y1="44" x2="74.5" y2="59" />
-    <rect x="89" y="44" width="17" height="15" />
-    <line x1="97.5" y1="44" x2="97.5" y2="59" />
-    {/* balcony rail floor 2 */}
-    <line x1="6" y1="60" x2="25" y2="60" />
-    <line x1="29" y1="60" x2="48" y2="60" />
-    <line x1="65" y1="60" x2="84" y2="60" />
-    <line x1="88" y1="60" x2="107" y2="60" />
-    {/* floor 3 — 5 windows */}
-    <rect x="7" y="69" width="17" height="15" />
-    <line x1="15.5" y1="69" x2="15.5" y2="84" />
-    <rect x="30" y="69" width="17" height="15" />
-    <line x1="38.5" y1="69" x2="38.5" y2="84" />
-    <rect x="53" y="69" width="17" height="15" />
-    <line x1="61.5" y1="69" x2="61.5" y2="84" />
-    <rect x="66" y="69" width="17" height="15" />
-    <line x1="74.5" y1="69" x2="74.5" y2="84" />
-    <rect x="89" y="69" width="17" height="15" />
-    <line x1="97.5" y1="69" x2="97.5" y2="84" />
-    {/* central arched entrance */}
-    <path d="M46 90 L46 76 Q46 68 55 68 Q64 68 64 76 L64 90" />
-    {/* steps */}
-    <line x1="36" y1="90" x2="74" y2="90" />
-    <line x1="29" y1="95" x2="81" y2="95" />
-    <line x1="20" y1="100" x2="90" y2="100" />
-    <line x1="10" y1="104" x2="100" y2="104" />
-    <line x1="0" y1="108" x2="110" y2="108" />
+    {/* main central body */}
+    <rect x="40" y="35" width="80" height="55" />
+
+    {/* mansard roof - main */}
+    <path d="M38 35 L38 22 L80 8 L122 22 L122 35" />
+    <path d="M42 35 L42 24 L80 12 L118 24 L118 35" />
+
+    {/* left tower */}
+    <rect x="10" y="28" width="30" height="62" />
+    <path d="M8 28 L8 15 L25 5 L42 15 L42 28" />
+    <path d="M12 28 L12 18 L25 10 L38 18 L38 28" />
+
+    {/* tower finial */}
+    <line x1="25" y1="5" x2="25" y2="0" />
+    <circle cx="25" cy="0" r="1.5" />
+
+    {/* right tower */}
+    <rect x="120" y="28" width="30" height="62" />
+    <path d="M118 28 L118 15 L135 5 L152 15 L152 28" />
+    <path d="M122 28 L122 18 L135 10 L148 18 L148 28" />
+
+    {/* tower finial */}
+    <line x1="135" y1="5" x2="135" y2="0" />
+    <circle cx="135" cy="0" r="1.5" />
+
+    {/* dormer windows */}
+    <path d="M55 35 L55 25 L65 20 L75 25 L75 35" />
+    <rect x="58" y="25" width="14" height="12" />
+    <line x1="65" y1="25" x2="65" y2="37" />
+
+    <path d="M85 35 L85 25 L95 20 L105 25 L105 35" />
+    <rect x="88" y="25" width="14" height="12" />
+    <line x1="95" y1="25" x2="95" y2="37" />
+
+    {/* left tower windows */}
+    <path d="M18 35 L18 48 A7 7 0 0 0 32 48 L32 35" />
+    <path d="M18 55 L18 68 A7 7 0 0 0 32 68 L32 55" />
+    <rect x="18" y="75" width="14" height="12" />
+    <line x1="25" y1="75" x2="25" y2="87" />
+
+    {/* right tower windows */}
+    <path d="M128 35 L128 48 A7 7 0 0 0 142 48 L142 35" />
+    <path d="M128 55 L128 68 A7 7 0 0 0 142 68 L142 55" />
+    <rect x="128" y="75" width="14" height="12" />
+    <line x1="135" y1="75" x2="135" y2="87" />
+
+    {/* main floor windows - upper */}
+    <rect x="48" y="42" width="12" height="16" />
+    <line x1="54" y1="42" x2="54" y2="58" />
+    <rect x="100" y="42" width="12" height="16" />
+    <line x1="106" y1="42" x2="106" y2="58" />
+
+    {/* main floor windows - lower */}
+    <rect x="48" y="65" width="12" height="18" />
+    <line x1="54" y1="65" x2="54" y2="83" />
+    <rect x="100" y="65" width="12" height="18" />
+    <line x1="106" y1="65" x2="106" y2="83" />
+
+    {/* grand entrance portico */}
+    <rect x="68" y="55" width="24" height="35" />
+    <path d="M65 55 L80 42 L95 55" />
+
+    {/* entrance columns */}
+    <line x1="68" y1="55" x2="68" y2="90" />
+    <line x1="74" y1="55" x2="74" y2="90" />
+    <line x1="86" y1="55" x2="86" y2="90" />
+    <line x1="92" y1="55" x2="92" y2="90" />
+
+    {/* entrance doors */}
+    <rect x="74" y="68" width="12" height="22" />
+    <line x1="80" y1="68" x2="80" y2="90" />
+    <circle cx="77" cy="80" r="1" />
+    <circle cx="83" cy="80" r="1" />
+
+    {/* transom above door */}
+    <path d="M74 68 L80 62 L86 68" />
+
+    {/* balcony */}
+    <line x1="66" y1="55" x2="94" y2="55" />
+    <line x1="68" y1="56" x2="68" y2="58" />
+    <line x1="72" y1="56" x2="72" y2="58" />
+    <line x1="76" y1="56" x2="76" y2="58" />
+    <line x1="80" y1="56" x2="80" y2="58" />
+    <line x1="84" y1="56" x2="84" y2="58" />
+    <line x1="88" y1="56" x2="88" y2="58" />
+    <line x1="92" y1="56" x2="92" y2="58" />
+
+    {/* grand steps */}
+    <path d="M62 90 L62 93 L98 93 L98 90" />
+    <path d="M58 93 L58 96 L102 96 L102 93" />
+
+    {/* ground line */}
+    <line x1="0" y1="96" x2="58" y2="96" />
+    <line x1="102" y1="96" x2="160" y2="96" />
+
+    {/* formal garden elements */}
+    <ellipse cx="30" cy="95" rx="8" ry="3" />
+    <ellipse cx="130" cy="95" rx="8" ry="3" />
+
+    {/* topiary */}
+    <circle cx="5" cy="88" r="5" />
+    <line x1="5" y1="93" x2="5" y2="96" />
+    <circle cx="155" cy="88" r="5" />
+    <line x1="155" y1="93" x2="155" y2="96" />
   </>,
 ];
-
 type Props = {
   slides?: PSSlide[];
 };
