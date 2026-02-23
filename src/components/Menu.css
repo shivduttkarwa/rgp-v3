@@ -790,6 +790,7 @@ body.menu-open {
     border-color: var(--rg-gold);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(249, 195, 7, 0.25);
+    background: var(--rg-gold);
   }
 
   .menu-social a:hover::before {
@@ -809,10 +810,10 @@ body.menu-open {
   }
 
   .menu-social a:hover svg {
-    color: #00032e;
+    color: var(--rg-dark);
   }
   .menu-social a:active svg {
-    color: #00032e;
+    color: var(--rg-dark);
   }
 
   .menu-info-block {
