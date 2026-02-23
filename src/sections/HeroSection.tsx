@@ -1,12 +1,45 @@
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import BtnSecondary from "../components/BtnSecondary";
 import "./HeroSection.css";
 
+type HeroSectionProps = {
+  ready?: boolean;
+  titleLine1?: ReactNode;
+  titleLine2?: ReactNode;
+  subtitle?: ReactNode;
+  ctaLabel?: string;
+  ctaOnClick?: () => void;
+  showCta?: boolean;
+  bgImage?: string;
+  bgVideo?: string;
+  bgPoster?: string;
+};
+
 /* ═══════════════════════════════════════════════════
    COMPONENT
    ═══════════════════════════════════════════════════ */
-export default function HeroSection({ ready = false }: { ready?: boolean }) {
+export default function HeroSection({
+  ready = false,
+  titleLine1 = (
+    <>
+      Your <span className="rg-gold">Dream</span> Home
+    </>
+  ),
+  titleLine2 = (
+    <>
+      <span className="rg-amber">Perfectly</span> Delivered
+    </>
+  ),
+  subtitle =
+    "350+ premium properties delivered — luxury villas, penthouses & exclusive estates crafted for those who demand the extraordinary.",
+  ctaLabel = "Explore Properties",
+  ctaOnClick,
+  showCta = true,
+  bgImage = "images/hero-rpg-brisbane.jpg",
+  bgVideo = "vids/hero-rgp.mp4",
+  bgPoster,
+}: HeroSectionProps) {
   const publicUrl = import.meta.env.BASE_URL || "/";
   const bgRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
@@ -16,6 +49,11 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
   const revealCtaRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    if (titleOneRef.current) titleOneRef.current.dataset.charSplit = "false";
+    if (titleTwoRef.current) titleTwoRef.current.dataset.charSplit = "false";
+  }, [titleLine1, titleLine2]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -180,7 +218,7 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
         >
           <img
             className="rg-hero__bg-poster"
-            src={`${publicUrl}images/hero-rpg-brisbane.jpg`}
+            src={`${publicUrl}${bgImage}`}
             alt=""
             loading="eager"
             fetchPriority="high"
@@ -188,7 +226,7 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
           <video
             className="rg-hero__bg-video"
             ref={videoRef}
-            src={`${publicUrl}vids/hero-rgp.mp4`}
+            src={`${publicUrl}${bgVideo}`}
             autoPlay
             loop
             muted
@@ -196,7 +234,7 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
             controls={false}
             disablePictureInPicture
             preload="auto"
-            poster={`${publicUrl}images/hero-rpg-brisbane.jpg`}
+            poster={`${publicUrl}${bgPoster || bgImage}`}
             onLoadedMetadata={() => {
               requestAnimationFrame(() => {
                 requestAnimationFrame(() => setVideoReady(true));
@@ -218,22 +256,23 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
           <div className="rg-reveal__title">
             <div className="rg-reveal__line">
               <div className="rg-reveal__text" ref={titleOneRef}>
-                Your <span className="rg-gold">Dream</span> Home
+                {titleLine1}
               </div>
             </div>
             <div className="rg-reveal__line">
               <div className="rg-reveal__text" ref={titleTwoRef}>
-                <span className="rg-amber">Perfectly</span> Delivered
+                {titleLine2}
               </div>
             </div>
           </div>
           <div className="rg-reveal__sub" ref={revealSubRef}>
-            350+ premium properties delivered — luxury villas, penthouses &amp;
-            exclusive estates crafted for those who demand the extraordinary.
+            {subtitle}
           </div>
-          <div className="rg-reveal__cta" ref={revealCtaRef}>
-            <BtnSecondary label="Explore Properties" />
-          </div>
+          {showCta && (
+            <div className="rg-reveal__cta" ref={revealCtaRef}>
+              <BtnSecondary label={ctaLabel} onClick={ctaOnClick} />
+            </div>
+          )}
         </div>
       </section>
     </div>
