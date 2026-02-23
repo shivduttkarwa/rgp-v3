@@ -172,6 +172,7 @@ function clamp(n: number, a: number, b: number) {
 export default function PropertyMarquee() {
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
 
   const SPEED_PX_PER_SEC = 42; // ✅ increased marquee speed (was ~18)
   const GAP_PX_FALLBACK = 18;
@@ -286,6 +287,7 @@ export default function PropertyMarquee() {
     const viewport = viewportRef.current;
     const track = trackRef.current;
     if (!viewport || !track) return;
+    const cursor = cursorRef.current;
 
     // ----- Helpers -----
     const getGap = () => {
@@ -449,6 +451,58 @@ export default function PropertyMarquee() {
     };
   }, [GAP_PX_FALLBACK, SPEED_PX_PER_SEC, items.length]);
 
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const cursor = cursorRef.current;
+    if (!viewport || !cursor) return;
+
+    const onEnter = () => {
+      cursor.style.opacity = "1";
+    };
+
+    const onLeave = () => {
+      cursor.style.opacity = "0";
+    };
+
+    const onOver = (e: PointerEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      if (target.closest("a, button, .card-btn")) {
+        cursor.style.opacity = "0";
+      }
+    };
+
+    const onOut = (e: PointerEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      if (target.closest("a, button, .card-btn")) {
+        cursor.style.opacity = "1";
+      }
+    };
+
+    const onMove = (e: PointerEvent) => {
+      const rect = viewport.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      cursor.style.setProperty("--x", `${x}px`);
+      cursor.style.setProperty("--y", `${y}px`);
+    };
+
+    viewport.addEventListener("pointerenter", onEnter);
+    viewport.addEventListener("pointerleave", onLeave);
+    viewport.addEventListener("pointermove", onMove);
+    viewport.addEventListener("pointerover", onOver);
+    viewport.addEventListener("pointerout", onOut);
+
+    return () => {
+      viewport.removeEventListener("pointerenter", onEnter);
+      viewport.removeEventListener("pointerleave", onLeave);
+      viewport.removeEventListener("pointermove", onMove);
+      viewport.removeEventListener("pointerover", onOver);
+      viewport.removeEventListener("pointerout", onOut);
+    };
+  }, []);
+
   return (
     <section className="rgMarquee property-section">
       <div className="wrap">
@@ -467,6 +521,9 @@ export default function PropertyMarquee() {
       </div>
 
       <div className="rgMarquee__rail" aria-label="Property marquee slider">
+        <div className="rgMarquee__cursor" ref={cursorRef} aria-hidden="true">
+          <span className="cursor-text">Drag</span>
+        </div>
         <div
           className="rgMarquee__fade rgMarquee__fade--l"
           aria-hidden="true"
