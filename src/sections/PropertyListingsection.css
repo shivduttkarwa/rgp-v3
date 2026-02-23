@@ -6,7 +6,7 @@
 /* ===== Section Base ===== */
 .property-section {
   padding: clamp(3rem, 8vw, 6rem) 0;
-  background-color: #020640;
+  background-color: #05072b;
   overflow: hidden;
 }
 
@@ -175,7 +175,11 @@
   border-radius: var(--rg-radius);
   overflow: hidden;
   border: 1px solid rgba(249, 195, 7, 0.15);
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+  transform: translateZ(0);
 }
 
 /* Exit phase: all cards leave simultaneously */
@@ -199,6 +203,8 @@
   position: relative;
   height: 14rem;
   overflow: hidden;
+  background: #060e5c;
+  transform: translateZ(0);
 }
 
 .property-section .card-image {
@@ -206,6 +212,9 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .property-section .property-card:hover .card-image {
@@ -218,7 +227,7 @@
 
 .property-section .card-overlay {
   position: absolute;
-  inset: 0;
+  inset: -1px;
   background: linear-gradient(
     to top,
     #060e5c 0%,
@@ -344,6 +353,18 @@
 /* Card Body */
 .property-section .card-body {
   padding: 1.25rem;
+  background: #060e5c;
+  position: relative;
+}
+
+.property-section .card-body::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 2px;
+  background: #060e5c;
 }
 
 .property-section .card-header {
@@ -550,13 +571,25 @@
 }
 
 @keyframes swiperExit {
-  from { opacity: 1; transform: translateX(0); }
-  to   { opacity: 0; transform: translateX(-16px); }
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
 }
 
 @keyframes swiperEnter {
-  from { opacity: 0; transform: translateX(16px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @media (max-width: 768px) {
@@ -593,7 +626,6 @@
   transform: scale(1) translateY(0);
   opacity: 1;
 }
-
 
 .property-section .property-swiper .property-card {
   width: 100%;
@@ -741,7 +773,10 @@
     position: relative;
   }
 
-  .property-section .property-swiper .swiper-slide-active .property-card-wrap::after {
+  .property-section
+    .property-swiper
+    .swiper-slide-active
+    .property-card-wrap::after {
     content: "";
     position: absolute;
     bottom: -1px;

@@ -1,10 +1,23 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  Bath,
+  Bed,
+  Car,
+  CheckCircle,
+  MapPin,
+  Square,
+  Tag,
+} from "lucide-react";
+import "../../sections/PropertyListingSection.css";
+import "./PropertyMarqee.css";
 
 /**
  * RealGold Properties — Marquee Property Slider
  * - Continuous marquee (seamless loop)
  * - Faster speed (tweak SPEED_PX_PER_SEC)
- * - Pause on hover (auto pauses + resumes)
+ * - No hover pause (continuous marquee)
  * - Drag/swipe with inertia
  * - Better, more aesthetic cards (glass, premium borders, elegant typography)
  *
@@ -16,29 +29,141 @@ type PropertyCard = {
   id: string;
   title: string;
   location: string;
-  stats: string; // e.g. "82,000 sq ft"
-  type: string; // e.g. "Industrial"
-  tags: string[];
+  price: number;
+  beds: number;
+  baths: number;
+  sqft: number;
+  garage: number;
+  features: string[];
+  badge?: string;
+  isNew?: boolean;
+  category: "for-sale" | "sold" | "for-rent";
   image: string;
+  slug: string;
 };
 
-const ArrowIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-    <path
-      d="M5 12h12"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-    />
-    <path
-      d="M13 6l6 6-6 6"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+const badgeClass = (badge?: string) => {
+  if (!badge) return "";
+  const value = badge.toLowerCase();
+  if (value.includes("premium")) return "badge-premium";
+  if (value.includes("featured")) return "badge-featured";
+  if (value.includes("new")) return "badge-new";
+  if (value.includes("hot")) return "badge-hot";
+  return "";
+};
+
+const formatPrice = (price: number, isRent = false) => {
+  const formatted = price.toLocaleString("en-US");
+  return isRent ? `$${formatted}/mo` : `$${formatted}`;
+};
+
+const PropertyCardMarquee = ({ property }: { property: PropertyCard }) => {
+  const isSold = property.category === "sold";
+  const isRent = property.category === "for-rent";
+  const displayPrice = isSold ? property.price : property.price;
+
+  return (
+    <div className={`property-card ${property.category}`}>
+      <div className="card-image-wrapper">
+        <img
+          src={property.image}
+          alt={property.title}
+          className={`card-image ${isSold ? "sold" : ""}`}
+          draggable={false}
+        />
+        <div className="card-overlay" />
+
+        <div className="card-badges">
+          {property.badge && (
+            <span className={`badge ${badgeClass(property.badge)}`}>
+              <Tag size={12} />
+              {property.badge}
+            </span>
+          )}
+          {property.isNew && <span className="badge badge-new">New Listing</span>}
+          {isSold && (
+            <span className="badge badge-sold">
+              <CheckCircle size={12} />
+              Sold
+            </span>
+          )}
+        </div>
+
+        <div className="card-price-wrapper">
+          <div className="price-info">
+            <span className="price-current">
+              {formatPrice(displayPrice, isRent)}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="card-body">
+        <div className="card-header">
+          <h3 className="card-title">{property.title}</h3>
+          <div className="card-location">
+            <MapPin size={14} />
+            <span>{property.location}</span>
+          </div>
+        </div>
+
+        <div className="card-stats">
+          <div className="stat">
+            <div className="stat-icon">
+              <Bed size={14} />
+            </div>
+            <div className="stat-content">
+              <span className="stat-value">{property.beds}</span>
+              <span className="stat-label">Beds</span>
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-icon">
+              <Bath size={14} />
+            </div>
+            <div className="stat-content">
+              <span className="stat-value">{property.baths}</span>
+              <span className="stat-label">Baths</span>
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-icon">
+              <Square size={14} />
+            </div>
+            <div className="stat-content">
+              <span className="stat-value">
+                {(property.sqft / 1000).toFixed(1)}k
+              </span>
+              <span className="stat-label">Sq Ft</span>
+            </div>
+          </div>
+          <div className="stat">
+            <div className="stat-icon">
+              <Car size={14} />
+            </div>
+            <div className="stat-content">
+              <span className="stat-value">{property.garage}</span>
+              <span className="stat-label">Garage</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="card-features">
+          {property.features.map((feature, idx) => (
+            <span key={idx} className="feature-tag">
+              {feature}
+            </span>
+          ))}
+        </div>
+
+        <Link to={`/properties/${property.slug}`} className="card-btn btn-primary">
+          <span>View Property</span>
+          <ArrowRight size={16} />
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 function clamp(n: number, a: number, b: number) {
   return Math.max(a, Math.min(b, n));
@@ -49,70 +174,106 @@ export default function PropertyMarquee() {
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   const SPEED_PX_PER_SEC = 42; // ✅ increased marquee speed (was ~18)
-  const HOVER_PAUSE = true; // ✅ pauses on hover
   const GAP_PX_FALLBACK = 18;
 
   const items: PropertyCard[] = useMemo(
     () => [
       {
         id: "p1",
-        title: "Montreal Distribution Center",
-        location: "Montreal",
-        stats: "82,000 sq ft",
-        type: "Industrial",
-        tags: ["Lease", "Dock doors", "High clear"],
+        title: "Harborline Residences",
+        location: "Sydney, AU",
+        price: 2450000,
+        beds: 4,
+        baths: 3,
+        sqft: 4200,
+        garage: 2,
+        features: ["Waterfront", "Infinity Pool", "Private Dock"],
+        badge: "Featured",
+        isNew: true,
+        category: "for-sale",
         image:
-          "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1600&q=85",
+        slug: "harborline-residences",
       },
       {
         id: "p2",
-        title: "Toronto Class-A Offices",
-        location: "Toronto",
-        stats: "14 floors",
-        type: "Commercial",
-        tags: ["Core CBD", "Transit", "Concierge"],
+        title: "Canopy Estate",
+        location: "Gold Coast, AU",
+        price: 1890000,
+        beds: 5,
+        baths: 4,
+        sqft: 5100,
+        garage: 3,
+        features: ["Garden Courtyard", "Chef Kitchen", "Cinema Room"],
+        badge: "Premium",
+        category: "for-sale",
         image:
-          "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1600&q=85",
+        slug: "canopy-estate",
       },
       {
         id: "p3",
-        title: "Riverside Residences",
-        location: "Waterfront",
-        stats: "168 units",
-        type: "Residential",
-        tags: ["New build", "Gym", "Parking"],
+        title: "Midtown Skylofts",
+        location: "Melbourne, AU",
+        price: 1320000,
+        beds: 3,
+        baths: 2,
+        sqft: 2100,
+        garage: 2,
+        features: ["City Views", "Concierge", "Private Lift"],
+        badge: "New",
+        isNew: true,
+        category: "for-sale",
         image:
-          "https://images.unsplash.com/photo-1501183638710-841dd1904471?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1523217582562-09d0def993a6?auto=format&fit=crop&w=1600&q=85",
+        slug: "midtown-skylofts",
       },
       {
         id: "p4",
-        title: "Logistics Park West",
-        location: "Etobicoke",
-        stats: "210,000 sq ft",
-        type: "Industrial",
-        tags: ["For sale", "ESFR", "Trailer"],
+        title: "Cliffside Retreat",
+        location: "Byron Bay, AU",
+        price: 2890000,
+        beds: 4,
+        baths: 4,
+        sqft: 4700,
+        garage: 2,
+        features: ["Ocean Terrace", "Sauna", "Guest Suite"],
+        badge: "Featured",
+        category: "for-sale",
         image:
-          "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6?auto=format&fit=crop&w=1600&q=85",
+          "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=1600&q=85",
+        slug: "cliffside-retreat",
       },
       {
         id: "p5",
-        title: "Midtown Suites",
-        location: "Toronto",
-        stats: "96 units",
-        type: "Multi-Residential",
-        tags: ["Stabilized", "Retail base", "Low capex"],
+        title: "Verdant Row",
+        location: "Brisbane, AU",
+        price: 1180000,
+        beds: 3,
+        baths: 2,
+        sqft: 1800,
+        garage: 2,
+        features: ["Park Front", "Smart Home", "EV Ready"],
+        badge: "Hot",
+        category: "for-sale",
         image:
           "https://images.unsplash.com/photo-1560448075-bb485b067938?auto=format&fit=crop&w=1600&q=85",
+        slug: "verdant-row",
       },
       {
         id: "p6",
-        title: "Civic Retail Corner",
-        location: "Downtown",
-        stats: "24,500 sq ft",
-        type: "Retail",
-        tags: ["Anchor", "High footfall", "Corner"],
+        title: "Seabreeze Terrace",
+        location: "Perth, AU",
+        price: 990000,
+        beds: 2,
+        baths: 2,
+        sqft: 1500,
+        garage: 1,
+        features: ["Sunset Deck", "Open Plan", "Secure Parking"],
+        category: "for-sale",
         image:
           "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=85",
+        slug: "seabreeze-terrace",
       },
     ],
     [],
@@ -120,8 +281,6 @@ export default function PropertyMarquee() {
 
   // Duplicate items for seamless marquee (we will render A + A)
   const doubled = useMemo(() => [...items, ...items], [items]);
-
-  const [isHover, setIsHover] = useState(false);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -166,11 +325,7 @@ export default function PropertyMarquee() {
     let velocity = 0;
 
     // Pause control
-    const shouldAutoMove = () => {
-      if (isDown) return false;
-      if (HOVER_PAUSE && isHover) return false;
-      return true;
-    };
+    const shouldAutoMove = () => !isDown;
 
     const onDown = (e: PointerEvent | TouchEvent) => {
       isDown = true;
@@ -292,18 +447,21 @@ export default function PropertyMarquee() {
 
       window.removeEventListener("resize", onResize);
     };
-  }, [GAP_PX_FALLBACK, HOVER_PAUSE, SPEED_PX_PER_SEC, isHover, items.length]);
+  }, [GAP_PX_FALLBACK, SPEED_PX_PER_SEC, items.length]);
 
   return (
-    <section className="rgMarquee">
+    <section className="rgMarquee property-section">
       <div className="wrap">
-        <header className="rgMarquee__head">
-          <div className="rgMarquee__kicker">Featured</div>
-          <h2 className="rgMarquee__title">
-            Available <em>Properties</em>
+        <header className="section-header">
+          <div className="section-badge">
+            <span>Featured Portfolio</span>
+          </div>
+          <h2 className="section-title">
+            Explore <em>Signature Homes</em>
           </h2>
-          <p className="rgMarquee__sub">
-            A curated stream of opportunities — hover to pause, drag to explore.
+          <p className="section-subtitle">
+            A curated selection of standout residences from across our
+            portfolio — updated regularly.
           </p>
         </header>
       </div>
@@ -318,327 +476,17 @@ export default function PropertyMarquee() {
           aria-hidden="true"
         />
 
-        <div
-          className="rgMarquee__viewport"
-          ref={viewportRef}
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-        >
+        <div className="rgMarquee__viewport" ref={viewportRef}>
           <div className="rgMarquee__track" ref={trackRef}>
             {doubled.map((p, idx) => (
-              <article className="rgProp" key={`${p.id}-${idx}`}>
-                <div className="rgProp__media">
-                  <img src={p.image} alt={p.title} draggable={false} />
-                  <div className="rgProp__pill">{p.type}</div>
-
-                  {/* subtle premium corner highlight */}
-                  <div className="rgProp__shine" aria-hidden="true" />
-                </div>
-
-                <div className="rgProp__body">
-                  <div className="rgProp__top">
-                    <h3 className="rgProp__name">{p.title}</h3>
-                    <div className="rgProp__meta">
-                      <span>{p.location}</span>
-                      <span className="rgProp__dot" aria-hidden="true" />
-                      <span>{p.stats}</span>
-                    </div>
-                  </div>
-
-                  <div
-                    className="rgProp__tags"
-                    aria-label="Property highlights"
-                  >
-                    {p.tags.map((t) => (
-                      <span className="rgProp__tag" key={t}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="rgProp__cta">
-                    <button className="rgProp__btn" type="button">
-                      View Details
-                      <span className="rgProp__btnIcon" aria-hidden="true">
-                        <ArrowIcon />
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </article>
+              <div className="property-card-wrap" key={`${p.id}-${idx}`}>
+                <PropertyCardMarquee property={p} />
+              </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Styles scoped by classnames (works with plain CSS file too) */}
-      <style>{`
-        .rgMarquee{
-          padding: clamp(48px, 6vw, 88px) 0;
-          background: var(--rg-beige-light);
-          border-top: 1px solid rgba(44,24,16,.08);
-          border-bottom: 1px solid rgba(44,24,16,.08);
-          overflow: hidden;
-        }
-
-        .rgMarquee__head{ margin-bottom: 22px; }
-        .rgMarquee__kicker{
-          display:flex; align-items:center; gap: 12px;
-          font-size: 14px;
-          letter-spacing: .18em;
-          text-transform: uppercase;
-          color: rgba(92,77,66,.72);
-          margin-bottom: 10px;
-        }
-        .rgMarquee__kicker::before{
-          content:"";
-          width: 46px; height: 1px;
-          background: var(--rg-gold);
-          opacity: .9;
-        }
-        .rgMarquee__title{
-          margin: 0 0 8px;
-          font-size: clamp(34px, 3.4vw, 56px);
-          letter-spacing: -0.03em;
-          line-height: 1.02;
-          font-weight: 400;
-          color: var(--rg-text-dark);
-          font-family: var(--font-body);
-        }
-        .rgMarquee__title em{
-          font-family: var(--font-title);
-          font-style: italic;
-          font-weight: 400;
-        }
-        .rgMarquee__sub{
-          margin: 0;
-          color: rgba(92,77,66,.78);
-          max-width: 62ch;
-          line-height: 1.6;
-          font-size: 14px;
-        }
-
-        /* Rail + fades */
-        .rgMarquee__rail{ position: relative; padding: 10px 0 2px; }
-        .rgMarquee__fade{
-          position:absolute; top:0; bottom:0;
-          width: min(180px, 12vw);
-          pointer-events:none;
-          z-index: 3;
-        }
-        .rgMarquee__fade--l{
-          left:0;
-          background: linear-gradient(90deg, var(--rg-beige-light) 0%, rgba(255,248,240,0) 100%);
-        }
-        .rgMarquee__fade--r{
-          right:0;
-          background: linear-gradient(270deg, var(--rg-beige-light) 0%, rgba(255,248,240,0) 100%);
-        }
-
-        .rgMarquee__viewport{
-          overflow: hidden;
-          cursor: grab;
-          user-select: none;
-          -webkit-user-select: none;
-          touch-action: pan-y;
-        }
-        .rgMarquee__viewport.rgMarquee_dragging{ cursor: grabbing; }
-
-        .rgMarquee__track{
-          display:flex;
-          gap: 18px;
-          will-change: transform;
-          padding: 12px var(--rg-pad);
-        }
-
-        /* ===== Premium Property Card ===== */
-        .rgProp{
-          flex: 0 0 auto;
-          width: clamp(300px, 26vw, 410px);
-          border-radius: 22px;
-          overflow: hidden;
-          position: relative;
-
-          /* layered surface */
-          background:
-            radial-gradient(120% 120% at 10% 0%, rgba(255,255,255,.90) 0%, rgba(255,248,240,.62) 40%, rgba(245,239,230,.82) 100%);
-          border: 1px solid rgba(44,24,16,.10);
-          box-shadow:
-            0 18px 40px rgba(44,24,16,.10),
-            inset 0 1px 0 rgba(255,255,255,.65);
-
-          transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, filter .22s ease;
-          filter: saturate(1.02);
-        }
-
-        .rgProp::before{
-          /* subtle gold edge glow */
-          content:"";
-          position:absolute;
-          inset: -1px;
-          border-radius: 22px;
-          pointer-events:none;
-          background: radial-gradient(80% 60% at 20% 0%, rgba(212,160,86,.26) 0%, rgba(212,160,86,0) 60%);
-          opacity: .9;
-        }
-
-        .rgProp:hover{
-          transform: translateY(-4px);
-          border-color: rgba(44,24,16,.16);
-          box-shadow:
-            0 22px 58px rgba(44,24,16,.14),
-            inset 0 1px 0 rgba(255,255,255,.70);
-        }
-
-        .rgProp__media{
-          position: relative;
-          height: 236px;
-          background: var(--rg-beige-dark);
-          overflow:hidden;
-        }
-        .rgProp__media img{
-          width:100%; height:100%;
-          object-fit: cover;
-          transform: scale(1.06);
-          filter: saturate(1.03) contrast(1.04);
-          user-select:none;
-          -webkit-user-drag:none;
-        }
-        .rgProp__media::after{
-          content:"";
-          position:absolute; inset:0;
-          background:
-            linear-gradient(180deg, rgba(0,0,0,.00) 35%, rgba(0,0,0,.52) 100%);
-          pointer-events:none;
-        }
-
-        .rgProp__pill{
-          position:absolute;
-          left: 14px; top: 14px;
-          z-index: 2;
-          padding: 9px 12px;
-          border-radius: 999px;
-          font-size: 12px;
-          letter-spacing: .12em;
-          text-transform: uppercase;
-          color: rgba(255,248,240,.96);
-          background: rgba(27,17,12,.58);
-          border: 1px solid rgba(255,248,240,.26);
-          backdrop-filter: blur(7px);
-        }
-
-        .rgProp__shine{
-          position:absolute;
-          right:-30%;
-          top:-40%;
-          width: 70%;
-          height: 120%;
-          background: linear-gradient(90deg, rgba(255,255,255,.0) 0%, rgba(255,255,255,.14) 45%, rgba(255,255,255,0) 100%);
-          transform: rotate(22deg);
-          pointer-events:none;
-          opacity: .75;
-        }
-
-        .rgProp__body{
-          padding: 16px 16px 16px;
-        }
-
-        .rgProp__top{
-          display:flex;
-          flex-direction: column;
-          gap: 7px;
-          margin-bottom: 12px;
-        }
-
-        .rgProp__name{
-          margin: 0;
-          font-size: 18px;
-          line-height: 1.12;
-          letter-spacing: -0.02em;
-          color: var(--rg-text-dark);
-          font-weight: 600;
-        }
-
-        .rgProp__meta{
-          display:flex;
-          align-items:center;
-          gap: 10px;
-          font-size: 13px;
-          color: rgba(92,77,66,.78);
-        }
-        .rgProp__dot{
-          width: 4px; height: 4px;
-          border-radius: 999px;
-          background: rgba(212,160,86,.9);
-          box-shadow: 0 0 0 3px rgba(212,160,86,.14);
-        }
-
-        .rgProp__tags{
-          display:flex;
-          gap: 8px;
-          flex-wrap: wrap;
-          margin-bottom: 14px;
-        }
-
-        .rgProp__tag{
-          font-size: 12px;
-          color: rgba(44,24,16,.86);
-          background: rgba(232,220,200,.56);
-          border: 1px solid rgba(44,24,16,.08);
-          padding: 7px 10px;
-          border-radius: 999px;
-          line-height: 1;
-          box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
-        }
-
-        .rgProp__cta{ display:flex; }
-
-        .rgProp__btn{
-          width: 100%;
-          display:flex;
-          align-items:center;
-          justify-content: space-between;
-          gap: 12px;
-          padding: 12px 14px;
-          border-radius: 999px;
-          border: 1px solid rgba(44,24,16,.16);
-          background:
-            linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,248,240,.92) 100%);
-          color: var(--rg-text-dark);
-          font-size: 13px;
-          letter-spacing: .01em;
-          cursor:pointer;
-          transition: transform .18s ease, background .18s ease, border-color .18s ease;
-        }
-
-        .rgProp__btnIcon{
-          width: 30px;
-          height: 30px;
-          border-radius: 999px;
-          display:grid;
-          place-items:center;
-          background: rgba(212,160,86,.18);
-          border: 1px solid rgba(212,160,86,.30);
-          color: rgba(44,24,16,.92);
-          transition: transform .18s ease, background .18s ease;
-        }
-        .rgProp__btnIcon svg{ width: 18px; height: 18px; display:block; }
-
-        .rgProp__btn:hover{
-          transform: translateY(-1px);
-          background: #fff;
-          border-color: rgba(44,24,16,.24);
-        }
-        .rgProp__btn:hover .rgProp__btnIcon{
-          transform: translateX(2px);
-          background: rgba(212,160,86,.22);
-        }
-
-        @media (max-width: 640px){
-          .rgProp{ width: 86vw; }
-          .rgProp__media{ height: 210px; }
-        }
-      `}</style>
     </section>
   );
 }

@@ -1,5 +1,7 @@
 import { useState } from "react";
+import BtnSecondary from "../components/BtnSecondary";
 import HeroSection from "../sections/HeroSection";
+import PropertyMarqee from "../components/reusable/PropertyMarqee";
 import "./AboutPage.css";
 
 const base = import.meta.env.BASE_URL?.endsWith("/")
@@ -35,7 +37,7 @@ export default function AboutPage() {
       <HeroSection
         showVideo={false}
         showCta={false}
-        bgImage="images/hero_architecture.jpg"
+        bgImage="images/hero1.jpg"
         titleLine1={
           <>
             Crafted For <span className="rg-gold">Life</span>
@@ -49,7 +51,7 @@ export default function AboutPage() {
         subtitle="Real Gold Properties curates refined residences across Australia — quiet luxury, timeless materials, and spaces that grow with the people who live in them."
       />
       <main className="about-page">
-        {/* 2) STATEMENT + MARK */}
+        {/* 2) STATEMENT */}
         <section className="section section-spacious">
           <div className="container center stack">
             <h2 className="intro-statement lead">
@@ -58,14 +60,6 @@ export default function AboutPage() {
               Real Gold Properties presents a refined collection of bespoke
               residences and private estates.
             </h2>
-
-            <div className="mark" aria-label="Real Gold Properties">
-              <div className="mark-icon" aria-hidden="true" />
-              <div className="twrap">
-                <div className="t1">Real Gold</div>
-                <div className="t2">PROPERTIES</div>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -82,12 +76,20 @@ export default function AboutPage() {
                   <br />
                   You Expect
                 </h3>
-                <p>
+                <p className="split-desc">
                   We craft homes that become the center of life — places where
                   family, friends, and community gather year after year. Each
                   residence is designed to feel timeless, effortless, and deeply
                   personal.
                 </p>
+                <p className="split-desc">
+                  From curated coastal enclaves to private city retreats, every
+                  detail is considered: light, scale, flow, and the quiet
+                  luxuries that make a home feel truly yours.
+                </p>
+                <div className="split-cta">
+                  <BtnSecondary label="Explore Our Homes" />
+                </div>
               </div>
             </div>
           </div>
@@ -221,19 +223,6 @@ export default function AboutPage() {
         <section className="img-overlay">
           <img alt="Turn-key residences" src={img("ps1 (5).jpg")} />
           <div className="overlay-card">
-            <div
-              className="mark"
-              style={{ justifyContent: "flex-start", margin: "0 0 18px 0" }}
-            >
-              <div className="twrap" style={{ alignItems: "flex-start" }}>
-                <div
-                  className="t2"
-                  style={{ color: "var(--green)", opacity: 0.75 }}
-                >
-                  REAL GOLD COLLECTION
-                </div>
-              </div>
-            </div>
             <h3 className="h-serif">
               Turn-Key
               <br />
@@ -248,6 +237,8 @@ export default function AboutPage() {
             </a>
           </div>
         </section>
+
+        <PropertyMarqee />
       </main>
     </>
   );
