@@ -164,6 +164,31 @@ body {
    ═══════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════
+   COLLAPSED STATE - BOTTOM GRADIENT FOR NAME LEGIBILITY
+   ═══════════════════════════════════════════════════════════ */
+
+.exp-card::after {
+  content: "";
+  position: absolute;
+  inset: 30% 0 0 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 2, 32, 0.85) 0%,
+    rgba(0, 2, 32, 0.4) 40%,
+    transparent 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+  opacity: 1;
+  mix-blend-mode: multiply;
+  transition: opacity 0.4s ease;
+}
+
+.exp-card.active::after {
+  opacity: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
    COLLAPSED STATE - VERTICAL NAME
    ═══════════════════════════════════════════════════════════ */
 
