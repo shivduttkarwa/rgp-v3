@@ -24,7 +24,6 @@
 }
 
 html {
-  font-size: 16px; /* Base rem size: 1rem = 16px */
   height: 100%;
   scrollbar-gutter: stable;
 }
