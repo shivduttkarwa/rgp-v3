@@ -29,8 +29,10 @@ export default function Header({ ready = false }: { ready?: boolean }) {
           if (headerBgRef.current) {
             gsap.to(headerBgRef.current, {
               opacity: 1,
-              duration: 0.3,
+              scaleY: 1,
+              duration: 0.25,
               ease: "power2.out",
+              overwrite: true,
             });
           }
         } else if (currentScrollY > 200) {
@@ -44,8 +46,10 @@ export default function Header({ ready = false }: { ready?: boolean }) {
         if (currentScrollY <= 100 && headerBgRef.current) {
           gsap.to(headerBgRef.current, {
             opacity: 0,
-            duration: 0.3,
+            scaleY: 1,
+            duration: 0.25,
             ease: "power2.out",
+            overwrite: true,
           });
         }
       }
@@ -91,21 +95,22 @@ export default function Header({ ready = false }: { ready?: boolean }) {
     if (isOpen) {
       if (headerBgRef.current) {
         gsap.to(headerBgRef.current, {
-          scaleY: 0,
-          transformOrigin: "top",
-          duration: 0.3,
-          ease: "power2.in",
+          opacity: 0,
+          scaleY: 0.98,
+          duration: 0.25,
+          ease: "power2.inOut",
+          overwrite: true,
         });
       }
       gsap.set(logo, { y: 0, opacity: 1 });
     } else {
       if (headerBgRef.current && window.scrollY > 100) {
         gsap.to(headerBgRef.current, {
+          opacity: 1,
           scaleY: 1,
-          transformOrigin: "top",
-          duration: 0.4,
-          ease: "power3.out",
-          delay: 1.3,
+          duration: 0.25,
+          ease: "power2.out",
+          overwrite: true,
         });
       }
       gsap.set(logo, { y: 0, opacity: 1 });
