@@ -262,6 +262,12 @@
   background-color: var(--rg-navy);
 }
 
+.property-section .property-card.for-sale .badge,
+.property-section .property-card.for-rent .badge {
+  background-color: var(--rg-beige-darker);
+  color: var(--rg-text-dark);
+}
+
 /* Like Button */
 .property-section .like-btn {
   position: absolute;

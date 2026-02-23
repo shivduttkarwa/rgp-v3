@@ -331,17 +331,17 @@
 .rg-about__watermark::before {
   content: "";
   position: absolute;
-  left: clamp(13.75rem, -2vw, -0.25rem);
+  left: clamp(18rem, 22vw, 26rem);
   top: -5%;
-  width: clamp(9.5rem, 18vw, 13rem);
-  height: clamp(9.5rem, 18vw, 13rem);
+  width: clamp(10rem, 20vw, 14rem);
+  height: clamp(10rem, 20vw, 14rem);
   pointer-events: none;
-  opacity: 0.075;
+  opacity: 0.08;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: left top;
   filter: blur(0.12px);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M70 185 L210 92 L350 185'/%3E%3Cpath d='M110 176 V310'/%3E%3Cpath d='M310 176 V310'/%3E%3Cpath d='M140 310 H280'/%3E%3Cpath d='M160 310 V230 Q160 200 190 200 H230 Q260 200 260 230 V310'/%3E%3Cpath d='M155 228 H265'/%3E%3Cpath d='M118 220 H144'/%3E%3Cpath d='M276 220 H302'/%3E%3Cpath d='M325 120 V92 H350 V150'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' opacity='0.55'%3E%3Cpath d='M90 330 H330'/%3E%3Cpath d='M95 346 H325'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M55 210 L210 75 L365 210'/%3E%3Cpath d='M100 200 V355'/%3E%3Cpath d='M320 200 V355'/%3E%3Cpath d='M100 355 H320'/%3E%3Crect x='120' y='228' width='66' height='60'/%3E%3Cpath d='M153 228 V288'/%3E%3Cpath d='M120 258 H186'/%3E%3Crect x='234' y='228' width='66' height='60'/%3E%3Cpath d='M267 228 V288'/%3E%3Cpath d='M234 258 H300'/%3E%3Cpath d='M185 355 V305 Q185 277 210 277 Q235 277 235 305 V355'/%3E%3Ccircle cx='228' cy='318' r='4'/%3E%3Cpath d='M293 110 V78 H323 V152'/%3E%3Cpath d='M288 78 H328'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' opacity='0.45'%3E%3Cpath d='M65 372 H355'/%3E%3Cpath d='M82 386 H338'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Section 3 — arched window (right side of split block) */

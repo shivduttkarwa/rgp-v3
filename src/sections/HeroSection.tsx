@@ -218,12 +218,12 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
           <div className="rg-reveal__title">
             <div className="rg-reveal__line">
               <div className="rg-reveal__text" ref={titleOneRef}>
-                Luxury <span className="rg-gold">Redefined</span>
+                Your <span className="rg-gold">Dream</span> Home
               </div>
             </div>
             <div className="rg-reveal__line">
               <div className="rg-reveal__text" ref={titleTwoRef}>
-                Living <span className="rg-amber">Elevated</span>
+                <span className="rg-amber">Perfectly</span> Delivered
               </div>
             </div>
           </div>
