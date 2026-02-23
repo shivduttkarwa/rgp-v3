@@ -6,6 +6,8 @@
   padding: 6rem 2rem;
   max-width: 1600px;
   margin: 0 auto;
+  background: var(--rg-gold);
+  color: var(--rg-dark);
 }
 
 .team__header {
@@ -21,7 +23,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--rg-gold);
+  color: var(--rg-dark);
   margin-bottom: 1rem;
 }
 
@@ -29,20 +31,20 @@
   font-family: var(--font-title);
   font-size: clamp(2.25rem, 5vw, 3.5rem);
   font-weight: 400;
-  color: var(--rg-text-dark);
+  color: var(--rg-dark);
   margin: 0 0 1.25rem;
   line-height: 1.15;
 }
 
 .team__title em {
   font-style: normal;
-  color: var(--rg-gold);
+  color: var(--rg-dark);
 }
 
 .team__subtitle {
   font-family: var(--font-body);
   font-size: clamp(1rem, 2vw, 1.125rem);
-  color: var(--rg-text-light);
+  color: rgba(0, 2, 32, 0.75);
   margin: 0;
   line-height: 1.7;
 }
