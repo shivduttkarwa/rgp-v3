@@ -175,7 +175,8 @@ const Team = () => {
       }
 
       if (isActive) {
-        gsap.set(content, { autoAlpha: 1 });
+        const contentDelay = hasAnimated.current ? 0.28 : 0.4;
+        gsap.to(content, { autoAlpha: 1, duration: 0.05, delay: contentDelay });
         const items = content.querySelectorAll("[data-animate]");
         gsap.killTweensOf(items);
         gsap.set(items, { y: 22, autoAlpha: 0 });
@@ -185,7 +186,7 @@ const Team = () => {
           duration: 0.55,
           ease: "power3.out",
           stagger: 0.08,
-          delay: hasAnimated.current ? 0 : 0.15,
+          delay: contentDelay + 0.05,
           onComplete: () => {
             hasAnimated.current = true;
           },
