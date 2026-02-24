@@ -32,7 +32,7 @@ function App() {
               path="/testimonials"
               element={<TestimonialsPage ready={loaded} />}
             />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/contact" element={<ContactPage ready={loaded} />} />
             <Route path="/properties/:id" element={<PropertyPage />} />
           </Routes>
         </Suspense>

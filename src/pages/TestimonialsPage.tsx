@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import HeroSection from "../sections/HeroSection";
+import RGPSplitSlider from "../components/reusable/SplitSlider";
 import "./TestimonialPage.css";
 
 interface Testimonial {
@@ -767,98 +768,98 @@ const VoiceMosaic: React.FC = () => (
 );
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   4. DRIFTING CARDS — draggable horizontal scroll
+   4. SPLIT SLIDER
 ───────────────────────────────────────────────────────────────────────────── */
-const DRIFT_COLORS = [
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-  "#f9c307",
-];
+const SplitSlider: React.FC = () => {
+  const [current, setCurrent] = useState(0);
+  const [slideKey, setSlideKey] = useState(0);
+  const picks = testimonials.slice(0, 10);
 
-const DriftingCards: React.FC = () => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const dragStart = useRef(0);
-  const scrollStart = useRef(0);
+  const navigate = useCallback(
+    (dir: "next" | "prev") => {
+      setSlideKey((k) => k + 1);
+      setCurrent((prev) =>
+        dir === "next"
+          ? (prev + 1) % picks.length
+          : (prev - 1 + picks.length) % picks.length
+      );
+    },
+    [picks.length]
+  );
 
-  const picks = testimonials.slice(0, 12);
+  useEffect(() => {
+    const timer = setInterval(() => navigate("next"), 6000);
+    return () => clearInterval(timer);
+  }, [navigate]);
 
-  const onMouseDown = (e: React.MouseEvent) => {
-    isDragging.current = true;
-    dragStart.current = e.clientX;
-    scrollStart.current = trackRef.current?.scrollLeft ?? 0;
-    if (trackRef.current) trackRef.current.style.cursor = "grabbing";
-  };
-
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current || !trackRef.current) return;
-    trackRef.current.scrollLeft =
-      scrollStart.current + (dragStart.current - e.clientX);
-  };
-
-  const onMouseUp = () => {
-    isDragging.current = false;
-    if (trackRef.current) trackRef.current.style.cursor = "grab";
-  };
+  const item = picks[current];
 
   return (
-    <section className="tp-drift">
-      <div className="tp-drift__header">
-        <div>
-          <span className="tp-drift__kicker">Latest Reviews</span>
-          <h2 className="tp-drift__title">Recent Voices</h2>
-        </div>
-        <p className="tp-drift__hint">Drag to explore ←→</p>
-      </div>
+    <section className="tp-split">
+      <div className="tp-split__inner">
 
-      <div
-        className="tp-drift__track"
-        ref={trackRef}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseLeave={onMouseUp}
-      >
-        {picks.map((item, i) => {
-          const color = DRIFT_COLORS[i];
-          return (
-            <article
-              key={item.id}
-              className="tp-drift__card"
-              style={{ "--dc": color } as React.CSSProperties}
-            >
-              <div className="tp-drift__card-line" />
-              <div className="tp-drift__card-meta">
-                <span className="tp-drift__card-num">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span
-                  className="tp-drift__card-badge"
-                  style={{ color, borderColor: color, background: `${color}18` }}
-                >
-                  ★ 5.0
-                </span>
-              </div>
-              <blockquote>"{item.content}"</blockquote>
-              <div className="tp-drift__card-author">
-                <img src={item.avatar} alt={item.name} />
-                <div>
-                  <h4>{item.name}</h4>
-                  <p>{item.location}</p>
-                </div>
-              </div>
-            </article>
-          );
-        })}
+        {/* LEFT — dark navy, avatar */}
+        <div className="tp-split__left">
+          <div className="tp-split__left-num">
+            {String(current + 1).padStart(2, "0")}
+          </div>
+          <div key={`img-${slideKey}`} className="tp-split__left-content">
+            <div className="tp-split__ring tp-split__ring--outer" />
+            <div className="tp-split__ring" />
+            <div className="tp-split__avatar">
+              <img src={item.avatar} alt={item.name} />
+            </div>
+            <div className="tp-split__left-meta">
+              <strong>{item.name}</strong>
+              <span>{item.role}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT — gold, content */}
+        <div className="tp-split__right">
+          <div key={`content-${slideKey}`} className="tp-split__content">
+            <span className="tp-split__kicker">Latest Reviews</span>
+            <span className="tp-split__qmark">"</span>
+            <blockquote className="tp-split__quote">{item.content}</blockquote>
+            <div className="tp-split__stars">★★★★★</div>
+            <div className="tp-split__divider" />
+            <div className="tp-split__author">
+              <strong>{item.name}</strong>
+              <span>{item.role} · {item.company}</span>
+              <span>{item.location}</span>
+            </div>
+            <div className="tp-split__controls">
+              <button
+                className="tp-split__btn"
+                onClick={() => navigate("prev")}
+                aria-label="Previous"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <span className="tp-split__counter">
+                {String(current + 1).padStart(2, "0")} /{" "}
+                {String(picks.length).padStart(2, "0")}
+              </span>
+              <button
+                className="tp-split__btn"
+                onClick={() => navigate("next")}
+                aria-label="Next"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div className="tp-split__progress">
+            <div key={`prog-${slideKey}`} className="tp-split__progress-fill" />
+          </div>
+        </div>
+
       </div>
     </section>
   );
@@ -1038,8 +1039,9 @@ const TestimonialPage: React.FC<{ ready?: boolean }> = ({ ready = false }) => (
     <MarqueeStrip />
     <SpotlightQuote />
     <VoiceMosaic />
-    <DriftingCards />
+    <SplitSlider />
     <TickerWall />
+    <RGPSplitSlider />
     <FinalCTA />
   </main>
 );
