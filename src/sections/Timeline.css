@@ -108,27 +108,6 @@
   isolation: isolate;
 }
 
-/* Watermark step number */
-.rg-panel-watermark {
-  position: absolute;
-  font-family: var(--font-title);
-  font-size: clamp(10rem, 22vw, 18rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: rgba(249, 195, 7, 0.03);
-  bottom: 8%;
-  left: -1.5rem;
-  pointer-events: none;
-  user-select: none;
-  z-index: -1;
-  transition: color 0.8s ease;
-}
-
-.rg-panel.rg-active .rg-panel-watermark {
-  color: rgba(249, 195, 7, 0.07);
-}
-
 /* Dot on progress line */
 .rg-panel-dot {
   position: absolute;

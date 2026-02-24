@@ -312,9 +312,6 @@ export default function Timeline() {
               >
                 <div className="rg-panel-dot" />
 
-                {/* Watermark step number */}
-                <span className="rg-panel-watermark">{s.step}</span>
-
                 {/* Year — hero typographic element */}
                 <p className="rg-panel-year">{s.year}</p>
 
