@@ -6,12 +6,12 @@ import "swiper/css";
 import "./SplitSlider.css";
 
 // Types
-interface SlideContent {
+export interface SlideContent {
   kicker: string;
   titleLines: string[];
   description: string;
   linkText: string;
-  linkUrl: string;
+  linkUrl?: string; // omit for review/author attribution (no link rendered)
   image: string;
   theme: "theme-1" | "theme-2" | "theme-3";
 }
@@ -21,40 +21,97 @@ interface SplitSliderProps {
   className?: string;
 }
 
-// Default slides data
+// Default slides — 10 client reviews
 const defaultSlides: SlideContent[] = [
   {
-    kicker: "our Purpose",
-    titleLines: ["A Christ-Centred", "Community"],
+    kicker: "★★★★★",
+    titleLines: ["From First", "Viewing to", "Settlement"],
     description:
-      "William Clarke College was founded on a deep conviction that the teachings of the Bible—particularly those concerning Jesus Christ as creator, sustainer, and redeemer—are true and transformative.",
-    linkText: "Discover who we are",
-    linkUrl: "#",
-    image:
-      "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1600&q=80",
+      "Every step was handled with elegance and precision. The team's attention to detail made what could have been stressful feel entirely effortless.",
+    linkText: "— James & Priya Hartwell",
+    image: "images/ps1 (1).jpg",
     theme: "theme-1",
   },
   {
-    kicker: "our Purpose",
-    titleLines: ["Developing", "Extraordinary", "Learners"],
+    kicker: "★★★★★",
+    titleLines: ["A Waterfront", "Dream Made", "Reality"],
     description:
-      "We believe every student has the potential to be an Extraordinary Learner—someone who actively engages with ideas, applies knowledge in meaningful ways, and grows through challenge.",
-    linkText: "Discover who we are",
-    linkUrl: "#",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80",
+      "They secured us a waterfront property we never imagined we could afford. Their negotiation skills and market knowledge are truly extraordinary.",
+    linkText: "— Michael Thornton",
+    image: "images/ps1 (2).jpg",
     theme: "theme-2",
   },
   {
-    kicker: "our Purpose",
-    titleLines: ["With", "a Passion to", "Serve Others"],
+    kicker: "★★★★★",
+    titleLines: ["They Knew", "Exactly What", "We Needed"],
     description:
-      "Grounded in our Christian foundation, we're a community shaped by compassion and a commitment to serving others. Students are encouraged to use their talents to serve in the classroom and beyond.",
-    linkText: "Discover who we are",
-    linkUrl: "#",
-    image:
-      "https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=1600&q=80",
+      "Outstanding market knowledge. They understood our lifestyle requirements immediately and found a home that exceeded every expectation we had.",
+    linkText: "— Samantha Reed, Melbourne",
+    image: "images/ps1 (3).jpg",
     theme: "theme-3",
+  },
+  {
+    kicker: "★★★★★",
+    titleLines: ["Seamless From", "Start to", "Finish"],
+    description:
+      "Our penthouse purchase was handled flawlessly from the very first call to the day we received the keys. Truly premium, truly personal service.",
+    linkText: "— David & Claire Morrison",
+    image: "images/ps1 (4).jpg",
+    theme: "theme-1",
+  },
+  {
+    kicker: "★★★★★",
+    titleLines: ["Discretion &", "Professionalism", "Unmatched"],
+    description:
+      "The team's discretion and professionalism set them apart from every other agency we've worked with. Quiet confidence and exceptional results.",
+    linkText: "— Private Investor, Sydney",
+    image: "images/ps1 (5).jpg",
+    theme: "theme-2",
+  },
+  {
+    kicker: "★★★★★",
+    titleLines: ["Three Homes.", "Each Time,", "Flawless."],
+    description:
+      "We have purchased three properties through Real Gold Properties. Each transaction has been handled with the same impeccable standard of care.",
+    linkText: "— Benjamin Park, Singapore",
+    image: "images/ps1 (6).jpg",
+    theme: "theme-3",
+  },
+  {
+    kicker: "★★★★★",
+    titleLines: ["Stress-Free", "Interstate", "Purchase"],
+    description:
+      "As interstate buyers, we relied on them completely. They managed inspections, negotiations and legal coordination — all without a single misstep.",
+    linkText: "— The Nguyen Family, Brisbane",
+    image: "images/ps1 (1).jpg",
+    theme: "theme-1",
+  },
+  {
+    kicker: "★★★★★",
+    titleLines: ["Beyond What", "We Thought", "Possible"],
+    description:
+      "The off-market listing they sourced for us was beyond anything we'd seen publicly. Their network access is genuinely unparalleled in this market.",
+    linkText: "— Rachel & Tom Ashford",
+    image: "images/ps1 (2).jpg",
+    theme: "theme-2",
+  },
+  {
+    kicker: "★★★★★",
+    titleLines: ["Sold Above", "Reserve in", "Any Market"],
+    description:
+      "Our property sold above reserve within days. Their staging strategy, marketing reach and negotiation delivered an outcome we couldn't have imagined.",
+    linkText: "— Grace Hamilton, Vendor",
+    image: "images/ps1 (3).jpg",
+    theme: "theme-3",
+  },
+  {
+    kicker: "★★★★★",
+    titleLines: ["Partners at", "Every", "Level"],
+    description:
+      "From our first luxury villa to managing a full investment portfolio — Real Gold Properties has guided us with expertise, integrity and genuine care.",
+    linkText: "— Marcus & Elena Wright",
+    image: "images/ps1 (4).jpg",
+    theme: "theme-1",
   },
 ];
 
@@ -307,13 +364,19 @@ const SplitSlider: React.FC<SplitSliderProps> = ({
                     </p>
                   </div>
                   <div className="rgp-slider__link-wrap">
-                    <a
-                      href={slide.linkUrl}
-                      className="rgp-slider__link rgp-slider__anim-item"
-                    >
-                      <LinkArrowIcon />
-                      <span>{slide.linkText}</span>
-                    </a>
+                    {slide.linkUrl ? (
+                      <a
+                        href={slide.linkUrl}
+                        className="rgp-slider__link rgp-slider__anim-item"
+                      >
+                        <LinkArrowIcon />
+                        <span>{slide.linkText}</span>
+                      </a>
+                    ) : (
+                      <span className="rgp-slider__author rgp-slider__anim-item">
+                        {slide.linkText}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

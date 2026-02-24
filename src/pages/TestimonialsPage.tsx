@@ -800,6 +800,10 @@ const TestimonialPage: React.FC<{ ready?: boolean }> = ({ ready = false }) => (
         </div>
       }
     />
+    <div className="t-section-heading">
+      <p className="t-section-heading__kicker">Client Voices</p>
+      <h2 className="t-section-heading__title">What Our Clients Say</h2>
+    </div>
     <RGPSplitSlider />
     <VoiceMosaic />
     <TickerWall />

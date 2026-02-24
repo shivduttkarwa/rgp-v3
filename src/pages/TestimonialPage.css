@@ -9,6 +9,37 @@
 }
 
 /* ══════════════════════════════════════════════════════════════
+   SECTION HEADING
+   ══════════════════════════════════════════════════════════════ */
+
+.t-section-heading {
+  text-align: center;
+  padding: 80px 24px 48px;
+  background: var(--rg-beige-light);
+}
+
+.t-section-heading__kicker {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rg-gold);
+  margin: 0 0 16px;
+}
+
+.t-section-heading__title {
+  font-family: var(--font-title);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
    HERO STAT SLAB (footer inside HeroSection)
    ══════════════════════════════════════════════════════════════ */
 

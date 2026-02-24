@@ -6,7 +6,7 @@
   --rgp-theme-2-text: #ffffff;
   --rgp-theme-3-bg: #021a2e;
   --rgp-theme-3-text: #ffffff;
-  --rgp-slide-height: 695px;
+  --rgp-slide-height: 626px;
   --rgp-transition-duration: 0.9s;
   --rgp-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -220,6 +220,17 @@
   gap: 18px;
 }
 
+/* Author attribution (review mode — no link) */
+.rgp-slider__author {
+  display: inline-flex;
+  align-items: center;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+}
+
 .rgp-slider__link-icon {
   width: 22px;
   height: 14px;
@@ -343,7 +354,7 @@
 /* ===== Responsive ===== */
 @media (max-width: 1200px) {
   .rgp-slider {
-    --rgp-slide-height: 600px;
+    --rgp-slide-height: 540px;
   }
 }
 
