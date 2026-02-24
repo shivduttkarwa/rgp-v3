@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import HeroSection from "../sections/HeroSection";
 import RGPSplitSlider from "../components/reusable/SplitSlider";
 import "./TestimonialPage.css";
@@ -568,146 +568,6 @@ const testimonials: Testimonial[] = [
 ];
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   1. MARQUEE STRIP
-───────────────────────────────────────────────────────────────────────────── */
-const MARQUEE_ITEMS = [
-  { text: "5.0 Average Rating" },
-  { text: "50 Verified Reviews" },
-  { text: "100% Satisfaction" },
-  { text: "Award Winning Service" },
-  { text: "Trusted Worldwide" },
-  { text: "Premium Excellence" },
-];
-
-const MarqueeStrip: React.FC = () => {
-  const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
-  return (
-    <div className="tp-marquee" aria-hidden="true">
-      <div className="tp-marquee__track">
-        {doubled.map((item, i) => (
-          <span key={i} className="tp-marquee__item">
-            <span className="tp-marquee__dot">✦</span>
-            <span>{item.text}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   2. SPOTLIGHT QUOTE
-───────────────────────────────────────────────────────────────────────────── */
-const SPOTLIGHT_ACCENTS = [
-  "var(--rg-gold)",
-  "var(--rg-gold)",
-  "var(--rg-gold)",
-  "var(--rg-gold)",
-];
-
-const SpotlightQuote: React.FC = () => {
-  const [current, setCurrent] = useState(0);
-  const featured = [
-    testimonials[0],
-    testimonials[4],
-    testimonials[11],
-    testimonials[18],
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % featured.length);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, [featured.length]);
-
-  return (
-    <section className="tp-spotlight">
-      <div className="tp-spotlight__orbs" aria-hidden="true">
-        <div
-          className="tp-spotlight__orb tp-spotlight__orb--a"
-          style={{ background: SPOTLIGHT_ACCENTS[0] }}
-        />
-        <div
-          className="tp-spotlight__orb tp-spotlight__orb--b"
-          style={{ background: SPOTLIGHT_ACCENTS[1] }}
-        />
-      </div>
-
-      <div className="tp-spotlight__inner">
-        <div className="tp-spotlight__content">
-          <span className="tp-spotlight__kicker">Featured Voice</span>
-
-          <div className="tp-spotlight__quotes">
-            {featured.map((f, i) => (
-              <blockquote
-                key={f.id}
-                className={`tp-spotlight__blockquote ${i === current ? "active" : ""}`}
-              >
-                <span
-                  className="tp-spotlight__qmark"
-                  style={{ color: SPOTLIGHT_ACCENTS[i] }}
-                >
-                  "
-                </span>
-                <p>{f.content}</p>
-              </blockquote>
-            ))}
-          </div>
-
-          <div className="tp-spotlight__nav">
-            {featured.map((_, i) => (
-              <button
-                key={i}
-                className={`tp-spotlight__navdot ${i === current ? "active" : ""}`}
-                style={
-                  i === current
-                    ? {
-                        background: SPOTLIGHT_ACCENTS[i],
-                        boxShadow: `0 0 12px ${SPOTLIGHT_ACCENTS[i]}`,
-                      }
-                    : {}
-                }
-                onClick={() => setCurrent(i)}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="tp-spotlight__author-zone">
-          {featured.map((f, i) => (
-            <div
-              key={f.id}
-              className={`tp-spotlight__author ${i === current ? "active" : ""}`}
-            >
-              <div
-                className="tp-spotlight__avatar-frame"
-                style={{
-                  borderColor: SPOTLIGHT_ACCENTS[i],
-                  boxShadow: `0 0 50px ${SPOTLIGHT_ACCENTS[i]}33`,
-                }}
-              >
-                <img src={f.avatar} alt={f.name} />
-              </div>
-              <h3>{f.name}</h3>
-              <p className="tp-spotlight__role">{f.role}</p>
-              <p
-                className="tp-spotlight__company"
-                style={{ color: SPOTLIGHT_ACCENTS[i] }}
-              >
-                {f.company} · {f.location}
-              </p>
-              <div className="tp-spotlight__stars">★★★★★</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-/* ─────────────────────────────────────────────────────────────────────────────
    3. VOICE MOSAIC — Bento grid
 ───────────────────────────────────────────────────────────────────────────── */
 const MOSAIC_COLORS = [
@@ -768,104 +628,6 @@ const VoiceMosaic: React.FC = () => (
 );
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   4. SPLIT SLIDER
-───────────────────────────────────────────────────────────────────────────── */
-const SplitSlider: React.FC = () => {
-  const [current, setCurrent] = useState(0);
-  const [slideKey, setSlideKey] = useState(0);
-  const picks = testimonials.slice(0, 10);
-
-  const navigate = useCallback(
-    (dir: "next" | "prev") => {
-      setSlideKey((k) => k + 1);
-      setCurrent((prev) =>
-        dir === "next"
-          ? (prev + 1) % picks.length
-          : (prev - 1 + picks.length) % picks.length
-      );
-    },
-    [picks.length]
-  );
-
-  useEffect(() => {
-    const timer = setInterval(() => navigate("next"), 6000);
-    return () => clearInterval(timer);
-  }, [navigate]);
-
-  const item = picks[current];
-
-  return (
-    <section className="tp-split">
-      <div className="tp-split__inner">
-
-        {/* LEFT — dark navy, avatar */}
-        <div className="tp-split__left">
-          <div className="tp-split__left-num">
-            {String(current + 1).padStart(2, "0")}
-          </div>
-          <div key={`img-${slideKey}`} className="tp-split__left-content">
-            <div className="tp-split__ring tp-split__ring--outer" />
-            <div className="tp-split__ring" />
-            <div className="tp-split__avatar">
-              <img src={item.avatar} alt={item.name} />
-            </div>
-            <div className="tp-split__left-meta">
-              <strong>{item.name}</strong>
-              <span>{item.role}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT — gold, content */}
-        <div className="tp-split__right">
-          <div key={`content-${slideKey}`} className="tp-split__content">
-            <span className="tp-split__kicker">Latest Reviews</span>
-            <span className="tp-split__qmark">"</span>
-            <blockquote className="tp-split__quote">{item.content}</blockquote>
-            <div className="tp-split__stars">★★★★★</div>
-            <div className="tp-split__divider" />
-            <div className="tp-split__author">
-              <strong>{item.name}</strong>
-              <span>{item.role} · {item.company}</span>
-              <span>{item.location}</span>
-            </div>
-            <div className="tp-split__controls">
-              <button
-                className="tp-split__btn"
-                onClick={() => navigate("prev")}
-                aria-label="Previous"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <span className="tp-split__counter">
-                {String(current + 1).padStart(2, "0")} /{" "}
-                {String(picks.length).padStart(2, "0")}
-              </span>
-              <button
-                className="tp-split__btn"
-                onClick={() => navigate("next")}
-                aria-label="Next"
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div className="tp-split__progress">
-            <div key={`prog-${slideKey}`} className="tp-split__progress-fill" />
-          </div>
-        </div>
-
-      </div>
-    </section>
-  );
-};
-
-/* ─────────────────────────────────────────────────────────────────────────────
    5. TICKER WALL — 3-column infinite auto-scroll
 ───────────────────────────────────────────────────────────────────────────── */
 const TICKER_COLORS = [
@@ -894,7 +656,9 @@ const TickerCol: React.FC<TickerColProps> = ({ items, speed, reversed }) => (
           key={`${item.id}-${i}`}
           className="tp-ticker__card"
           style={
-            { "--tc": TICKER_COLORS[i % TICKER_COLORS.length] } as React.CSSProperties
+            {
+              "--tc": TICKER_COLORS[i % TICKER_COLORS.length],
+            } as React.CSSProperties
           }
         >
           <div className="tp-ticker__card-accent" />
@@ -1036,10 +800,8 @@ const TestimonialPage: React.FC<{ ready?: boolean }> = ({ ready = false }) => (
         </div>
       }
     />
-    <MarqueeStrip />
-    <SpotlightQuote />
+    <RGPSplitSlider />
     <VoiceMosaic />
-    <SplitSlider />
     <TickerWall />
     <RGPSplitSlider />
     <FinalCTA />
