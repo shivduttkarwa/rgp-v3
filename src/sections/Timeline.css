@@ -476,6 +476,14 @@
 }
 
 @media (max-width: 32.5rem) {
+  .rg-root {
+    overflow-x: hidden;
+  }
+
+  .rg-timeline-container {
+    overflow-x: hidden;
+  }
+
   .rg-image-rail {
     display: none;
   }
@@ -528,22 +536,9 @@
     margin-bottom: 1.25rem;
     color: rgba(255, 255, 255, 0.7);
   }
-
-  .rg-panel-title {
-    display: none;
-  }
-
-  .rg-panel-sep {
-    display: none;
-  }
-
   .rg-panel-stats {
     border-top: none;
-    padding-top: 0;
+    padding-top: 0.75rem;
     margin-bottom: 0;
-  }
-
-  .rg-panel-tags {
-    display: none;
   }
 }

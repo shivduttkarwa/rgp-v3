@@ -137,6 +137,13 @@ export default function Timeline() {
     const triggers: ReturnType<typeof ScrollTrigger.create>[] = [];
 
     if (isMobile) {
+      const introEls = [
+        intro.querySelector(".rg-intro-eyebrow"),
+        intro.querySelector(".rg-intro-title"),
+        intro.querySelector(".rg-intro-desc"),
+      ].filter(Boolean) as HTMLElement[];
+      gsap.set(introEls, { y: 0, opacity: 1 });
+
       panels.forEach((panel, i) => {
         const img = panel.querySelector<HTMLElement>(".rg-panel-media");
         const contentEls = Array.from(
