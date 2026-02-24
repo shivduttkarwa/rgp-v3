@@ -331,6 +331,18 @@ a {
   pointer-events: auto;
 }
 
+.rg-hero__footer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: clamp(0.75rem, 2.5vw, 1.5rem);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  pointer-events: auto;
+  width: min(80%, 70rem);
+}
+
 /* ─── HERO CTA BUTTON OVERRIDES ─── */
 .rg-reveal__cta .btn-secondary {
   background: var(--rg-gold);
@@ -489,6 +501,10 @@ a {
 
   .rg-hero__reveal {
     transform: translateY(-10rem);
+  }
+
+  .rg-hero__footer {
+    bottom: 0.5rem;
   }
 
   .rg-reveal__text {

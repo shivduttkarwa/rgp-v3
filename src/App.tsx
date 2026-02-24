@@ -28,7 +28,10 @@ function App() {
             <Route path="/" element={<HomePage ready={loaded} />} />
             <Route path="/about" element={<AboutPage ready={loaded} />} />
             <Route path="/services" element={<ServicesPage ready={loaded} />} />
-            <Route path="/testimonials" element={<TestimonialsPage />} />
+            <Route
+              path="/testimonials"
+              element={<TestimonialsPage ready={loaded} />}
+            />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/properties/:id" element={<PropertyPage />} />
           </Routes>

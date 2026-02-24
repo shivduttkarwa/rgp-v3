@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import HeroSection from "../sections/HeroSection";
 import "./TestimonialPage.css";
 
 interface Testimonial {
@@ -565,117 +566,138 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-// Hero Section
-const HeroSection: React.FC = () => {
-  const featured = testimonials[0];
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. MARQUEE STRIP
+───────────────────────────────────────────────────────────────────────────── */
+const MARQUEE_ITEMS = [
+  { text: "5.0 Average Rating" },
+  { text: "50 Verified Reviews" },
+  { text: "100% Satisfaction" },
+  { text: "Award Winning Service" },
+  { text: "Trusted Worldwide" },
+  { text: "Premium Excellence" },
+];
 
+const MarqueeStrip: React.FC = () => {
+  const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
   return (
-    <section className="t-hero">
-      <div className="t-hero__bg">
-        <div className="t-hero__grid" />
-        <div className="t-hero__glow" />
+    <div className="tp-marquee" aria-hidden="true">
+      <div className="tp-marquee__track">
+        {doubled.map((item, i) => (
+          <span key={i} className="tp-marquee__item">
+            <span className="tp-marquee__dot">✦</span>
+            <span>{item.text}</span>
+          </span>
+        ))}
       </div>
-
-      <div className="t-hero__content">
-        <div className="t-hero__label">
-          <span className="t-hero__label-line" />
-          <span>Client Stories</span>
-          <span className="t-hero__label-line" />
-        </div>
-
-        <h1 className="t-hero__title">
-          Words That
-          <br />
-          <span className="t-hero__title-accent">Inspire Us</span>
-        </h1>
-
-        <p className="t-hero__subtitle">
-          {testimonials.length} stories from clients who transformed their
-          vision into reality
-        </p>
-
-        <div className="t-hero__stats">
-          <div className="t-hero__stat">
-            <span className="t-hero__stat-value">5.0</span>
-            <span className="t-hero__stat-label">Avg. Rating</span>
-          </div>
-          <div className="t-hero__stat-divider" />
-          <div className="t-hero__stat">
-            <span className="t-hero__stat-value">100%</span>
-            <span className="t-hero__stat-label">Satisfaction</span>
-          </div>
-          <div className="t-hero__stat-divider" />
-          <div className="t-hero__stat">
-            <span className="t-hero__stat-value">50+</span>
-            <span className="t-hero__stat-label">Reviews</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="t-hero__scroll">
-        <div className="t-hero__scroll-line" />
-        <span>Scroll</span>
-      </div>
-    </section>
+    </div>
   );
 };
 
-// Featured Quote Section
-const FeaturedQuote: React.FC = () => {
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. SPOTLIGHT QUOTE
+───────────────────────────────────────────────────────────────────────────── */
+const SPOTLIGHT_ACCENTS = [
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+];
+
+const SpotlightQuote: React.FC = () => {
   const [current, setCurrent] = useState(0);
-  const featured = [testimonials[1], testimonials[4], testimonials[7]];
+  const featured = [
+    testimonials[0],
+    testimonials[4],
+    testimonials[11],
+    testimonials[18],
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % featured.length);
-    }, 6000);
+    }, 7000);
     return () => clearInterval(interval);
-  }, []);
+  }, [featured.length]);
 
   return (
-    <section className="t-featured">
-      <div className="t-featured__container">
-        <div className="t-featured__quote-wrapper">
-          {featured.map((item, index) => (
-            <blockquote
-              key={item.id}
-              className={`t-featured__quote ${index === current ? "active" : ""}`}
-            >
-              <span className="t-featured__quote-mark">"</span>
-              <p>{item.content}</p>
-            </blockquote>
-          ))}
-        </div>
+    <section className="tp-spotlight">
+      <div className="tp-spotlight__orbs" aria-hidden="true">
+        <div
+          className="tp-spotlight__orb tp-spotlight__orb--a"
+          style={{ background: SPOTLIGHT_ACCENTS[0] }}
+        />
+        <div
+          className="tp-spotlight__orb tp-spotlight__orb--b"
+          style={{ background: SPOTLIGHT_ACCENTS[1] }}
+        />
+      </div>
 
-        <div className="t-featured__author">
-          <div className="t-featured__avatars">
-            {featured.map((item, index) => (
-              <button
-                key={item.id}
-                className={`t-featured__avatar-btn ${index === current ? "active" : ""}`}
-                onClick={() => setCurrent(index)}
+      <div className="tp-spotlight__inner">
+        <div className="tp-spotlight__content">
+          <span className="tp-spotlight__kicker">Featured Voice</span>
+
+          <div className="tp-spotlight__quotes">
+            {featured.map((f, i) => (
+              <blockquote
+                key={f.id}
+                className={`tp-spotlight__blockquote ${i === current ? "active" : ""}`}
               >
-                <img src={item.avatar} alt={item.name} />
-                <div className="t-featured__avatar-ring" />
-              </button>
+                <span
+                  className="tp-spotlight__qmark"
+                  style={{ color: SPOTLIGHT_ACCENTS[i] }}
+                >
+                  "
+                </span>
+                <p>{f.content}</p>
+              </blockquote>
             ))}
           </div>
 
-          <div className="t-featured__author-info">
-            <h3>{featured[current].name}</h3>
-            <p>
-              {featured[current].role}, {featured[current].company}
-            </p>
+          <div className="tp-spotlight__nav">
+            {featured.map((_, i) => (
+              <button
+                key={i}
+                className={`tp-spotlight__navdot ${i === current ? "active" : ""}`}
+                style={
+                  i === current
+                    ? {
+                        background: SPOTLIGHT_ACCENTS[i],
+                        boxShadow: `0 0 12px ${SPOTLIGHT_ACCENTS[i]}`,
+                      }
+                    : {}
+                }
+                onClick={() => setCurrent(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+              />
+            ))}
           </div>
         </div>
 
-        <div className="t-featured__progress">
-          {featured.map((_, index) => (
+        <div className="tp-spotlight__author-zone">
+          {featured.map((f, i) => (
             <div
-              key={index}
-              className={`t-featured__progress-bar ${index === current ? "active" : ""}`}
+              key={f.id}
+              className={`tp-spotlight__author ${i === current ? "active" : ""}`}
             >
-              <div className="t-featured__progress-fill" />
+              <div
+                className="tp-spotlight__avatar-frame"
+                style={{
+                  borderColor: SPOTLIGHT_ACCENTS[i],
+                  boxShadow: `0 0 50px ${SPOTLIGHT_ACCENTS[i]}33`,
+                }}
+              >
+                <img src={f.avatar} alt={f.name} />
+              </div>
+              <h3>{f.name}</h3>
+              <p className="tp-spotlight__role">{f.role}</p>
+              <p
+                className="tp-spotlight__company"
+                style={{ color: SPOTLIGHT_ACCENTS[i] }}
+              >
+                {f.company} · {f.location}
+              </p>
+              <div className="tp-spotlight__stars">★★★★★</div>
             </div>
           ))}
         </div>
@@ -684,314 +706,274 @@ const FeaturedQuote: React.FC = () => {
   );
 };
 
-// Avatar Wall Section
-const AvatarWall: React.FC = () => {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
-  const wallRef = useRef<HTMLDivElement>(null);
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. VOICE MOSAIC — Bento grid
+───────────────────────────────────────────────────────────────────────────── */
+const MOSAIC_COLORS = [
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+];
 
-  const selected = testimonials.find((t) => t.id === selectedId);
+const MOSAIC_PICKS = [
+  testimonials[2],
+  testimonials[5],
+  testimonials[8],
+  testimonials[11],
+  testimonials[14],
+  testimonials[17],
+  testimonials[20],
+  testimonials[23],
+  testimonials[26],
+];
 
-  const handleClose = () => setSelectedId(null);
+const VoiceMosaic: React.FC = () => (
+  <section className="tp-mosaic">
+    <div className="tp-mosaic__header">
+      <span className="tp-mosaic__kicker">Real Voices</span>
+      <h2 className="tp-mosaic__title">
+        Stories That <em>Define</em> Us
+      </h2>
+    </div>
 
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") handleClose();
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, []);
+    <div className="tp-mosaic__grid">
+      {MOSAIC_PICKS.map((item, i) => (
+        <article
+          key={item.id}
+          className={`tp-mosaic__card tp-mosaic__card--${i + 1}`}
+          style={{ "--mc": MOSAIC_COLORS[i] } as React.CSSProperties}
+        >
+          <div className="tp-mosaic__card-glow" />
+          <div className="tp-mosaic__card-header">
+            <img src={item.avatar} alt={item.name} />
+            <div>
+              <h4>{item.name}</h4>
+              <p>{item.role}</p>
+            </div>
+            <div className="tp-mosaic__card-rating">★ 5.0</div>
+          </div>
+          <blockquote>"{item.content}"</blockquote>
+          <div className="tp-mosaic__card-tag">{item.company}</div>
+        </article>
+      ))}
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4. DRIFTING CARDS — draggable horizontal scroll
+───────────────────────────────────────────────────────────────────────────── */
+const DRIFT_COLORS = [
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+  "#f9c307",
+];
+
+const DriftingCards: React.FC = () => {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const dragStart = useRef(0);
+  const scrollStart = useRef(0);
+
+  const picks = testimonials.slice(0, 12);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    dragStart.current = e.clientX;
+    scrollStart.current = trackRef.current?.scrollLeft ?? 0;
+    if (trackRef.current) trackRef.current.style.cursor = "grabbing";
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !trackRef.current) return;
+    trackRef.current.scrollLeft =
+      scrollStart.current + (dragStart.current - e.clientX);
+  };
+
+  const onMouseUp = () => {
+    isDragging.current = false;
+    if (trackRef.current) trackRef.current.style.cursor = "grab";
+  };
 
   return (
-    <section className="t-wall">
-      <div className="t-wall__header">
-        <span className="t-wall__tag">The People</span>
-        <h2 className="t-wall__title">Faces Behind The Words</h2>
-        <p className="t-wall__subtitle">
-          Click on any avatar to read their story
-        </p>
+    <section className="tp-drift">
+      <div className="tp-drift__header">
+        <div>
+          <span className="tp-drift__kicker">Latest Reviews</span>
+          <h2 className="tp-drift__title">Recent Voices</h2>
+        </div>
+        <p className="tp-drift__hint">Drag to explore ←→</p>
       </div>
 
-      <div className="t-wall__grid" ref={wallRef}>
-        {testimonials.map((item, index) => (
-          <button
-            key={item.id}
-            className={`t-wall__item ${selectedId === item.id ? "selected" : ""} ${hoveredId === item.id ? "hovered" : ""}`}
-            onClick={() => setSelectedId(item.id)}
-            onMouseEnter={() => setHoveredId(item.id)}
-            onMouseLeave={() => setHoveredId(null)}
-            style={{ "--delay": `${index * 0.02}s` } as React.CSSProperties}
-          >
-            <img src={item.avatar} alt={item.name} />
-            <div className="t-wall__item-overlay">
-              <span className="t-wall__item-name">
-                {item.name.split(" ")[0]}
-              </span>
-            </div>
-            <div className="t-wall__item-glow" />
-          </button>
-        ))}
-      </div>
-
-      {/* Modal */}
       <div
-        className={`t-modal ${selected ? "open" : ""}`}
-        onClick={handleClose}
+        className="tp-drift__track"
+        ref={trackRef}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseLeave={onMouseUp}
       >
-        <div className="t-modal__content" onClick={(e) => e.stopPropagation()}>
-          {selected && (
-            <>
-              <button className="t-modal__close" onClick={handleClose}>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
+        {picks.map((item, i) => {
+          const color = DRIFT_COLORS[i];
+          return (
+            <article
+              key={item.id}
+              className="tp-drift__card"
+              style={{ "--dc": color } as React.CSSProperties}
+            >
+              <div className="tp-drift__card-line" />
+              <div className="tp-drift__card-meta">
+                <span className="tp-drift__card-num">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className="tp-drift__card-badge"
+                  style={{ color, borderColor: color, background: `${color}18` }}
                 >
-                  <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-              </button>
-
-              <div className="t-modal__header">
-                <img
-                  src={selected.avatar}
-                  alt={selected.name}
-                  className="t-modal__avatar"
-                />
-                <div className="t-modal__info">
-                  <h3>{selected.name}</h3>
-                  <p>{selected.role}</p>
-                  <span>
-                    {selected.company} · {selected.location}
-                  </span>
-                </div>
-              </div>
-
-              <div className="t-modal__stars">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} viewBox="0 0 24 24" fill="var(--rg-gold)">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-
-              <blockquote className="t-modal__quote">
-                "{selected.content}"
-              </blockquote>
-
-              <div className="t-modal__footer">
-                <span className="t-modal__verified">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Verified Review
+                  ★ 5.0
                 </span>
               </div>
-            </>
-          )}
-        </div>
+              <blockquote>"{item.content}"</blockquote>
+              <div className="tp-drift__card-author">
+                <img src={item.avatar} alt={item.name} />
+                <div>
+                  <h4>{item.name}</h4>
+                  <p>{item.location}</p>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
 };
 
-// Horizontal Scroll Section
-const HorizontalScroll: React.FC = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+/* ─────────────────────────────────────────────────────────────────────────────
+   5. TICKER WALL — 3-column infinite auto-scroll
+───────────────────────────────────────────────────────────────────────────── */
+const TICKER_COLORS = [
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+  "var(--rg-gold)",
+];
 
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setScrollProgress(scrollLeft / (scrollWidth - clientWidth));
-    }
-  };
+interface TickerColProps {
+  items: Testimonial[];
+  speed: number;
+  reversed?: boolean;
+}
 
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const amount = direction === "left" ? -400 : 400;
-      scrollRef.current.scrollBy({ left: amount, behavior: "smooth" });
-    }
-  };
-
-  return (
-    <section className="t-horizontal">
-      <div className="t-horizontal__header">
-        <div className="t-horizontal__header-left">
-          <span className="t-horizontal__tag">Latest Reviews</span>
-          <h2 className="t-horizontal__title">Recent Stories</h2>
-        </div>
-
-        <div className="t-horizontal__controls">
-          <button className="t-horizontal__btn" onClick={() => scroll("left")}>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button className="t-horizontal__btn" onClick={() => scroll("right")}>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <div
-        className="t-horizontal__track"
-        ref={scrollRef}
-        onScroll={handleScroll}
-      >
-        {testimonials.slice(0, 15).map((item, index) => (
-          <article key={item.id} className="t-card">
-            <div className="t-card__top">
-              <div className="t-card__number">
-                {String(index + 1).padStart(2, "0")}
-              </div>
-              <div className="t-card__stars">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} viewBox="0 0 24 24" fill="var(--rg-gold)">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-            </div>
-
-            <blockquote className="t-card__quote">"{item.content}"</blockquote>
-
-            <div className="t-card__author">
-              <img src={item.avatar} alt={item.name} />
-              <div className="t-card__author-info">
-                <h4>{item.name}</h4>
-                <p>
-                  {item.role}, {item.company}
-                </p>
-              </div>
-            </div>
-
-            <div className="t-card__location">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              {item.location}
-            </div>
-
-            <div className="t-card__line" />
-          </article>
-        ))}
-      </div>
-
-      <div className="t-horizontal__progress">
-        <div
-          className="t-horizontal__progress-bar"
-          style={{ transform: `scaleX(${scrollProgress || 0.1})` }}
-        />
-      </div>
-    </section>
-  );
-};
-
-// Masonry Grid Section
-const MasonrySection: React.FC = () => {
-  const [visibleCount, setVisibleCount] = useState(12);
-  const remaining = testimonials.slice(15);
-
-  return (
-    <section className="t-masonry">
-      <div className="t-masonry__header">
-        <span className="t-masonry__tag">All Reviews</span>
-        <h2 className="t-masonry__title">More Success Stories</h2>
-      </div>
-
-      <div className="t-masonry__grid">
-        {remaining.slice(0, visibleCount).map((item, index) => (
-          <article
-            key={item.id}
-            className="t-masonry__item"
-            style={{ "--index": index } as React.CSSProperties}
-          >
-            <div className="t-masonry__item-header">
-              <img src={item.avatar} alt={item.name} />
-              <div>
-                <h4>{item.name}</h4>
-                <p>{item.company}</p>
-              </div>
-              <div className="t-masonry__item-stars">
-                <svg viewBox="0 0 24 24" fill="var(--rg-gold)">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                </svg>
-                <span>5.0</span>
-              </div>
-            </div>
-            <p className="t-masonry__item-text">"{item.content}"</p>
-          </article>
-        ))}
-      </div>
-
-      {visibleCount < remaining.length && (
-        <button
-          className="t-masonry__load"
-          onClick={() =>
-            setVisibleCount((prev) => Math.min(prev + 8, remaining.length))
+const TickerCol: React.FC<TickerColProps> = ({ items, speed, reversed }) => (
+  <div
+    className={`tp-ticker__col${reversed ? " tp-ticker__col--rev" : ""}`}
+    style={{ "--ts": `${speed}s` } as React.CSSProperties}
+  >
+    <div className="tp-ticker__inner">
+      {[...items, ...items].map((item, i) => (
+        <article
+          key={`${item.id}-${i}`}
+          className="tp-ticker__card"
+          style={
+            { "--tc": TICKER_COLORS[i % TICKER_COLORS.length] } as React.CSSProperties
           }
         >
-          <span>Load More</span>
-          <span className="t-masonry__load-count">
-            {remaining.length - visibleCount} remaining
-          </span>
-        </button>
-      )}
-    </section>
-  );
-};
+          <div className="tp-ticker__card-accent" />
+          <div className="tp-ticker__card-head">
+            <img src={item.avatar} alt={item.name} />
+            <div>
+              <h4>{item.name}</h4>
+              <p>
+                {item.role} · {item.company}
+              </p>
+            </div>
+          </div>
+          <p className="tp-ticker__card-text">"{item.content}"</p>
+        </article>
+      ))}
+    </div>
+  </div>
+);
 
-// CTA Section
-const CTASection: React.FC = () => {
-  return (
-    <section className="t-cta">
-      <div className="t-cta__bg">
-        <div className="t-cta__orb t-cta__orb--1" />
-        <div className="t-cta__orb t-cta__orb--2" />
+const TickerWall: React.FC = () => (
+  <section className="tp-ticker">
+    <div className="tp-ticker__header">
+      <span className="tp-ticker__kicker">All Reviews</span>
+      <h2 className="tp-ticker__title">
+        The Full <em>Chorus</em>
+      </h2>
+    </div>
+
+    <div className="tp-ticker__container">
+      <div className="tp-ticker__wall">
+        <TickerCol items={testimonials.slice(15, 24)} speed={32} />
+        <TickerCol items={testimonials.slice(24, 33)} speed={44} reversed />
+        <TickerCol items={testimonials.slice(33, 42)} speed={38} />
+      </div>
+      <div className="tp-ticker__fade-top" />
+      <div className="tp-ticker__fade-bottom" />
+    </div>
+  </section>
+);
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   6. FINAL CTA
+───────────────────────────────────────────────────────────────────────────── */
+const FinalCTA: React.FC = () => (
+  <section className="tp-cta">
+    <div className="tp-cta__blobs" aria-hidden="true">
+      <div className="tp-cta__blob tp-cta__blob--1" />
+      <div className="tp-cta__blob tp-cta__blob--2" />
+      <div className="tp-cta__blob tp-cta__blob--3" />
+    </div>
+
+    <div className="tp-cta__inner">
+      <div className="tp-cta__visual">
+        <span className="tp-cta__bigq">"</span>
+        <div className="tp-cta__avatar-fan">
+          {testimonials.slice(0, 7).map((t, i) => (
+            <img
+              key={t.id}
+              src={t.avatar}
+              alt={t.name}
+              style={{ "--fi": i } as React.CSSProperties}
+            />
+          ))}
+        </div>
+        <p className="tp-cta__total">{testimonials.length}+ verified reviews</p>
       </div>
 
-      <div className="t-cta__content">
-        <h2 className="t-cta__title">
-          Ready to Write
+      <div className="tp-cta__text">
+        <span className="tp-cta__kicker">Join the Legacy</span>
+        <h2 className="tp-cta__heading">
+          Write Your
           <br />
-          <span>Your Success Story?</span>
+          <em>Success Story</em>
         </h2>
-
-        <p className="t-cta__text">
-          Join hundreds of satisfied clients who have transformed their vision
-          into reality.
+        <p className="tp-cta__body">
+          Join hundreds of satisfied clients who transformed their vision into
+          extraordinary reality.
         </p>
-
-        <div className="t-cta__avatars">
-          {testimonials.slice(0, 6).map((item) => (
-            <img key={item.id} src={item.avatar} alt={item.name} />
-          ))}
-          <span className="t-cta__avatars-count">
-            +{testimonials.length - 6}
-          </span>
-        </div>
-
-        <div className="t-cta__buttons">
-          <a href="#" className="t-cta__btn t-cta__btn--primary">
+        <div className="tp-cta__actions">
+          <a href="#" className="tp-cta__btn tp-cta__btn--solid">
             Start Your Journey
             <svg
               viewBox="0 0 24 24"
@@ -1002,27 +984,64 @@ const CTASection: React.FC = () => {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
-          <a href="#" className="t-cta__btn t-cta__btn--secondary">
+          <a href="#" className="tp-cta__btn tp-cta__btn--ghost">
             Contact Us
           </a>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
-// Main Page Component
-const TestimonialPage: React.FC = () => {
-  return (
-    <main className="testimonial-page">
-      <HeroSection />
-      <FeaturedQuote />
-      <AvatarWall />
-      <HorizontalScroll />
-      <MasonrySection />
-      <CTASection />
-    </main>
-  );
-};
+/* ─────────────────────────────────────────────────────────────────────────────
+   MAIN PAGE
+───────────────────────────────────────────────────────────────────────────── */
+const TestimonialPage: React.FC<{ ready?: boolean }> = ({ ready = false }) => (
+  <main className="testimonial-page">
+    <HeroSection
+      ready={ready}
+      showVideo={false}
+      showCta={false}
+      bgImage="images/hero1.jpg"
+      titleLine1={
+        <>
+          Client <span className="rg-gold">Stories</span>
+        </>
+      }
+      titleLine2={
+        <>
+          Words That <span className="rg-amber">Inspire</span>
+        </>
+      }
+      subtitle={`${testimonials.length} verified experiences — refined, discreet service from start to finish.`}
+      footer={
+        <div className="t-hero__stats-slab">
+          <div className="t-hero__stats">
+            <div className="t-hero__stat">
+              <span className="t-hero__stat-value">4.9</span>
+              <span className="t-hero__stat-label">Avg. Rating</span>
+            </div>
+            <div className="t-hero__stat-divider" />
+            <div className="t-hero__stat">
+              <span className="t-hero__stat-value">100%</span>
+              <span className="t-hero__stat-label">Client Satisfaction</span>
+            </div>
+            <div className="t-hero__stat-divider" />
+            <div className="t-hero__stat">
+              <span className="t-hero__stat-value">{testimonials.length}</span>
+              <span className="t-hero__stat-label">Total Reviews</span>
+            </div>
+          </div>
+        </div>
+      }
+    />
+    <MarqueeStrip />
+    <SpotlightQuote />
+    <VoiceMosaic />
+    <DriftingCards />
+    <TickerWall />
+    <FinalCTA />
+  </main>
+);
 
 export default TestimonialPage;

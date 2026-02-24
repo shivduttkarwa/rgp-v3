@@ -15,6 +15,7 @@ type HeroSectionProps = {
   bgImage?: string;
   bgVideo?: string;
   bgPoster?: string;
+  footer?: ReactNode;
 };
 
 /* ═══════════════════════════════════════════════════
@@ -41,6 +42,7 @@ export default function HeroSection({
   bgImage = "images/hero-rpg-brisbane.jpg",
   bgVideo = "vids/hero-rgp.mp4",
   bgPoster,
+  footer,
 }: HeroSectionProps) {
   const publicUrl = import.meta.env.BASE_URL || "/";
   const bgRef = useRef<HTMLDivElement>(null);
@@ -279,6 +281,7 @@ export default function HeroSection({
             </div>
           )}
         </div>
+        {footer && <div className="rg-hero__footer">{footer}</div>}
       </section>
     </div>
   );
