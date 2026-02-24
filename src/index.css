@@ -9,6 +9,21 @@
   --rg-beige-dark: #0a1260; /* cards / panels */
   --rg-beige-darker: #0f1870; /* borders / subtle lines */
 
+  /* ── Extended blue scale (light → lighter) ── */
+  --rg-blue-50:  #040830;   /* barely lifted navy */
+  --rg-blue-100: #07104a;   /* soft step above base */
+  --rg-blue-200: #0b1562;   /* clear mid-dark blue */
+  --rg-blue-300: #101c7c;   /* medium royal blue */
+  --rg-blue-400: #162496;   /* vivid royal blue */
+  --rg-blue-500: #1b2cb0;   /* bright royal blue */
+
+  /* ── Gold-warm deep tones (blue × gold blend) ── */
+  --rg-warm-100: #0e0c3a;   /* blue-indigo with warm hint */
+  --rg-warm-200: #1a1650;   /* dark warm indigo */
+  --rg-warm-300: #26205c;   /* mid indigo-purple */
+  --rg-warm-400: #1c1608;   /* very dark gold-leaning */
+  --rg-warm-500: #2e2600;   /* dark gold-brown */
+
   /* Text Colors */
   --rg-text-dark: #ffffff;
   --rg-text-medium: rgba(255, 255, 255, 0.72);

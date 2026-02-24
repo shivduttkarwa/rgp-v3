@@ -82,8 +82,12 @@
   color: var(--rg-gold);
 }
 
+.about-page .section.section-spacious {
+  background: var(--rg-blue-200);
+}
+
 .about-page .split-green {
-  background: var(--rg-navy);
+  background: var(--rg-warm-100);
   color: var(--rg-text-dark);
 }
 

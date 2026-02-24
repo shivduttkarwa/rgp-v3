@@ -17,9 +17,9 @@
   --font-title: "Bona Nova SC", serif;
   --font-body: "Bricolage Grotesque", sans-serif;
 
-  background: var(--rg-gold);
+  background: #05094a;
   font-family: var(--font-body);
-  color: var(--rg-text-dark);
+  color: rgba(255, 255, 255, 0.85);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -38,7 +38,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--rg-dark);
+  color: rgba(249, 195, 7, 0.7);
   margin-bottom: 1rem;
 }
 
@@ -46,7 +46,7 @@
   font-family: var(--font-title);
   font-size: clamp(2.25rem, 5vw, 3.5rem);
   font-weight: 400;
-  color: var(--rg-dark);
+  color: #f9c307;
   margin: 0 0 1.25rem;
   line-height: 1.15;
 }
@@ -54,7 +54,7 @@
 .rg-intro-desc {
   font-family: var(--font-body);
   font-size: clamp(1rem, 2vw, 1.125rem);
-  color: rgba(0, 2, 32, 0.75);
+  color: rgba(255, 255, 255, 0.6);
   margin: 0;
   line-height: 1.7;
 }
@@ -86,14 +86,14 @@
   top: 0;
   bottom: 0;
   width: 0.0625rem;
-  background: rgba(0, 2, 32, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   z-index: 1;
 }
 
 .rg-progress-fill {
   width: 100%;
   height: 0%;
-  background: var(--rg-navy);
+  background: #f9c307;
   transition: none;
 }
 
@@ -116,16 +116,16 @@
   width: 0.6875rem;
   height: 0.6875rem;
   border-radius: 50%;
-  background: var(--rg-gold);
-  border: 0.125rem solid rgba(0, 2, 32, 0.22);
+  background: rgba(249, 195, 7, 0.25);
+  border: 0.125rem solid rgba(249, 195, 7, 0.2);
   z-index: 2;
   transition: all 0.5s ease;
 }
 
 .rg-panel.rg-active .rg-panel-dot {
-  background: var(--rg-navy);
-  border-color: var(--rg-navy);
-  box-shadow: 0 0 0.875rem rgba(0, 2, 32, 0.22);
+  background: #f9c307;
+  border-color: #f9c307;
+  box-shadow: 0 0 0.875rem rgba(249, 195, 7, 0.35);
 }
 
 .rg-panel-step {
@@ -133,7 +133,7 @@
   font-weight: 700;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(0, 2, 32, 0.4);
+  color: rgba(249, 195, 7, 0.35);
   margin-bottom: 0.6rem;
   transition:
     color 0.5s ease,
@@ -141,7 +141,7 @@
 }
 
 .rg-panel.rg-active .rg-panel-step {
-  color: rgba(0, 2, 32, 0.85);
+  color: rgba(249, 195, 7, 0.85);
 }
 
 .rg-panel-year {
@@ -149,13 +149,13 @@
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 700;
   line-height: 1;
-  color: rgba(0, 2, 32, 0.07);
+  color: rgba(249, 195, 7, 0.06);
   margin-bottom: 0.15rem;
   transition: color 0.6s ease;
 }
 
 .rg-panel.rg-active .rg-panel-year {
-  color: rgba(0, 2, 32, 0.12);
+  color: rgba(249, 195, 7, 0.14);
 }
 
 .rg-panel-title {
@@ -164,13 +164,13 @@
   font-weight: 400;
   line-height: 1.25;
   margin-bottom: 1rem;
-  color: var(--rg-navy);
+  color: #f9c307;
 }
 
 .rg-panel-desc {
   font-size: 1.05rem;
   font-weight: 300;
-  color: rgba(0, 2, 32, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.7;
   max-width: 26.875rem;
   margin-bottom: 1.75rem;
@@ -178,7 +178,7 @@
 }
 
 .rg-panel.rg-active .rg-panel-desc {
-  color: rgba(0, 2, 32, 0.82);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .rg-panel-metrics {
@@ -190,13 +190,13 @@
   font-family: var(--font-title);
   font-size: 1.35rem;
   font-weight: 700;
-  color: var(--rg-navy);
+  color: #f9c307;
   line-height: 1;
 }
 
 .rg-m-label {
   font-size: 0.6rem;
-  color: rgba(0, 2, 32, 0.5);
+  color: rgba(255, 255, 255, 0.45);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-top: 0.2rem;
@@ -300,19 +300,19 @@
 .rg-end-line {
   width: 0.0625rem;
   height: 3.125rem;
-  background: linear-gradient(to bottom, var(--rg-navy), transparent);
+  background: linear-gradient(to bottom, #f9c307, transparent);
   margin-bottom: 1.25rem;
-  opacity: 0.3;
+  opacity: 0.4;
 }
 
 .rg-end-text {
   font-family: var(--font-title);
   font-size: 1.05rem;
-  color: rgba(0, 2, 32, 0.5);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .rg-end-text span {
-  color: var(--rg-navy);
+  color: #f9c307;
 }
 
 /* ═══ RESPONSIVE ═══ */
