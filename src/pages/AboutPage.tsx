@@ -152,7 +152,7 @@ export default function AboutPage() {
 
         <Timeline />
 
-        {/* 8) TURN-KEY */}
+        {/* 4) TURN-KEY */}
         <section className="img-overlay">
           <img alt="Turn-key residences" src={img("ps1 (5).jpg")} />
           <div className="overlay-card">
@@ -171,7 +171,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* 4) AVAILABILITY */}
+        {/* 5) AVAILABILITY */}
         <section className="avail">
           <div className="grid">
             <div className="photo">
