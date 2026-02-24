@@ -755,8 +755,12 @@
                 onEnterBack: () => activateStep(i)
             });
 
-            // 180° per step, cumulative — one clean flip per step, no reset jump
+            // 180° per step, cumulative — drop straight down first, then tilt
             if (i < panels.length - 1) {
+
+                // Phase split: first DROP% of progress = pure Y drop, rest = rotateY flip
+                const DROP = 0.35;
+                const DROP_PX = 80;
 
                 ScrollTrigger.create({
                     trigger: panels[i + 1],
@@ -765,11 +769,25 @@
                     scrub: 1.5,
                     onUpdate: (self) => {
                         const p = self.progress;
-                        const rotateY = i * 180 + p * 180; // cumulative, 180° per step
+
+                        let y, rotateY, tiltT;
+
+                        if (p <= DROP) {
+                            // Phase 1: slide straight down, no rotation
+                            tiltT = 0;
+                            y = (p / DROP) * DROP_PX;
+                            rotateY = i * 180;
+                        } else {
+                            // Phase 2: tilt + rise back up
+                            tiltT = (p - DROP) / (1 - DROP);
+                            y = (1 - tiltT) * DROP_PX;
+                            rotateY = i * 180 + tiltT * 180;
+                        }
 
                         gsap.set(deviceFrame, {
+                            y,
                             rotateY,
-                            scale: 1 - (Math.sin(p * Math.PI) * 0.04)
+                            scale: 1 - (Math.sin(tiltT * Math.PI) * 0.04)
                         });
 
                         // Front face: 0–90° and 270–360° (mod 360)
@@ -777,8 +795,8 @@
                         const norm = rotateY % 360;
                         const frontFace = norm < 90 || norm >= 270;
 
-                        // Image swap at the 90° edge-on point of this step
-                        if (p * 180 < 90) {
+                        // Image swap at the 90° edge-on point of the tilt phase
+                        if (tiltT < 0.5) {
                             gsap.set(frameImgs[i], { opacity: 1, scaleX: frontFace ? 1 : -1 });
                             gsap.set(frameImgs[i + 1], { opacity: 0, scaleX: 1 });
                         } else {
@@ -786,13 +804,13 @@
                             gsap.set(frameImgs[i + 1], { opacity: 1, scaleX: frontFace ? 1 : -1 });
                         }
 
-                        deviceFrame.classList.toggle('flipping', p > 0.05 && p < 0.95);
+                        deviceFrame.classList.toggle('flipping', tiltT > 0.05 && tiltT < 0.95);
                     },
                     onLeave: () => {
                         const endAngle = (i + 1) * 180;
                         const norm = endAngle % 360;
                         const frontFace = norm < 90 || norm >= 270;
-                        gsap.set(deviceFrame, { rotateY: endAngle, scale: 1 });
+                        gsap.set(deviceFrame, { rotateY: endAngle, y: 0, scale: 1 });
                         deviceFrame.classList.remove('flipping');
                         frameImgs.forEach((img, idx) => {
                             const active = idx === i + 1;
@@ -803,7 +821,7 @@
                         const startAngle = i * 180;
                         const norm = startAngle % 360;
                         const frontFace = norm < 90 || norm >= 270;
-                        gsap.set(deviceFrame, { rotateY: startAngle, scale: 1 });
+                        gsap.set(deviceFrame, { rotateY: startAngle, y: 0, scale: 1 });
                         deviceFrame.classList.remove('flipping');
                         frameImgs.forEach((img, idx) => {
                             const active = idx === i;

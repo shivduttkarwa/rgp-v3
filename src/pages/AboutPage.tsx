@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import BtnSecondary from "../components/BtnSecondary";
 import HeroSection from "../sections/HeroSection";
 import PropertyMarqee from "../components/reusable/PropertyMarqee";
+import Timeline from "../sections/Timeline";
 import "./AboutPage.css";
 import { initGsapSwitchAnimations } from "@/lib/gsapSwitchAnimations";
 import gsap from "gsap";
@@ -319,6 +320,7 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <Timeline />
         <PropertyMarqee />
       </main>
     </>
