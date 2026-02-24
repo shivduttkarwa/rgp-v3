@@ -248,7 +248,7 @@ export default function AboutPage() {
         {/* 4) TURN-KEY */}
         <section className="img-overlay">
           <img alt="Turn-key residences" src={img("ps1 (5).jpg")} />
-          <div className="overlay-card">
+          <div className="overlay-card" data-gsap="clip-reveal-left">
             <h3 className="h-serif">
               Turn-Key
               <br />
@@ -272,12 +272,16 @@ export default function AboutPage() {
             </div>
             <div className="panel">
               <div className="eyebrow">AVAILABILITY</div>
-              <h3 className="h-serif">
+              <h3
+                className="h-serif"
+                data-gsap="char-reveal"
+                data-gsap-start="top 85%"
+              >
                 Own Your Piece
                 <br />
                 Of The Coast
               </h3>
-              <p>
+              <p data-gsap="fade-up" data-gsap-delay="0.15">
                 Explore a curated selection of private estates, penthouses, and
                 new releases across our portfolio.
               </p>
