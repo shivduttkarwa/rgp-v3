@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Timeline.css";
@@ -17,7 +17,7 @@ interface Step {
   imgAlt: string;
 }
 
-const STEPS: Step[] = [
+const ALL_STEPS: Step[] = [
   {
     index: 0,
     step: "01",
@@ -96,6 +96,8 @@ const STEPS: Step[] = [
   },
 ];
 
+const MOBILE_STEPS: Step[] = [ALL_STEPS[0], ALL_STEPS[2], ALL_STEPS[4]];
+
 export default function Timeline() {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const frameImgRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -104,8 +106,19 @@ export default function Timeline() {
   const contentRailRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLElement>(null);
   const currentActiveRef = useRef<number>(0);
+  const [steps, setSteps] = useState<Step[]>(ALL_STEPS);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const media = window.matchMedia("(max-width: 32.5rem)");
+    const applySteps = () => {
+      setSteps(media.matches ? MOBILE_STEPS : ALL_STEPS);
+      setIsMobile(media.matches);
+    };
+
+    applySteps();
+    media.addEventListener("change", applySteps);
+
     const panels = panelRefs.current.filter(Boolean) as HTMLDivElement[];
     const frameImgs = frameImgRefs.current.filter(Boolean) as HTMLDivElement[];
     const deviceFrame = deviceFrameRef.current;
@@ -122,6 +135,67 @@ export default function Timeline() {
     panels[0]?.classList.add("rg-active");
 
     const triggers: ReturnType<typeof ScrollTrigger.create>[] = [];
+
+    if (isMobile) {
+      panels.forEach((panel, i) => {
+        const img = panel.querySelector<HTMLElement>(".rg-panel-media");
+        const contentEls = Array.from(
+          panel.querySelectorAll<HTMLElement>(
+            ".rg-panel-year, .rg-panel-desc, .rg-panel-stats",
+          ),
+        );
+
+        const imgFrom = i % 2 === 0 ? -150 : 150;
+        const contentFrom = -imgFrom;
+
+        if (img) {
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: panel,
+              start: "top 55%",
+              end: "top 1%",
+              scrub: 1,
+              onEnter: () => activateStep(i, panels),
+              onEnterBack: () => activateStep(i, panels),
+              animation: gsap.fromTo(
+                img,
+                { x: imgFrom, opacity: 0 },
+                { x: 0, opacity: 1, ease: "power2.out", duration: 0.6 },
+              ),
+            }),
+          );
+        }
+
+        if (contentEls.length) {
+          triggers.push(
+            ScrollTrigger.create({
+              trigger: panel,
+              start: "top 55%",
+              end: "top 1%",
+              scrub: 1,
+              animation: gsap.fromTo(
+                contentEls,
+                { x: contentFrom, opacity: 0 },
+                {
+                  x: 0,
+                  opacity: 1,
+                  ease: "power2.out",
+                  duration: 0.6,
+                  stagger: 0.08,
+                },
+              ),
+            }),
+          );
+        }
+      });
+
+      ScrollTrigger.refresh();
+
+      return () => {
+        triggers.forEach((t) => t.kill());
+        media.removeEventListener("change", applySteps);
+      };
+    }
 
     panels.forEach((panel, i) => {
       triggers.push(
@@ -276,8 +350,9 @@ export default function Timeline() {
 
     return () => {
       triggers.forEach((t) => t.kill());
+      media.removeEventListener("change", applySteps);
     };
-  }, []);
+  }, [steps]);
 
   function activateStep(index: number, panels: HTMLDivElement[]) {
     if (currentActiveRef.current === index) return;
@@ -302,7 +377,7 @@ export default function Timeline() {
               <div className="rg-progress-fill" ref={progressFillRef} />
             </div>
 
-            {STEPS.map((s, i) => (
+            {steps.map((s, i) => (
               <div
                 key={s.year}
                 className="rg-panel"
@@ -312,6 +387,12 @@ export default function Timeline() {
                 }}
               >
                 <div className="rg-panel-dot" />
+
+                {isMobile && (
+                  <div className="rg-panel-media">
+                    <img src={s.imgSrc} alt={s.imgAlt} />
+                  </div>
+                )}
 
                 {/* Year — hero typographic element */}
                 <p className="rg-panel-year">{s.year}</p>
@@ -352,7 +433,7 @@ export default function Timeline() {
             <div className="rg-frame-container">
               <div className="rg-device-frame" ref={deviceFrameRef}>
                 <div className="rg-frame-images">
-                  {STEPS.map((s, i) => (
+                  {steps.map((s, i) => (
                     <div
                       key={s.year}
                       className="rg-frame-img"

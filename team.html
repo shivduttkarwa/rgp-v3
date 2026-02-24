@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Golden Timeline</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Timeline</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -13,779 +15,112 @@
         }
 
         body {
-            background: #0a0a0a;
-            min-height: 100vh;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Ambient Background Effects */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(ellipse at 20% 50%, rgba(184, 134, 11, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(218, 165, 32, 0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 60% 80%, rgba(255, 215, 0, 0.04) 0%, transparent 50%);
-            animation: ambientFloat 20s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        @keyframes ambientFloat {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(2%, -2%) rotate(1deg); }
-            66% { transform: translate(-1%, 1%) rotate(-1deg); }
-        }
-
-        /* Floating Gold Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: gold;
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat linear infinite;
-        }
-
-        @keyframes particleFloat {
-            0% { opacity: 0; transform: translateY(100vh) scale(0); }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.3; }
-            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 80px 20px 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .header .subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            font-weight: 500;
-            opacity: 0;
-            animation: fadeDown 1s ease 0.3s forwards;
-        }
-
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #b8860b 0%, #ffd700 25%, #fff8dc 50%, #ffd700 75%, #b8860b 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: goldShimmer 4s ease-in-out infinite, fadeDown 1s ease 0.5s forwards;
-            opacity: 0;
-            line-height: 1.2;
-            text-shadow: none;
-            position: relative;
-        }
-
-        .header h1::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffd700, transparent);
-        }
-
-        .header p {
-            color: rgba(255, 215, 0, 0.5);
-            font-size: 1rem;
-            margin-top: 30px;
-            font-weight: 300;
-            letter-spacing: 2px;
-            opacity: 0;
-            animation: fadeDown 1s ease 0.7s forwards;
-        }
-
-        @keyframes goldShimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Timeline Container */
-        .timeline-container {
-            max-width: 1000px;
+            background: #111;
+            color: #fff;
+            max-width: 480px;
             margin: 0 auto;
-            padding: 60px 20px 100px;
+            padding: 60px 32px 80px;
+        }
+
+        .timeline {
             position: relative;
-            z-index: 2;
+            padding-left: 28px;
         }
 
-        /* Central Gold Line */
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            transform: translateX(-50%);
-        }
-
-        .timeline-line::before {
+        .timeline::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, 
-                transparent,
-                rgba(255, 215, 0, 0.1) 5%,
-                rgba(255, 215, 0, 0.3) 20%,
-                rgba(255, 215, 0, 0.3) 80%,
-                rgba(255, 215, 0, 0.1) 95%,
-                transparent
-            );
+            left: 4px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: #333;
         }
 
-        .timeline-line::after {
+        .item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .item:last-child {
+            padding-bottom: 0;
+        }
+
+        .item::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -3px;
-            width: 8px;
-            height: 100%;
-            background: linear-gradient(to bottom, 
-                transparent,
-                rgba(255, 215, 0, 0.05) 20%,
-                rgba(255, 215, 0, 0.05) 80%,
-                transparent
-            );
-            filter: blur(4px);
-        }
-
-        /* Timeline Item */
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 80px;
-            position: relative;
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .timeline-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .timeline-item:nth-child(odd) {
-            flex-direction: row;
-        }
-
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        /* Gold Node */
-        .timeline-node {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .node-ring {
-            width: 50px;
-            height: 50px;
+            left: -24px;
+            top: 7px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-            background: conic-gradient(from 0deg, #b8860b, #ffd700, #fff8dc, #ffd700, #b8860b);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: nodeRotate 6s linear infinite;
-            position: relative;
-            box-shadow: 
-                0 0 20px rgba(255, 215, 0, 0.3),
-                0 0 60px rgba(255, 215, 0, 0.1);
+            background: #555;
+            transition: background 0.3s;
         }
 
-        .node-ring::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, #b8860b, #ffd700, #fff8dc, #ffd700, #b8860b);
-            filter: blur(8px);
-            opacity: 0.4;
-            z-index: -1;
+        .item.active::before {
+            background: #fff;
+            box-shadow: 0 0 8px #ffffff88;
         }
 
-        @keyframes nodeRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .node-inner {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #0a0a0a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 0.9rem;
-            color: #ffd700;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Connector Line from Node to Card */
-        .timeline-connector {
-            width: calc(50% - 60px);
-            height: 1px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-connector {
-            background: linear-gradient(to left, rgba(255, 215, 0, 0.4), transparent);
-        }
-
-        .timeline-item:nth-child(even) .timeline-connector {
-            background: linear-gradient(to right, rgba(255, 215, 0, 0.4), transparent);
-        }
-
-        /* Card */
-        .timeline-card {
-            width: calc(50% - 60px);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .card-content {
-            background: linear-gradient(135deg, 
-                rgba(184, 134, 11, 0.08) 0%,
-                rgba(10, 10, 10, 0.95) 50%,
-                rgba(184, 134, 11, 0.05) 100%
-            );
-            border: 1px solid rgba(255, 215, 0, 0.12);
-            border-radius: 20px;
-            padding: 35px;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .card-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(255, 215, 0, 0.03), 
-                transparent
-            );
-            transition: left 0.8s ease;
-        }
-
-        .card-content:hover::before {
-            left: 100%;
-        }
-
-        .card-content:hover {
-            border-color: rgba(255, 215, 0, 0.3);
-            transform: translateY(-5px);
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.5),
-                0 0 40px rgba(255, 215, 0, 0.08),
-                inset 0 1px 0 rgba(255, 215, 0, 0.1);
-        }
-
-        /* Gold Corner Accents */
-        .card-content::after {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: -1px;
-            right: -1px;
-            height: 2px;
-            background: linear-gradient(90deg, #ffd700, transparent 40%, transparent 60%, #ffd700);
-            opacity: 0.4;
-        }
-
-        .card-year {
-            display: inline-block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #0a0a0a;
-            background: linear-gradient(135deg, #b8860b, #ffd700);
-            padding: 5px 14px;
-            border-radius: 30px;
-            margin-bottom: 18px;
-        }
-
-        .card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ffd700, #fff8dc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .card-description {
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 0.9rem;
-            line-height: 1.7;
-            font-weight: 300;
-        }
-
-        .card-tags {
-            display: flex;
-            gap: 8px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .card-tag {
-            font-size: 0.7rem;
-            color: rgba(255, 215, 0, 0.6);
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            padding: 4px 12px;
-            border-radius: 20px;
+        .date {
+            font-size: 11px;
+            color: #555;
             letter-spacing: 1px;
             text-transform: uppercase;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            margin-bottom: 6px;
         }
 
-        .card-tag:hover {
-            border-color: rgba(255, 215, 0, 0.4);
-            color: #ffd700;
-            background: rgba(255, 215, 0, 0.05);
+        .title {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
         }
 
-        /* Icon in card */
-        .card-icon {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 2rem;
-            opacity: 0.15;
-            transition: all 0.5s ease;
-        }
-
-        .card-content:hover .card-icon {
-            opacity: 0.3;
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* Status Indicator */
-        .card-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #ffd700;
-            animation: statusPulse 2s ease-in-out infinite;
-        }
-
-        .status-dot.completed { background: #ffd700; }
-        .status-dot.in-progress { background: #ff8c00; }
-        .status-dot.upcoming { background: rgba(255, 215, 0, 0.3); }
-
-        @keyframes statusPulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-            50% { box-shadow: 0 0 0 6px rgba(255, 215, 0, 0); }
-        }
-
-        .status-text {
-            font-size: 0.7rem;
-            color: rgba(255, 215, 0, 0.5);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            width: 100%;
-            height: 2px;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 2px;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #b8860b, #ffd700);
-            border-radius: 2px;
-            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: -2px;
-            width: 6px;
-            height: 6px;
-            background: #ffd700;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-        }
-
-        /* End Marker */
-        .timeline-end {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            padding: 40px 0;
-        }
-
-        .end-diamond {
-            width: 20px;
-            height: 20px;
-            background: linear-gradient(135deg, #b8860b, #ffd700);
-            transform: rotate(45deg);
-            margin: 0 auto;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            animation: diamondPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes diamondPulse {
-            0%, 100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
-            50% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.5); }
-        }
-
-        .end-text {
-            margin-top: 20px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: rgba(255, 215, 0, 0.3);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .timeline-line {
-                left: 30px;
-            }
-
-            .timeline-item,
-            .timeline-item:nth-child(odd),
-            .timeline-item:nth-child(even) {
-                flex-direction: column;
-                align-items: flex-start;
-                padding-left: 70px;
-                margin-bottom: 50px;
-            }
-
-            .timeline-node {
-                left: 30px;
-                top: 0;
-            }
-
-            .timeline-connector {
-                display: none;
-            }
-
-            .timeline-card {
-                width: 100%;
-            }
-
-            .card-content {
-                padding: 25px;
-            }
-
-            .card-title {
-                font-size: 1.2rem;
-            }
-
-            .header h1 {
-                font-size: 2.2rem;
-            }
+        .desc {
+            font-size: 13px;
+            color: #666;
+            margin-top: 4px;
+            line-height: 1.5;
         }
     </style>
 </head>
+
 <body>
 
-    <!-- Floating Particles -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Header -->
-    <div class="header">
-        <div class="subtitle">Journey Through Excellence</div>
-        <h1>The Golden Path</h1>
-        <p>Every milestone tells a story</p>
-    </div>
-
-    <!-- Timeline -->
-    <div class="timeline-container">
-        <div class="timeline-line"></div>
-
-        <!-- Step 1 -->
-        <div class="timeline-item">
-            <div class="timeline-card">
-                <div class="card-content">
-                    <div class="card-icon">💡</div>
-                    <span class="card-year">Step 01 — Genesis</span>
-                    <h3 class="card-title">The Vision Ignites</h3>
-                    <p class="card-description">Every empire begins with a single spark. We crafted the blueprint that would reshape the landscape of innovation and design.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Strategy</span>
-                        <span class="card-tag">Vision</span>
-                        <span class="card-tag">Blueprint</span>
-                    </div>
-                    <div class="card-status">
-                        <div class="status-dot completed"></div>
-                        <span class="status-text">Completed</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" data-width="100"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-connector"></div>
-            <div class="timeline-node">
-                <div class="node-ring">
-                    <div class="node-inner">01</div>
-                </div>
-            </div>
+    <div class="timeline">
+        <div class="item active">
+            <div class="date">Mar 2025</div>
+            <div class="title">Launched v2.0</div>
+            <div class="desc">Full redesign shipped.</div>
         </div>
 
-        <!-- Step 2 -->
-        <div class="timeline-item">
-            <div class="timeline-card">
-                <div class="card-content">
-                    <div class="card-icon">⚙️</div>
-                    <span class="card-year">Step 02 — Foundation</span>
-                    <h3 class="card-title">Building the Core</h3>
-                    <p class="card-description">Laying down the architectural pillars with precision engineering. Every line of code, every design element — meticulously crafted.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Engineering</span>
-                        <span class="card-tag">Architecture</span>
-                        <span class="card-tag">Systems</span>
-                    </div>
-                    <div class="card-status">
-                        <div class="status-dot completed"></div>
-                        <span class="status-text">Completed</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" data-width="100"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-connector"></div>
-            <div class="timeline-node">
-                <div class="node-ring">
-                    <div class="node-inner">02</div>
-                </div>
-            </div>
+        <div class="item">
+            <div class="date">Oct 2024</div>
+            <div class="title">10K Users</div>
+            <div class="desc">First major milestone.</div>
         </div>
 
-        <!-- Step 3 -->
-        <div class="timeline-item">
-            <div class="timeline-card">
-                <div class="card-content">
-                    <div class="card-icon">🎨</div>
-                    <span class="card-year">Step 03 — Refinement</span>
-                    <h3 class="card-title">Design Perfection</h3>
-                    <p class="card-description">Polishing every surface until it gleams. The intersection of form and function, where beauty meets engineering excellence.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">UI/UX</span>
-                        <span class="card-tag">Design</span>
-                        <span class="card-tag">Polish</span>
-                    </div>
-                    <div class="card-status">
-                        <div class="status-dot completed"></div>
-                        <span class="status-text">Completed</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" data-width="100"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-connector"></div>
-            <div class="timeline-node">
-                <div class="node-ring">
-                    <div class="node-inner">03</div>
-                </div>
-            </div>
+        <div class="item">
+            <div class="date">Jun 2024</div>
+            <div class="title">Seed Funding</div>
+            <div class="desc">Raised $500K pre-seed.</div>
         </div>
 
-        <!-- Step 4 -->
-        <div class="timeline-item">
-            <div class="timeline-card">
-                <div class="card-content">
-                    <div class="card-icon">🚀</div>
-                    <span class="card-year">Step 04 — Ascension</span>
-                    <h3 class="card-title">Launch & Scale</h3>
-                    <p class="card-description">Releasing into the world with thunderous impact. Scaling across horizons, reaching audiences that were once beyond imagination.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Launch</span>
-                        <span class="card-tag">Growth</span>
-                        <span class="card-tag">Scale</span>
-                    </div>
-                    <div class="card-status">
-                        <div class="status-dot in-progress"></div>
-                        <span class="status-text">In Progress</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" data-width="68"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-connector"></div>
-            <div class="timeline-node">
-                <div class="node-ring">
-                    <div class="node-inner">04</div>
-                </div>
-            </div>
+        <div class="item">
+            <div class="date">Feb 2024</div>
+            <div class="title">Beta Release</div>
+            <div class="desc">Opened to early users.</div>
         </div>
 
-        <!-- Step 5 -->
-        <div class="timeline-item">
-            <div class="timeline-card">
-                <div class="card-content">
-                    <div class="card-icon">👑</div>
-                    <span class="card-year">Step 05 — Legacy</span>
-                    <h3 class="card-title">The Crown Achievement</h3>
-                    <p class="card-description">Where legends are forged. Total market dominance, industry-defining moments, and a legacy that echoes through generations.</p>
-                    <div class="card-tags">
-                        <span class="card-tag">Legacy</span>
-                        <span class="card-tag">Impact</span>
-                        <span class="card-tag">Future</span>
-                    </div>
-                    <div class="card-status">
-                        <div class="status-dot upcoming"></div>
-                        <span class="status-text">Upcoming</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" data-width="15"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-connector"></div>
-            <div class="timeline-node">
-                <div class="node-ring">
-                    <div class="node-inner">05</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- End Marker -->
-        <div class="timeline-end">
-            <div class="end-diamond"></div>
-            <div class="end-text">The Journey Continues</div>
+        <div class="item">
+            <div class="date">Jan 2024</div>
+            <div class="title">Project Started</div>
+            <div class="desc">First line of code.</div>
         </div>
     </div>
 
-    <script>
-        // Generate floating particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 40; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
-            particle.style.animationDelay = (Math.random() * 10) + 's';
-            particle.style.width = (Math.random() * 3 + 1) + 'px';
-            particle.style.height = particle.style.width;
-            particlesContainer.appendChild(particle);
-        }
-
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-
-                    // Animate progress bars
-                    const progressFill = entry.target.querySelector('.progress-fill');
-                    if (progressFill) {
-                        const width = progressFill.getAttribute('data-width');
-                        setTimeout(() => {
-                            progressFill.style.width = width + '%';
-                        }, 500);
-                    }
-                }
-            });
-        }, {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        });
-
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            observer.observe(item);
-        });
-
-        // Initialize progress bars at 0
-        document.querySelectorAll('.progress-fill').forEach(fill => {
-            fill.style.width = '0%';
-        });
-
-        // Add subtle parallax to particles on mouse move
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 10;
-            const y = (e.clientY / window.innerHeight - 0.5) * 10;
-            particlesContainer.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    </script>
 </body>
+
 </html>
