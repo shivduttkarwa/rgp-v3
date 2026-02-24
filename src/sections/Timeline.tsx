@@ -158,13 +158,6 @@ export default function Timeline() {
     const triggers: ReturnType<typeof ScrollTrigger.create>[] = [];
 
     if (isMobile) {
-      const introEls = [
-        intro.querySelector(".rg-intro-eyebrow"),
-        intro.querySelector(".rg-intro-title"),
-        intro.querySelector(".rg-intro-desc"),
-      ].filter(Boolean) as HTMLElement[];
-      gsap.set(introEls, { y: 0, opacity: 1 });
-
       panels.forEach((panel, i) => {
         const img = panel.querySelector<HTMLElement>(".rg-panel-media");
         const contentEls = Array.from(
@@ -358,25 +351,6 @@ export default function Timeline() {
       }),
     );
 
-    const introEls = [
-      intro.querySelector(".rg-intro-eyebrow"),
-      intro.querySelector(".rg-intro-title"),
-      intro.querySelector(".rg-intro-desc"),
-    ].filter(Boolean) as HTMLElement[];
-    gsap.set(introEls, { y: 10, opacity: 0 });
-    triggers.push(
-      ScrollTrigger.create({
-        trigger: intro,
-        start: "top 75%",
-        once: true,
-        onEnter: () => {
-          introEls.forEach((el, i) => {
-            gsap.to(el, { y: 0, opacity: 1, duration: 0.7, delay: i * 0.15 });
-          });
-        },
-      }),
-    );
-
     // Recalculate all scroll positions after the full page layout settles
     ScrollTrigger.refresh();
     setTrackBounds();
@@ -397,11 +371,18 @@ export default function Timeline() {
   return (
     <div className="rg-root">
       <section className="rg-intro" ref={introRef}>
-        <span className="rg-intro-eyebrow">Our Journey</span>
-        <h2 className="rg-intro-title">
-          Precision, Discretion, <span className="rg-intro-highlight">Results</span>
+        <span className="rg-intro-eyebrow" data-gsap="fade-up">
+          Our Journey
+        </span>
+        <h2
+          className="rg-intro-title"
+          data-gsap="char-reveal"
+          data-gsap-start="top 85%"
+        >
+          Precision, Discretion,{" "}
+          <span className="rg-intro-highlight">Results</span>
         </h2>
-        <p className="rg-intro-desc">
+        <p className="rg-intro-desc" data-gsap="fade-up" data-gsap-delay="0.15">
           We stay focused, we stay accountable, and we let the results speak.
         </p>
       </section>
@@ -491,11 +472,15 @@ export default function Timeline() {
       </section>
 
       <section className="rg-end-section">
-        <p className="rg-end-text">
+        <p className="rg-end-text" data-gsap="fade-left">
           Measured performance. <span>Clear outcomes.</span>
         </p>
         <div className="rg-end-cta">
-          <BtnSecondary label="Explore Our Homes" />
+          <BtnSecondary
+            label="Explore Our Homes"
+            data-gsap="btn-clip-reveal"
+            data-gsap-delay="0.2"
+          />
         </div>
       </section>
     </div>
