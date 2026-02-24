@@ -596,6 +596,26 @@
   .property-section .property-swiper-wrapper {
     display: block;
   }
+
+  /* Prevent mobile flicker during swipe (iOS GPU compositing) */
+  .property-section .property-swiper .swiper-slide,
+  .property-section .property-swiper .property-card-wrap,
+  .property-section .property-card,
+  .property-section .card-image-wrapper,
+  .property-section .card-image,
+  .property-section .card-overlay,
+  .property-section .card-content,
+  .property-section .card-badges,
+  .property-section .like-btn,
+  .property-section .card-price-wrapper,
+  .property-section .card-body {
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
 }
 
 .property-section .property-swiper {
