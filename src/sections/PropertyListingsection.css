@@ -6,7 +6,7 @@
 /* ===== Section Base ===== */
 .property-section {
   padding: clamp(3rem, 8vw, 6rem) 0;
-  background-color: #eef1fa;
+  background-color: #f7f8fc;
   overflow: hidden;
 }
 
@@ -174,7 +174,8 @@
   background-color: #ffffff;
   border-radius: var(--rg-radius);
   overflow: hidden;
-  border: 1px solid rgba(15, 24, 112, 0.1);
+  border: 1px solid rgba(15, 24, 112, 0.08);
+  box-shadow: 0 4px 20px rgba(15, 24, 112, 0.1);
   transition:
     transform 0.4s ease,
     box-shadow 0.4s ease,
@@ -254,10 +255,10 @@
   gap: 0.25rem;
   padding: 0.375rem 0.75rem;
   background-color: var(--rg-gold);
-  color: #fff;
+  color: #00032e;
   font-family: var(--font-body);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   border-radius: 6px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -273,8 +274,8 @@
 
 .property-section .property-card.for-sale .badge,
 .property-section .property-card.for-rent .badge {
-  background-color: var(--rg-beige-darker);
-  color: var(--rg-text-dark);
+  background-color: var(--rg-gold);
+  color: #00032e;
 }
 
 /* Like Button */
@@ -426,9 +427,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(15, 24, 112, 0.07);
+  background-color: #f5f6f7;
   border-radius: 8px;
-  color: var(--rg-gold);
+  color: #c9980a;
 }
 
 .property-section .stat-content {
@@ -465,7 +466,7 @@
   font-family: var(--font-body);
   font-size: 0.75rem;
   padding: 0.3125rem 0.625rem;
-  background-color: rgba(15, 24, 112, 0.06);
+  background-color: rgb(144 147 173 / 6%);
   color: var(--rg-text-medium);
   border-radius: 6px;
   transition: all 0.3s ease;

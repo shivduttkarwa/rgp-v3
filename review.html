@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - The Real Estate Fund</title>
+    <title>About — Real Gold Properties</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&family=Bricolage+Grotesque:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <style>
+        :root {
+            --rg-beige-light: #f7f8fc;
+            --rg-beige: #eef1fa;
+            --rg-beige-dark: #dde4f6;
+            --rg-blue-500: #0f1870;
+            --rg-warm-400: #f9c307;
+            --rg-warm-500: #d4a200;
+            --rg-text-dark: #0f1870;
+            --rg-text-medium: rgba(15, 24, 112, 0.68);
+            --rg-text-light: rgba(15, 24, 112, 0.4);
+            --line: rgba(15, 24, 112, 0.1);
+            --font-title: "Bona Nova SC", serif;
+            --font-body: "Bricolage Grotesque", sans-serif;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,392 +31,336 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #000000;
-            color: #ffffff;
+            background: var(--rg-beige-light);
+            font-family: var(--font-body);
+            color: var(--rg-text-dark);
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* Main Container */
-        .about-section {
+        /* ─────────────────────────────────────
+           MAIN SECTION
+        ───────────────────────────────────── */
+        .about {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 5%;
-            position: relative;
-        }
-
-        /* Animated Background Grid */
-        .bg-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(201, 169, 97, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(201, 169, 97, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px;
-            animation: gridMove 20s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes gridMove {
-            0% {
-                transform: translate(0, 0);
-            }
-            100% {
-                transform: translate(100px, 100px);
-            }
-        }
-
-        /* Content Wrapper */
-        .about-content {
-            max-width: 1400px;
-            width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 120px;
             position: relative;
-            z-index: 1;
         }
 
-        /* Left Column */
-        .about-left {
+        /* ─── Left: Content ─── */
+        .about-content {
+            padding: clamp(60px, 8vh, 120px) clamp(40px, 5vw, 100px);
             display: flex;
             flex-direction: column;
             justify-content: center;
+            position: relative;
         }
 
-        .section-label {
-            font-size: 12px;
-            letter-spacing: 3px;
+        /* Small label */
+        .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
             text-transform: uppercase;
-            color: #c9a961;
-            margin-bottom: 30px;
-            font-weight: 500;
+            color: var(--rg-text-light);
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .section-label::before {
+        .label::before {
             content: '';
-            width: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, #c9a961, transparent);
+            width: 8px;
+            height: 8px;
+            background: var(--rg-warm-400);
+            border-radius: 50%;
         }
 
-        h1 {
-            font-size: clamp(48px, 6vw, 72px);
-            font-weight: 300;
-            line-height: 1.1;
-            margin-bottom: 40px;
-            letter-spacing: -2px;
-        }
-
-        h1 .highlight {
-            background: linear-gradient(135deg, #c9a961 0%, #f4e4b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Main headline */
+        .headline {
+            font-family: var(--font-title);
+            font-size: clamp(42px, 5.5vw, 72px);
             font-weight: 400;
-        }
-
-        .about-description {
-            font-size: 18px;
-            line-height: 1.8;
-            color: #a0a0a0;
-            font-weight: 300;
+            line-height: 1.1;
+            color: var(--rg-blue-500);
             margin-bottom: 50px;
-            max-width: 500px;
+            letter-spacing: -1px;
         }
 
-        .cta-button {
+        .headline .founder {
+            display: block;
+            color: var(--rg-warm-500);
+            font-style: italic;
+        }
+
+        /* Body text */
+        .body-text {
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.75;
+            color: var(--rg-text-medium);
+            max-width: 440px;
+            margin-bottom: 50px;
+        }
+
+        /* CTA */
+        .cta {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 18px 40px;
-            background: transparent;
-            border: 1px solid #c9a961;
-            color: #c9a961;
+            gap: 12px;
             text-decoration: none;
             font-size: 14px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            font-weight: 600;
+            color: var(--rg-blue-500);
             position: relative;
-            overflow: hidden;
+            padding-bottom: 4px;
             width: fit-content;
         }
 
-        .cta-button::before {
+        .cta::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: #c9a961;
-            transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            z-index: -1;
-        }
-
-        .cta-button:hover::before {
+            bottom: 0;
             left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--rg-warm-400);
+            transform: scaleX(0.3);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .cta-button:hover {
-            color: #000;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(201, 169, 97, 0.3);
+        .cta:hover::after {
+            transform: scaleX(1);
         }
 
-        .arrow {
-            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        .cta svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--rg-warm-400);
+            stroke-width: 2;
+            fill: none;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .cta-button:hover .arrow {
-            transform: translateX(5px);
+        .cta:hover svg {
+            transform: translateX(6px);
         }
 
-        /* Right Column */
-        .about-right {
-            position: relative;
+        /* Bottom info strip */
+        .info-strip {
+            position: absolute;
+            bottom: clamp(40px, 5vh, 80px);
+            left: clamp(40px, 5vw, 100px);
             display: flex;
-            align-items: center;
+            gap: 50px;
         }
 
-        .image-container {
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-item span:first-child {
+            font-family: var(--font-title);
+            font-size: 28px;
+            color: var(--rg-blue-500);
+        }
+
+        .info-item span:last-child {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--rg-text-light);
+        }
+
+        /* ─── Right: Image ─── */
+        .about-image {
             position: relative;
-            width: 100%;
-            height: 600px;
             overflow: hidden;
+            background: var(--rg-beige-dark);
         }
 
-        .image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        .main-image {
+        .about-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scale(1.1);
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            filter: grayscale(20%);
+            transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .image-container:hover .main-image {
-            transform: scale(1);
-            filter: grayscale(0%);
+        .about-image:hover img {
+            transform: scale(1.03);
         }
 
-        /* Decorative Elements */
-        .floating-box {
+        /* Vertical text on image */
+        .vertical-text {
             position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(201, 169, 97, 0.2);
-            padding: 30px;
-            bottom: -30px;
-            right: -30px;
-            z-index: 2;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: 300;
-            color: #c9a961;
-            line-height: 1;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #a0a0a0;
-            letter-spacing: 1px;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%) rotate(90deg);
+            transform-origin: center;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.6);
+            white-space: nowrap;
         }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 80px;
-            padding-top: 80px;
-            border-top: 1px solid rgba(201, 169, 97, 0.1);
+        /* Corner accent */
+        .corner-accent {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-left: 2px solid var(--rg-warm-400);
+            border-top: 2px solid var(--rg-warm-400);
         }
 
-        .stat-item {
-            text-align: center;
-        }
+        /* ─── Responsive ─── */
+        @media (max-width: 900px) {
+            .about {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
 
-        .stat-item .stat-number {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
             .about-content {
-                grid-template-columns: 1fr;
-                gap: 60px;
+                order: 2;
+                padding: 60px 30px 100px;
             }
 
-            .image-container {
-                height: 500px;
+            .about-image {
+                order: 1;
+                height: 50vh;
+                min-height: 350px;
             }
 
-            .floating-box {
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .stats-grid {
-                margin-top: 60px;
-                padding-top: 60px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .about-section {
-                padding: 60px 5%;
-            }
-
-            .about-description {
-                font-size: 16px;
-            }
-
-            .image-container {
-                height: 400px;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .floating-box {
+            .info-strip {
                 position: relative;
-                bottom: 0;
-                right: 0;
-                margin-top: 20px;
+                bottom: auto;
+                left: auto;
+                margin-top: 50px;
+            }
+
+            .vertical-text {
+                display: none;
             }
         }
 
-        /* Scroll Reveal */
+        /* ─── Animations ─── */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(20px);
+            transition:
+                opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal.active {
+        .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-        .delay-3 { transition-delay: 0.3s; }
-        .delay-4 { transition-delay: 0.4s; }
+        .d1 {
+            transition-delay: 0.1s;
+        }
 
+        .d2 {
+            transition-delay: 0.2s;
+        }
+
+        .d3 {
+            transition-delay: 0.3s;
+        }
+
+        .d4 {
+            transition-delay: 0.4s;
+        }
+
+        .d5 {
+            transition-delay: 0.5s;
+        }
+
+        .img-reveal {
+            opacity: 0;
+            transform: scale(1.05);
+            transition:
+                opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .img-reveal.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
     </style>
 </head>
+
 <body>
 
-    <section class="about-section">
-        <div class="bg-grid"></div>
-        
+    <section class="about">
+
+        <!-- Left: Content -->
         <div class="about-content">
-            <!-- Left Column -->
-            <div class="about-left">
-                <div class="section-label reveal">About Us</div>
-                
-                <h1 class="reveal delay-1">
-                    Redefining <br>
-                    <span class="highlight">Real Estate</span> <br>
-                    Investment
-                </h1>
-                
-                <p class="about-description reveal delay-2">
-                    The Real Estate Fund is a low leverage Private Equity Fund specializing in value-added multi-family properties. Founded by Randolph De Lano, we deliver consistent monthly cash flow and exceptional capital growth.
-                </p>
-                
-                <a href="/about/" class="cta-button reveal delay-3">
-                    Discover More
-                    <span class="arrow">→</span>
-                </a>
 
-                <div class="stats-grid reveal delay-4">
-                    <div class="stat-item">
-                        <div class="stat-number">4th</div>
-                        <div class="stat-label">Fund Edition</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">20+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Client Focused</div>
-                    </div>
+            <div class="label reveal">About the Founder</div>
+
+            <h1 class="headline reveal d1">
+                Building Wealth<br>Through Property,
+                <span class="founder">— Rahul Singh</span>
+            </h1>
+
+            <p class="body-text reveal d2">
+                Real Gold Properties is a vision turned reality — a private equity approach to multi-family real estate.
+                Founded by Rahul Singh, we focus on disciplined acquisitions that deliver consistent monthly returns.
+            </p>
+
+            <a href="/about/" class="cta reveal d3">
+                <span>Explore Our Philosophy</span>
+                <svg viewBox="0 0 24 24">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+            </a>
+
+            <div class="info-strip reveal d4">
+                <div class="info-item">
+                    <span>2018</span>
+                    <span>Founded</span>
+                </div>
+                <div class="info-item">
+                    <span>50+</span>
+                    <span>Properties</span>
                 </div>
             </div>
 
-            <!-- Right Column -->
-            <div class="about-right reveal delay-2">
-                <div class="image-container">
-                    <div class="image-wrapper">
-                        <img src="https://tref.digitaldesignnyc.co/wp-content/uploads/2023/12/main1.jpeg" alt="Real Estate Building" class="main-image">
-                    </div>
-                    <div class="floating-box">
-                        <div class="stat-number">$50M+</div>
-                        <div class="stat-label">Assets Under Management</div>
-                    </div>
-                </div>
-            </div>
         </div>
+
+        <!-- Right: Image -->
+        <div class="about-image">
+            <img src="https://tref.digitaldesignnyc.co/wp-content/uploads/2023/12/main1.jpeg" alt="Real Gold Properties"
+                class="img-reveal">
+            <div class="corner-accent"></div>
+            <div class="vertical-text">Real Gold Properties — Since 2018</div>
+        </div>
+
     </section>
 
     <script>
-        // Scroll Reveal Animation
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            
-            reveals.forEach(element => {
-                const windowHeight = window.innerHeight;
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add('active');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
-        }
+        }, { threshold: 0.2 });
 
-        window.addEventListener('scroll', reveal);
-        
-        // Trigger on load
-        reveal();
+        document.querySelectorAll('.reveal, .img-reveal').forEach(el => observer.observe(el));
     </script>
 
 </body>
+
 </html>
