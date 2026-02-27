@@ -58,7 +58,14 @@ const Intro = () => {
           src={`${base}images/rahul-singh.jpg`}
           alt="Rahul Singh — Real Gold Properties"
         />
-        <div className="corner-accent" />
+
+        {/* Bottom gradient */}
+        <div className="intro-img-gradient" />
+
+        {/* Corner brackets */}
+        <div className="intro-img-corner intro-img-corner--tl" />
+        <div className="intro-img-corner intro-img-corner--br" />
+
       </div>
     </section>
   );
