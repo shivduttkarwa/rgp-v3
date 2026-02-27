@@ -767,9 +767,16 @@ const TestimonialPage: React.FC<{ ready?: boolean }> = ({ ready = false }) => {
 
   useEffect(() => {
     const guards = [
-      "clipRevealInit", "clipRevealRtlInit", "clipRevealTopInit",
-      "clipRevealLeftInit", "clipRevealRightInit", "wordRevealInit",
-      "wordWriteInit", "clipSmoothInit", "clipSmoothDownInit", "charRevealInit",
+      "clipRevealInit",
+      "clipRevealRtlInit",
+      "clipRevealTopInit",
+      "clipRevealLeftInit",
+      "clipRevealRightInit",
+      "wordRevealInit",
+      "wordWriteInit",
+      "clipSmoothInit",
+      "clipSmoothDownInit",
+      "charRevealInit",
     ];
     guards.forEach((key) => {
       pageRef.current
@@ -784,74 +791,80 @@ const TestimonialPage: React.FC<{ ready?: boolean }> = ({ ready = false }) => {
   }, []);
 
   return (
-  <div ref={pageRef}>
-  <main className="testimonial-page">
-    <HeroSection
-      ready={ready}
-      showVideo={false}
-      showCta={false}
-      bgImage="images/hero1.jpg"
-      titleLine1={
-        <>
-          Client <span className="rg-gold">Stories</span>
-        </>
-      }
-      titleLine2={
-        <>
-          Words That <span className="rg-amber">Inspire</span>
-        </>
-      }
-      subtitle={`${testimonials.length} verified experiences — refined, discreet service from start to finish.`}
-      footer={
-        <div className="t-hero__stats-slab">
-          <div className="t-hero__stats">
-            <div className="t-hero__stat">
-              <span className="t-hero__stat-value">4.9</span>
-              <span className="t-hero__stat-label">Avg. Rating</span>
+    <div ref={pageRef}>
+      <main className="testimonial-page">
+        <HeroSection
+          ready={ready}
+          showVideo={false}
+          showCta={false}
+          bgImage="images/hero1.jpg"
+          titleLine1={
+            <>
+              Client <span className="rg-gold">Stories</span>
+            </>
+          }
+          titleLine2={
+            <>
+              Words That <span className="rg-amber">Inspire</span>
+            </>
+          }
+          subtitle={`${testimonials.length} verified experiences — refined, discreet service from start to finish.`}
+          footer={
+            <div className="t-hero__stats-slab">
+              <div className="t-hero__stats">
+                <div className="t-hero__stat">
+                  <span className="t-hero__stat-value">
+                    5<span className="t-hero__stat-star">★</span>
+                  </span>
+                  <span className="t-hero__stat-label">Avg. Rating</span>
+                </div>
+                <div className="t-hero__stat-divider" />
+                <div className="t-hero__stat">
+                  <span className="t-hero__stat-value">100%</span>
+                  <span className="t-hero__stat-label">
+                    Client Satisfaction
+                  </span>
+                </div>
+                <div className="t-hero__stat-divider" />
+                <div className="t-hero__stat">
+                  <span className="t-hero__stat-value">
+                    {testimonials.length}
+                  </span>
+                  <span className="t-hero__stat-label">Total Reviews</span>
+                </div>
+              </div>
             </div>
-            <div className="t-hero__stat-divider" />
-            <div className="t-hero__stat">
-              <span className="t-hero__stat-value">100%</span>
-              <span className="t-hero__stat-label">Client Satisfaction</span>
-            </div>
-            <div className="t-hero__stat-divider" />
-            <div className="t-hero__stat">
-              <span className="t-hero__stat-value">{testimonials.length}</span>
-              <span className="t-hero__stat-label">Total Reviews</span>
-            </div>
-          </div>
+          }
+        />
+        <div className="t-section-heading">
+          <header className="t-section-heading__header">
+            <span className="t-section-heading__eyebrow" data-gsap="fade-up">
+              Client Voices
+            </span>
+            <h2
+              className="t-section-heading__title"
+              data-gsap="char-reveal"
+              data-gsap-start="top 85%"
+            >
+              What Our Clients <em>Say</em>
+            </h2>
+            <p
+              className="t-section-heading__subtitle"
+              data-gsap="fade-up"
+              data-gsap-delay="0.2"
+            >
+              Real experiences from real clients — every word earned, never
+              scripted.
+            </p>
+          </header>
         </div>
-      }
-    />
-    <div className="t-section-heading">
-      <header className="t-section-heading__header">
-        <span className="t-section-heading__eyebrow" data-gsap="fade-up">
-          Client Voices
-        </span>
-        <h2
-          className="t-section-heading__title"
-          data-gsap="char-reveal"
-          data-gsap-start="top 85%"
-        >
-          What Our Clients <em>Say</em>
-        </h2>
-        <p
-          className="t-section-heading__subtitle"
-          data-gsap="fade-up"
-          data-gsap-delay="0.2"
-        >
-          Real experiences from real clients — every word earned, never
-          scripted.
-        </p>
-      </header>
-    </div>
-    <RGPSplitSlider />
-    <VoiceMosaic />
-    <TickerWall />
+        <RGPSplitSlider />
+        <VoiceMosaic />
+        <TickerWall />
 
-    <FinalCTA />
-  </main>
-  </div>
+        <FinalCTA />
+      </main>
+    </div>
   );
 };
 

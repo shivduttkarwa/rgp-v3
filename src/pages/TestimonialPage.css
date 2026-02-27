@@ -85,18 +85,28 @@
 }
 
 .t-hero__stat-value {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-title);
   font-size: 2.5rem;
   color: var(--rg-gold);
   line-height: 1;
 }
 
+.t-hero__stat-star {
+  margin-left: 0.2rem;
+  font-size: 0.65em;
+  color: var(--rg-gold);
+  line-height: 1;
+  transform: translateY(0.12em);
+}
+
 .t-hero__stat-label {
   display: block;
   font-family: var(--font-body);
   font-size: 0.75rem;
-  color: var(--rg-text-light);
+  color: rgba(255, 255, 255, 0.72);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-top: 0.5rem;
