@@ -1,5 +1,5 @@
-// HomeTestimonials (Philosophy.tsx) — same card design, videos instead of images
-import { useRef } from "react";
+// HomeTestimonials (Philosophy.tsx)
+import { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -9,7 +9,6 @@ import "./Philosophy.css";
 type Testimonial = {
   kicker: string;
   title: string;
-  desc: string;
   video: string;
   poster: string;
   tintVar: "gold" | "amber" | "crimson";
@@ -19,7 +18,6 @@ const TESTIMONIALS: Testimonial[] = [
   {
     kicker: "SUNNYBANK · SOLD",
     title: "SARAH M.",
-    desc: "Rahul made selling our home completely stress-free. His market knowledge and honest advice got us $40k above what we expected. Couldn't recommend him more highly.",
     video: "https://www.w3schools.com/html/mov_bbb.mp4",
     poster: "https://files.staging.peachworlds.com/website/dbf16c23-6134-4df6-a509-bd2a6b79ab37/chatgpt-image-3-apr-2025-16-33-58.webp",
     tintVar: "gold",
@@ -27,7 +25,6 @@ const TESTIMONIALS: Testimonial[] = [
   {
     kicker: "UNDERWOOD · PURCHASED",
     title: "JAMES & LISA",
-    desc: "As first-home buyers we were nervous, but Rahul guided us through every step with patience and clarity. We found our perfect home within three weeks.",
     video: "https://www.w3schools.com/html/mov_bbb.mp4",
     poster: "https://files.staging.peachworlds.com/website/d80b404a-7e8e-40ee-a08c-cbab3f8a7ad3/chatgpt-image-3-apr-2025-16-23-38.webp",
     tintVar: "amber",
@@ -35,43 +32,65 @@ const TESTIMONIALS: Testimonial[] = [
   {
     kicker: "EIGHT MILE PLAINS · APPRAISAL",
     title: "DAVID K.",
-    desc: "The free appraisal was insightful and there was zero pressure. Rahul gave us a realistic picture of our property's value backed by solid, comparable data.",
     video: "https://www.w3schools.com/html/mov_bbb.mp4",
     poster: "https://files.staging.peachworlds.com/website/504aad69-04e9-4c61-8e60-4bf340ec746f/chatgpt-image-3-apr-2025-16-23-32.webp",
     tintVar: "crimson",
   },
 ];
 
-function TestiCard({ t }: { t: Testimonial }) {
+function TestiCard({
+  t,
+  activeId,
+  setActiveId,
+}: {
+  t: Testimonial;
+  activeId: string | null;
+  setActiveId: (id: string) => void;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [fullPlay, setFullPlay] = useState(false);
+
+  // Mobile: autoplay muted on mount
+  useEffect(() => {
+    const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isMobile && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
 
   const handleMouseEnter = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    v.play().catch(() => {});
+    if (fullPlay) return;
+    videoRef.current?.play().catch(() => {});
   };
 
   const handleMouseLeave = () => {
+    if (fullPlay) return;
     const v = videoRef.current;
     if (!v) return;
     v.pause();
     v.currentTime = 0;
   };
 
-  const handleClick = () => {
+  const handlePlayClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     const v = videoRef.current;
     if (!v) return;
-    // Unmute + go fullscreen so user gets full controls
-    v.muted = false;
-    if (v.requestFullscreen) {
-      v.requestFullscreen().then(() => v.play().catch(() => {}));
-    } else {
-      v.controls = true;
-      v.muted = false;
-      v.play().catch(() => {});
-    }
+    v.muted = false; // imperative — React's muted prop doesn't sync reliably
+    setFullPlay(true);
+    setActiveId(t.title);
+    v.play().catch(() => {});
   };
+
+  useEffect(() => {
+    if (activeId === t.title) return;
+    if (!fullPlay) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+    v.currentTime = 0;
+    v.muted = true;
+    setFullPlay(false);
+  }, [activeId, fullPlay, t.title]);
 
   return (
     <article
@@ -79,8 +98,6 @@ function TestiCard({ t }: { t: Testimonial }) {
       data-tint={t.tintVar}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
-      style={{ cursor: "pointer" }}
     >
       <div className="rg-philo__media">
         <video
@@ -92,34 +109,36 @@ function TestiCard({ t }: { t: Testimonial }) {
           playsInline
           loop
           preload="none"
+          controls={fullPlay}
         />
       </div>
 
-      {/* Play icon overlay (always visible, fades on hover) */}
-      <div className="rg-philo__play-icon" aria-hidden="true">
-        <svg viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="24" r="23" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M19 16l14 8-14 8V16z" fill="currentColor" />
-        </svg>
-      </div>
-
-      <div className="rg-philo__pill">
-        <div className="rg-philo__pillKicker">{t.kicker}</div>
-        <div className="rg-philo__pillTitle">{t.title}</div>
-      </div>
-
-      <div className="rg-philo__reveal" aria-hidden="true">
-        <div className="rg-philo__revealInner">
-          <div className="rg-philo__revealKicker">{t.kicker}</div>
-          <div className="rg-philo__revealTitle">{t.title}</div>
-          <p className="rg-philo__revealDesc">{t.desc}</p>
-        </div>
-      </div>
+      {!fullPlay && (
+        <>
+          <div className="rg-philo__overlay" aria-hidden="true" />
+          <div className="rg-philo__pill">
+            <div className="rg-philo__pillKicker">{t.kicker}</div>
+            <div className="rg-philo__pillTitle">{t.title}</div>
+          </div>
+          <button
+            className="rg-philo__play-btn"
+            onClick={handlePlayClick}
+            aria-label={`Play ${t.title} testimonial`}
+          >
+            <svg viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="23" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M19 16l14 8-14 8V16z" fill="currentColor" />
+            </svg>
+          </button>
+        </>
+      )}
     </article>
   );
 }
 
 export default function PhilosophyPillars() {
+  const [activeId, setActiveId] = useState<string | null>(null);
+
   return (
     <section className="rg-philo" aria-label="Client Testimonials">
       <div className="rg-philo__wrap">
@@ -134,14 +153,6 @@ export default function PhilosophyPillars() {
           >
             What Our <em>Clients</em> Say
           </h2>
-          <p
-            data-gsap="fade-up"
-            data-gsap-delay="0.2"
-            className="rg-philo__subtitle"
-          >
-            Real feedback from Brisbane homeowners who trusted Rahul to buy,
-            sell, or appraise their property.
-          </p>
         </header>
 
         <div className="rg-philo__divider" role="separator" />
@@ -152,10 +163,14 @@ export default function PhilosophyPillars() {
           data-gsap-stagger="0.14"
           data-gsap-delay="0.1"
           className="rg-philo__grid"
-          aria-label="Client testimonials"
         >
           {TESTIMONIALS.map((t) => (
-            <TestiCard key={t.title} t={t} />
+            <TestiCard
+              key={t.title}
+              t={t}
+              activeId={activeId}
+              setActiveId={setActiveId}
+            />
           ))}
         </div>
 
@@ -173,7 +188,11 @@ export default function PhilosophyPillars() {
             {TESTIMONIALS.map((t) => (
               <SwiperSlide key={t.title}>
                 <div className="rg-philo__card-wrap">
-                  <TestiCard t={t} />
+                  <TestiCard
+                    t={t}
+                    activeId={activeId}
+                    setActiveId={setActiveId}
+                  />
                 </div>
               </SwiperSlide>
             ))}

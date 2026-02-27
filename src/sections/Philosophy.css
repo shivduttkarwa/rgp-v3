@@ -104,32 +104,63 @@
 .rg-philo__card[data-tint="amber"]   { --tint: var(--rg-amber); }
 .rg-philo__card[data-tint="crimson"] { --tint: var(--rg-crimson); }
 
-/* Play icon — visible at rest, fades on hover */
-.rg-philo__play-icon {
+/* Play button — appears on hover */
+.rg-philo__play-btn {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  color: rgba(255, 255, 255, 0.85);
-  width: 56px;
-  height: 56px;
-  transition: opacity 300ms ease, transform 300ms ease;
-  pointer-events: none;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  transform: translate(-50%, -50%) scale(0.9);
+  z-index: 4;
+  width: 60px;
+  height: 60px;
+  border: 0;
+  padding: 0;
+  border-radius: 999px;
+  background: rgba(12, 12, 12, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 240ms ease, transform 240ms ease, background 240ms ease;
+  backdrop-filter: blur(4px);
 }
 
-.rg-philo__play-icon svg {
+.rg-philo__play-btn svg {
   width: 100%;
   height: 100%;
 }
 
-.rg-philo__card:hover .rg-philo__play-icon {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.85);
+.rg-philo__card:hover .rg-philo__play-btn,
+.rg-philo__card:focus-within .rg-philo__play-btn {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-/* Bottom pillar strip (always visible) */
+.rg-philo__play-btn:hover {
+  background: rgba(12, 12, 12, 0.5);
+}
+
+/* Dark overlay — fades in on hover to cover whole card */
+.rg-philo__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(44, 24, 16, 0.96) 0%,
+    rgba(44, 24, 16, 0.55) 40%,
+    rgba(44, 24, 16, 0.15) 70%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.rg-philo__card:hover .rg-philo__overlay {
+  opacity: 1;
+}
+
+/* Bottom pill strip */
 .rg-philo__pill {
   position: absolute;
   left: 0;
@@ -140,6 +171,7 @@
   pointer-events: none;
 }
 
+/* Small rest-state gradient behind pill */
 .rg-philo__pill::before {
   content: "";
   position: absolute;
@@ -151,6 +183,11 @@
     rgba(44, 24, 16, 0)
   );
   z-index: -1;
+  transition: opacity 300ms ease;
+}
+
+.rg-philo__card:hover .rg-philo__pill::before {
+  opacity: 0;
 }
 
 .rg-philo__pillKicker {
@@ -173,70 +210,25 @@
   opacity: 0.95;
   text-shadow: 0 10px 30px rgba(44, 24, 16, 0.35);
 }
-
-/* Hover reveal */
-.rg-philo__reveal {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  transform: translateY(100%);
-  transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
-  background: linear-gradient(
-    to top,
-    rgba(44, 24, 16, 0.96) 0%,
-    rgba(44, 24, 16, 0.72) 40%,
-    rgba(44, 24, 16, 0.2) 70%,
-    transparent 100%
-  );
-}
-
-.rg-philo__card:hover .rg-philo__reveal {
-  transform: translateY(0%);
-}
-
-.rg-philo__card:hover .rg-philo__pill {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 220ms ease, transform 220ms ease;
-}
-.rg-philo__pill {
-  transition: opacity 220ms ease, transform 220ms ease;
-}
-
-.rg-philo__revealInner {
-  height: 100%;
-  display: grid;
-  align-content: end;
-  gap: 0.85rem;
-  padding: 1.25rem 1.15rem 1.25rem;
-}
-
-.rg-philo__revealKicker {
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 800;
-  color: rgba(255, 248, 240, 0.92);
-}
-
-.rg-philo__revealTitle {
-  font-size: clamp(2.2rem, 3.6vw, 3.25rem);
-  font-weight: 950;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
-  text-transform: uppercase;
-  color: var(--tint);
-  mix-blend-mode: screen;
-  opacity: 0.98;
-}
-
-.rg-philo__revealDesc {
+/* Desc — hidden at rest, fades in on hover */
+.rg-philo__pillDesc {
   margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
   font-size: 1.05rem;
-  line-height: 1.45;
+  line-height: 1.5;
   color: rgba(255, 248, 240, 0.92);
   font-weight: 600;
   max-width: 44ch;
+  transition:
+    max-height 480ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 380ms ease 80ms;
+}
+
+.rg-philo__card:hover .rg-philo__pillDesc {
+  max-height: 160px;
+  opacity: 1;
 }
 
 .rg-philo__card:focus-within {
@@ -311,21 +303,23 @@
   }
 }
 
-/* Touch: reveal always shown */
+/* Touch: always show overlay + desc */
 @media (hover: none) and (pointer: coarse) {
-  .rg-philo__media {
-    aspect-ratio: 4 / 4.2;
+  .rg-philo__overlay {
+    opacity: 1;
   }
 
-  .rg-philo__reveal {
-    transform: translateY(0%);
+  .rg-philo__pillDesc {
+    max-height: 160px;
+    opacity: 1;
   }
 
-  .rg-philo__pill {
-    display: none;
-  }
-
-  .rg-philo__play-icon {
+  .rg-philo__pill::before {
     opacity: 0;
+  }
+
+  .rg-philo__play-btn {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
