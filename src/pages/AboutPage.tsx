@@ -242,8 +242,6 @@ export default function AboutPage({ ready = false }: { ready?: boolean }) {
           </div>
         </section>
 
-        <Timeline />
-
         {/* 4) TURN-KEY */}
         <section className="img-overlay">
           <img alt="Turn-key residences" src={img("ps1 (5).jpg")} />
