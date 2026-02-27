@@ -11,11 +11,11 @@
    1. MARQUEE STRIP — Refined & Elegant
 ════════════════════════════════════════════════════ */
 .cp-marquee {
-  background: linear-gradient(135deg, var(--rg-gold) 0%, #fad840 100%);
+  background: var(--rg-warm-200);
   overflow: hidden;
   padding: 1.1rem 0;
   position: relative;
-  border-bottom: 1px solid rgba(249, 195, 7, 0.2);
+  border-bottom: 1px solid rgba(15, 24, 112, 0.12);
 }
 
 .cp-marquee::before {
@@ -50,13 +50,13 @@
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--rg-navy);
+  color: var(--rg-text-dark);
   white-space: nowrap;
   position: relative;
 }
 
 .cp-marquee__dot {
-  color: var(--rg-navy);
+  color: var(--rg-text-dark);
   opacity: 0.6;
   font-size: 0.6rem;
   font-weight: 700;
@@ -73,7 +73,7 @@
 .cp-main {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--rg-navy) 0%, var(--rg-beige-light) 50%);
+  background: var(--rg-warm-100);
 }
 
 /* Ambient glow effects */
@@ -97,7 +97,7 @@
 .cp-main__orb--a {
   width: 45rem;
   height: 45rem;
-  background: radial-gradient(circle, var(--rg-gold) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(249, 195, 7, 0.35) 0%, transparent 70%);
   top: -15rem;
   left: -10rem;
   animation-delay: 0s;
@@ -106,7 +106,7 @@
 .cp-main__orb--b {
   width: 35rem;
   height: 35rem;
-  background: radial-gradient(circle, var(--rg-gold) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(15, 24, 112, 0.18) 0%, transparent 70%);
   bottom: -12rem;
   right: -8rem;
   animation-delay: 5s;
@@ -128,12 +128,12 @@
 /* ── LEFT PANEL — Contact Information ── */
 .cp-main__left {
   position: relative;
-  background: linear-gradient(135deg, var(--rg-navy) 0%, #05094a 100%);
+  background: #ffffff;
   padding: clamp(5rem, 8vw, 9rem) clamp(3rem, 6vw, 6.5rem);
   display: flex;
   align-items: center;
   overflow: hidden;
-  border-right: 1px solid rgba(249, 195, 7, 0.12);
+  border-right: 1px solid rgba(15, 24, 112, 0.08);
 }
 
 /* Elegant watermark text */
@@ -144,7 +144,7 @@
   font-family: var(--font-title);
   font-size: clamp(7rem, 15vw, 18rem);
   font-weight: 400;
-  color: rgba(249, 195, 7, 0.04);
+  color: rgba(15, 24, 112, 0.04);
   letter-spacing: 0.08em;
   line-height: 1;
   pointer-events: none;
@@ -175,21 +175,21 @@
 .cp-main__ring--1 {
   width: 14rem;
   height: 14rem;
-  border: 1.5px solid rgba(249, 195, 7, 0.25);
+  border: 1.5px solid rgba(249, 195, 7, 0.3);
   animation-delay: 0s;
 }
 
 .cp-main__ring--2 {
   width: 24rem;
   height: 24rem;
-  border: 1px solid rgba(249, 195, 7, 0.12);
+  border: 1px solid rgba(15, 24, 112, 0.12);
   animation-delay: 1s;
 }
 
 .cp-main__ring--3 {
   width: 34rem;
   height: 34rem;
-  border: 1px solid rgba(249, 195, 7, 0.06);
+  border: 1px solid rgba(15, 24, 112, 0.08);
   animation-delay: 2s;
 }
 
@@ -222,16 +222,9 @@
   color: var(--rg-gold);
   margin-bottom: 1.5rem;
   padding: 0.5rem 1.25rem;
-  background: rgba(249, 195, 7, 0.08);
-  border: 1px solid rgba(249, 195, 7, 0.2);
-  border-radius: 50px;
-  backdrop-filter: blur(10px);
-}
-
-.cp-main__kicker::before {
-  content: "✦";
-  font-size: 0.65rem;
-  opacity: 0.7;
+  background: var(--rg-warm-200);
+  border: 1px solid rgba(249, 195, 7, 0.3);
+  border-radius: 999px;
 }
 
 .cp-main__title {
@@ -280,41 +273,19 @@
 .cp-main__detail {
   display: flex;
   align-items: flex-start;
-  gap: 1.25rem;
-  padding: 1.25rem;
-  background: rgba(249, 195, 7, 0.04);
-  border: 1px solid rgba(249, 195, 7, 0.1);
-  border-radius: 1rem;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--rg-warm-100);
+  border: 1px solid rgba(15, 24, 112, 0.1);
+  border-radius: 0.9rem;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(10px);
 }
 
 .cp-main__detail:hover {
-  background: rgba(249, 195, 7, 0.08);
-  border-color: rgba(249, 195, 7, 0.25);
+  background: #ffffff;
+  border-color: rgba(15, 24, 112, 0.2);
   transform: translateX(4px);
-  box-shadow: 0 8px 24px rgba(249, 195, 7, 0.1);
-}
-
-.cp-main__detail-icon {
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 50%;
-  border: 1.5px solid rgba(249, 195, 7, 0.3);
-  background: linear-gradient(135deg, rgba(249, 195, 7, 0.12), rgba(249, 195, 7, 0.05));
-  display: grid;
-  place-items: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  color: var(--rg-gold);
-}
-
-.cp-main__detail:hover .cp-main__detail-icon {
-  background: linear-gradient(135deg, rgba(249, 195, 7, 0.2), rgba(249, 195, 7, 0.1));
-  border-color: rgba(249, 195, 7, 0.5);
-  transform: scale(1.05) rotate(5deg);
-  box-shadow: 0 4px 16px rgba(249, 195, 7, 0.2);
+  box-shadow: 0 10px 24px rgba(15, 24, 112, 0.08);
 }
 
 .cp-main__detail-body {
@@ -329,7 +300,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--rg-gold);
+  color: var(--rg-text-dark);
   font-weight: 600;
   opacity: 0.9;
 }
@@ -366,7 +337,7 @@
 
 /* ── RIGHT PANEL — Contact Form ── */
 .cp-main__right {
-  background: linear-gradient(180deg, var(--rg-beige) 0%, var(--rg-beige-dark) 100%);
+  background: #ffffff;
   padding: clamp(5rem, 8vw, 9rem) clamp(3rem, 6vw, 6.5rem);
   display: flex;
   align-items: center;
@@ -383,7 +354,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(249, 195, 7, 0.3) 50%,
+    rgba(15, 24, 112, 0.16) 50%,
     transparent 100%
   );
 }
@@ -414,16 +385,10 @@
   color: var(--rg-gold);
   margin-bottom: 0.75rem;
   padding: 0.5rem 1.25rem;
-  background: rgba(249, 195, 7, 0.08);
-  border: 1px solid rgba(249, 195, 7, 0.2);
-  border-radius: 50px;
+  background: var(--rg-warm-200);
+  border: 1px solid rgba(249, 195, 7, 0.3);
+  border-radius: 999px;
   width: fit-content;
-}
-
-.cp-form__kicker::before {
-  content: "✉";
-  font-size: 0.7rem;
-  opacity: 0.8;
 }
 
 .cp-form__sub {
@@ -455,7 +420,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--rg-gold);
+  color: var(--rg-text-dark);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -466,15 +431,15 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(249, 195, 7, 0.3), transparent);
+  background: linear-gradient(90deg, rgba(15, 24, 112, 0.2), transparent);
   max-width: 2rem;
 }
 
 .cp-form__field input,
 .cp-form__field select,
 .cp-form__field textarea {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1.5px solid rgba(249, 195, 7, 0.15);
+  background: #ffffff;
+  border: 1.5px solid rgba(15, 24, 112, 0.12);
   border-radius: 0.75rem;
   padding: 1rem 1.25rem;
   font-family: var(--font-body);
@@ -485,20 +450,19 @@
   width: 100%;
   -webkit-appearance: none;
   appearance: none;
-  backdrop-filter: blur(10px);
 }
 
 .cp-form__field input:hover,
 .cp-form__field select:hover,
 .cp-form__field textarea:hover {
-  border-color: rgba(249, 195, 7, 0.3);
-  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(15, 24, 112, 0.3);
+  background: #ffffff;
 }
 
 /* Select arrow — elegant */
 .cp-form__field select {
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23f9c307' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%230f1870' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
@@ -515,7 +479,7 @@
 .cp-form__field select:focus,
 .cp-form__field textarea:focus {
   border-color: var(--rg-gold);
-  background: rgba(255, 255, 255, 0.08);
+  background: #ffffff;
   box-shadow: 
     0 0 0 3px rgba(249, 195, 7, 0.1),
     0 4px 16px rgba(249, 195, 7, 0.15);
@@ -541,7 +505,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.875rem;
-  background: linear-gradient(135deg, var(--rg-gold) 0%, #fad840 100%);
+  background: var(--rg-gold);
   color: var(--rg-navy);
   border: none;
   padding: 1.25rem 3rem;
@@ -552,7 +516,7 @@
   text-transform: uppercase;
   cursor: pointer;
   align-self: flex-start;
-  border-radius: 0.875rem;
+  border-radius: 8px;
   box-shadow: 
     0 6px 28px rgba(249, 195, 7, 0.3),
     0 2px 8px rgba(249, 195, 7, 0.2);
@@ -628,7 +592,7 @@
   width: 5.5rem;
   height: 5.5rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--rg-gold) 0%, #fad840 100%);
+  background: var(--rg-gold);
   color: var(--rg-navy);
   font-size: 2rem;
   font-weight: 700;
@@ -666,7 +630,7 @@
    3. FAQ ACCORDION — Refined Design
 ════════════════════════════════════════════════════ */
 .cp-faq {
-  background: linear-gradient(180deg, var(--rg-beige-light) 0%, var(--rg-navy) 100%);
+  background: var(--rg-beige-light);
   padding: clamp(6rem, 10vw, 10rem) var(--rg-pad);
   border-top: 1px solid rgba(249, 195, 7, 0.1);
   position: relative;
@@ -703,15 +667,9 @@
   color: var(--rg-gold);
   margin-bottom: 1.25rem;
   padding: 0.5rem 1.25rem;
-  background: rgba(249, 195, 7, 0.08);
-  border: 1px solid rgba(249, 195, 7, 0.2);
-  border-radius: 50px;
-}
-
-.cp-faq__kicker::before {
-  content: "❓";
-  font-size: 0.7rem;
-  opacity: 0.8;
+  background: var(--rg-warm-200);
+  border: 1px solid rgba(249, 195, 7, 0.3);
+  border-radius: 999px;
 }
 
 .cp-faq__title {
@@ -849,8 +807,8 @@
    4. CONNECT STRIP — Elegant Social Links
 ════════════════════════════════════════════════════ */
 .cp-connect {
-  background: linear-gradient(180deg, var(--rg-navy) 0%, var(--rg-beige) 100%);
-  border-top: 1px solid rgba(249, 195, 7, 0.12);
+  background: var(--rg-warm-100);
+  border-top: 1px solid rgba(15, 24, 112, 0.12);
   padding: clamp(5.5rem, 8vw, 9rem) var(--rg-pad);
   position: relative;
 }
@@ -896,16 +854,10 @@
   color: var(--rg-gold);
   margin-bottom: 1rem;
   padding: 0.5rem 1.25rem;
-  background: rgba(249, 195, 7, 0.08);
-  border: 1px solid rgba(249, 195, 7, 0.2);
-  border-radius: 50px;
+  background: var(--rg-warm-200);
+  border: 1px solid rgba(249, 195, 7, 0.3);
+  border-radius: 999px;
   width: fit-content;
-}
-
-.cp-connect__kicker::before {
-  content: "🔗";
-  font-size: 0.7rem;
-  opacity: 0.8;
 }
 
 .cp-connect__title {
@@ -943,13 +895,12 @@
   align-items: center;
   gap: 1.5rem;
   padding: 1.25rem 1.75rem;
-  border: 1.5px solid rgba(249, 195, 7, 0.15);
-  background: rgba(249, 195, 7, 0.04);
-  border-radius: 1rem;
+  border: 1.5px solid rgba(15, 24, 112, 0.12);
+  background: #ffffff;
+  border-radius: 0.9rem;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
-  backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
 }
@@ -975,10 +926,10 @@
 }
 
 .cp-connect__social:hover {
-  background: rgba(249, 195, 7, 0.1);
-  border-color: rgba(249, 195, 7, 0.4);
+  background: var(--rg-warm-100);
+  border-color: rgba(15, 24, 112, 0.2);
   transform: translateX(6px);
-  box-shadow: 0 4px 16px rgba(249, 195, 7, 0.15);
+  box-shadow: 0 8px 20px rgba(15, 24, 112, 0.08);
 }
 
 .cp-connect__social-name {
@@ -986,7 +937,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--rg-gold);
+  color: var(--rg-text-dark);
   min-width: 5.5rem;
   font-weight: 600;
 }
@@ -1000,7 +951,7 @@
 }
 
 .cp-connect__social-arrow {
-  color: var(--rg-gold);
+  color: var(--rg-text-dark);
   font-size: 1.1rem;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -1066,11 +1017,6 @@
   .cp-main__detail {
     padding: 1rem;
     gap: 1rem;
-  }
-
-  .cp-main__detail-icon {
-    width: 2.75rem;
-    height: 2.75rem;
   }
 
   .cp-faq__q {

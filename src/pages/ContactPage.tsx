@@ -35,19 +35,16 @@ const ContactMarquee: React.FC = () => {
 ───────────────────────────────────────────────────────────────────────────── */
 const CONTACT_DETAILS = [
   {
-    icon: "📍",
     label: "Visit Us",
     value: "123 Prestige Avenue",
     sub: "Brisbane, QLD 4000",
   },
   {
-    icon: "📞",
     label: "Call Us",
     value: "+61 7 3000 0000",
     sub: "Mon–Fri, 9AM–6PM AEST",
   },
   {
-    icon: "✉️",
     label: "Email Us",
     value: "hello@realgoldprop.com",
     sub: "We reply within 24 hours",
@@ -113,7 +110,6 @@ const ContactMain: React.FC = () => {
             <div className="cp-main__details">
               {CONTACT_DETAILS.map((d, i) => (
                 <div key={i} className="cp-main__detail">
-                  <div className="cp-main__detail-icon">{d.icon}</div>
                   <div className="cp-main__detail-body">
                     <span className="cp-main__detail-label">{d.label}</span>
                     <strong className="cp-main__detail-value">{d.value}</strong>
